@@ -1,9 +1,16 @@
-import { Chat } from './modules/chat'
-
-console.log("entry point")
+import { routes, checkExistPath, Paths } from './pages'
 
 const root = document.getElementById("root")
+const path = window.location.pathname;
+const pathExist = checkExistPath(path);
+
 
 if (root) {
-  root.insertAdjacentHTML("afterbegin", Chat())
+  if (pathExist) {
+    root.insertAdjacentHTML("afterbegin", routes[path])
+  }
+
+  if (!pathExist) {
+    root.insertAdjacentHTML("afterbegin", routes[Paths.pageNotFound])
+  }
 }
