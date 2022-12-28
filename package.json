@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/vaskes79/middle.messenger.praktikum.yandex#readme",
   "devDependencies": {
-    "parcel": "^2.8.2"
+    "parcel": "^2.8.2",
+    "parcel-transformer-ts-css-modules": "^1.0.14"
   },
   "@parcel/transformer-css": {
     "cssModules": {
