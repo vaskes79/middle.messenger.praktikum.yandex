@@ -1,0 +1,27 @@
+:root {
+  /* colors */
+  --gray100: #0E1114;
+  --gray95: #181C20;
+  --gray90: #21262B;
+  --gray80: #353C43;
+  --gray70: #4A545C;
+  --gray60: #616C76;
+  --gray50: #778592;
+  --gray40: #D9D9D9;
+  --gray30: #ABBBC9;
+  --gray20: #CDD5DE;
+  --gray10: #EEF1F4;
+  --gray5: #F8F9FA;
+  --pink100: #DF517E;
+  --pink90: #F5739C;
+  --blue100: #579DED;
+  --blue90: #87BAED;
+  --green100: #73ED9C;
+
+  /* typography */
+  --system-ui: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+body {
+  font-family: var(--system-ui);
+}
