@@ -1,12 +1,7 @@
 import SettingsPage from './SetingsPage'
 import ChatPage from './ChatPage'
-import { Paths } from './Paths'
-
-const SignIn = `<h1>SignIn</h1>`
-const SignUp = `<h1>SignUp</h1>`
-const Error404 = `<h1>Error 404</h1>`
-const Error500 = `<h1>Error 500</h1>`
-const PageNotFound = `<h1>Page Not Found</h1>`
+import { Paths } from '../types'
+import { SignUp, SignIn, Error404, Error500, PageNotFound } from './constants'
 
 export const routes = {
   [Paths.home]: ChatPage,

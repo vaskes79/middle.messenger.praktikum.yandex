@@ -1,5 +1,7 @@
 import { defineComponents } from './components';
-import { routes, checkExistPath, Paths } from './pages'
+import { routes } from './pages'
+import { Paths } from './types'
+import { checkExistPath } from './utils'
 
 
 const root = document.getElementById("root")
