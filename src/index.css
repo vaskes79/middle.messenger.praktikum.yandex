@@ -47,10 +47,55 @@
   --red-300: rgba(239, 169, 192, 1);
   --red-200: rgba(245, 199, 214, 1);
 
-  /* Typography styles*/
+  color-scheme: light dark;
+  color: var(--gray-400);
+  background-color: var(--gray-900);
+
+  /* Typography styles */
   --system-font: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
 }
 
+/* Reset styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+*, *::before, *::after {
+  margin: inherit;
+  padding: inherit;
+  box-sizing: inherit;
+}
+
+/* Base styles */
 body {
   font-family: var(--system-font);
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+a {
+  font-weight: 500;
+  color: var(--blue-500);
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: var(--blue-700);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: var(--gray-700);
+    background-color: var(--gray-100);
+  }
 }
