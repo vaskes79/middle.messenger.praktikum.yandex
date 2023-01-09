@@ -1,4 +1,4 @@
-import { chatList } from "./ChatData";
+import { chatList } from "./data";
 
 function buildChatPage(data: { imgurl: string, name: string }) {
   return `

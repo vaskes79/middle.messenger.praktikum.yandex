@@ -1,4 +1,5 @@
 import { defineComponents } from './components';
+import { openPanel, togglePanel } from './components/Layout/actions';
 import { routes } from './pages'
 import { Paths } from './types'
 import { checkExistPath } from './utils'
@@ -19,3 +20,38 @@ if (root) {
     root.insertAdjacentHTML("afterbegin", routes[Paths.pageNotFound])
   }
 }
+
+// reasearch Custom Events
+const btnOpenSettings = document.getElementById('openSettings')
+const btnOpenChatList = document.getElementById('openChatListBtn')
+const btnOpenChatSettings = document.getElementById('openChatSettings')
+
+const btnCloseSettings = document.getElementById('settingsBtn')
+const btnCloseChatlist = document.getElementById('closeChatlistBtn')
+const btnCloseChatSettings = document.getElementById('closeChatSettingsBtn')
+
+
+btnOpenChatSettings?.addEventListener('click', () => {
+  togglePanel('chatsettings');
+})
+
+btnOpenChatList?.addEventListener('click', () => {
+  togglePanel('chatlist');
+})
+
+btnOpenSettings?.addEventListener('click', () => {
+  togglePanel('settings');
+})
+
+
+btnCloseSettings?.addEventListener('click', () => {
+  togglePanel("settings");
+})
+
+btnCloseChatlist?.addEventListener('click', () => {
+  togglePanel("chatlist");
+})
+
+btnCloseChatSettings?.addEventListener('click', () => {
+  togglePanel("chatsettings");
+})
