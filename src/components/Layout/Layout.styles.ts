@@ -1,6 +1,7 @@
 export const styles = `
 <style>
   .container {
+    box-sizing: inherit;
     background: steelblue;
     position: relative;
     width: 100%;
@@ -38,6 +39,8 @@ export const styles = `
 
 
   .chatsettings {
+    left: auto;
+    right: 0;
     background: aliceblue;
     transform: translateX(100vw);
     z-index: 3000;
@@ -62,6 +65,21 @@ export const styles = `
 
   .panel--open {
     transform: translateX(0);
+  }
+
+
+  @media (min-width: 700px) {
+    .chatlist,
+    .settings,
+    .chatsettings {
+      width: 320px;
+    }
+    .chatlist {
+      transform: translateX(0);
+    }
+    .chat {
+      margin-left: 320px;
+    }
   }
 </style>
 `
