@@ -1,5 +1,5 @@
 import { defineComponents } from './components';
-import { openPanel, togglePanel } from './components/Layout/actions';
+import { togglePanel } from './components/Layout/actions';
 import { routes } from './pages'
 import { Paths } from './types'
 import { checkExistPath } from './utils'

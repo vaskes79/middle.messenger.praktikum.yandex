@@ -83,6 +83,10 @@ body {
   font-weight: 400;
 }
 
+#root {
+  height: inherit;
+}
+
 a {
   font-weight: 500;
   color: var(--blue-500);
