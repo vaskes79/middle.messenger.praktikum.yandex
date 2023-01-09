@@ -15,13 +15,13 @@ function buildChatPage(data: { imgurl: string, name: string }) {
 
     <div slot="settings-header">
       <h1>Settings Header</h1>
-      <a href="//ya.ru" target="_blank">ypr practicum</a>
       <button id="settingsBtn">clos Settigs</button>
     </div>
 
+    <ypr-nav slot="settings-main"></ypr-nav>
+
     <div slot="chatlist-header">
-      <h1>Settings Header</h1>
-      <a href="//ya.ru" target="_blank">ypr practicum</a>
+      <h1>Chat List Header</h1>
       <button id="closeChatlistBtn">clos chatlist</button>
     </div>
 

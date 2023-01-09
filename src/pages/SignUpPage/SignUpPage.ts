@@ -1,7 +1,9 @@
+
 function buildPage() {
   return `
   <div>
-    <h1>Sign Int Page</h1>
+    <h1>Sign Up Page</h1>
+    <ypr-nav></ypr-nav>
   </div>
   `
 }

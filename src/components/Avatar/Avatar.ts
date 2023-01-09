@@ -26,6 +26,10 @@ export class Avatar extends HTMLElement {
   }
 }
 
-export function initAvatar() {
-  customElements.define('ypr-avatar', Avatar);
+export default customElements.define('ypr-avatar', Avatar);
+
+declare global {
+  export interface HTMLElementTagNameMap {
+    'ypr-avatar': Avatar
+  }
 }

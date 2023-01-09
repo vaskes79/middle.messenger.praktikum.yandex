@@ -2,7 +2,6 @@ export const styles = `
 <style>
   .container {
     box-sizing: inherit;
-    background: steelblue;
     position: relative;
     width: 100%;
     height: 100%;
@@ -19,29 +18,27 @@ export const styles = `
     display: flex;
     flex-direction: column;
     transition: all 300ms ease;
+    background: var(--blue-100);
   }
 
   .chatlist {
-    background: lightcyan;
     transform: translateX(-100vw);
     z-index: 1000;
   }
 
   .settings {
-    background: skyblue;
     transform: translateX(-100vw);
     z-index: 2000;
   }
 
   .chat {
-    background: paleturquoise;
+    background: var(--gray-100);
   }
 
 
   .chatsettings {
     left: auto;
     right: 0;
-    background: aliceblue;
     transform: translateX(100vw);
     z-index: 3000;
   }
