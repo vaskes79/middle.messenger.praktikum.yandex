@@ -8,7 +8,11 @@ export class Colors extends HTMLElement {
   }
 }
 
-export function initColors() {
-  customElements.define('ypr-colors', Colors);
+export default customElements.define('ypr-colors', Colors);
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ypr-colors': Colors
+  }
 }
 

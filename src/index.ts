@@ -1,4 +1,4 @@
-import { defineComponents } from './components';
+import './components';
 import { togglePanel } from './components/Layout/actions';
 import { routes } from './pages'
 import { Paths } from './types'
@@ -8,8 +8,6 @@ import { checkExistPath } from './utils'
 const root = document.getElementById("root")
 const path = window.location.pathname;
 const pathExist = checkExistPath(path);
-
-defineComponents();
 
 if (root) {
   if (pathExist) {
