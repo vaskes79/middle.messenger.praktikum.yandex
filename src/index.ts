@@ -1,6 +1,7 @@
 import './components';
 import { togglePanel } from './components/Layout/actions';
 import { routes } from './pages'
+import { demoModals } from './pages/SettingsPage/SettingsPage';
 import { Paths } from './types'
 import { checkExistPath } from './utils'
 
@@ -53,3 +54,7 @@ btnCloseChatlist?.addEventListener('click', () => {
 btnCloseChatSettings?.addEventListener('click', () => {
   togglePanel("chatsettings");
 })
+
+// research watch attributes
+
+demoModals();
