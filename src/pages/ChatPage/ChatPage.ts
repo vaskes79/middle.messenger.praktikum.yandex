@@ -2,7 +2,7 @@ import { chatList } from "./data";
 
 function buildChatPage(data: { imgurl: string, name: string }) {
   return `
-  <ypr-layout>
+  <ypr-layout activepanel="settings">
     <div slot="chat-header">
       <h1>Base Chat</h1>
       <a href="//ya.ru" target="_blank">ypr practicum</a>
