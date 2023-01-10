@@ -7,6 +7,9 @@ function buildSettingsPage() {
     </ypr-modal>
     <ypr-avatar></ypr-avatar> 
     <ypr-nav></ypr-nav>
+    <ypr-icon name="home" color="var(--orange-400)" width="320px"></ypr-icon>
+    <ypr-icon width="120px"></ypr-icon>
+    <ypr-icon name="morevert" width="120px"></ypr-icon>
     <button id='openModalBtn' type="button">Open modal</button>
   </div>
   `
