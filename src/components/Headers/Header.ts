@@ -44,8 +44,11 @@ class ChatlistHeader extends HTMLElement {
               <label class="search">
                 <input type="text" placeholder="Search" />
               </label>
+              <ypr-icon name="search" width="24px"></ypr-icon>
             </slot>
-            <slot name="menu">⫶</slot>
+            <slot name="menu">
+              <ypr-icon name="morevert" width="24px"></ypr-icon>
+            </slot>
           </div>
         </div>
         <div class="tabs-container">
