@@ -1,5 +1,9 @@
 export const styles = `
 <style>
+    :host {
+      margin: inherit;
+    }
+
   .container {
     box-sizing: inherit;
     position: relative;
@@ -19,7 +23,9 @@ export const styles = `
     flex-direction: column;
     transition: all 300ms ease;
     background: var(--blue-100);
+    box-shadow: 2px 0px 2px 0px;
   }
+  
 
   .chatlist {
     transform: translateX(-100vw);
@@ -41,10 +47,13 @@ export const styles = `
     right: 0;
     transform: translateX(100vw);
     z-index: 3000;
+    box-shadow: -2px 0px 2px 0px;
   }
 
-  header, footer {
-    padding: 16px 0;
+  header, 
+  main, 
+  footer {
+      padding: 16px;
   }
 
   header {
@@ -78,5 +87,10 @@ export const styles = `
       margin-left: 320px;
     }
   }
+
+    slot[name=chat-header]::slotted(h2) {
+margin: 0 !important;
+color:red;
+    }
 </style>
 `

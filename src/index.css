@@ -60,12 +60,12 @@
   --header-mr: 3rem 0 1.38rem;
   --base-fw: 400;
   --p-mr: 1rem;
-  --h1-fs: 4.209rem;
-  --h2-fs: 3.157rem;
-  --h3-fs: 2.369rem;
-  --h4-fs: 1.777rem;
-  --h5-fs: 1.333rem;
-  --small-fs: 0.75rem;
+  --h1-fs: 1.383rem;
+  --h2-fs: 1.296rem;
+  --h3-fs: 1.215rem;
+  --h4-fs: 1.138rem;
+  --h5-fs: 1.067rem;
+  --small-fs: 0.937rem;
 
   font-size: 100%; /* 16px */
   font-weight: var(--base-fw);
@@ -88,8 +88,6 @@ html, body {
 }
 
 *, *::before, *::after {
-  margin: inherit;
-  padding: inherit;
   box-sizing: inherit;
 }
 
@@ -119,7 +117,7 @@ h4 {font-size: var(--h4-fs);}
 
 h5 {font-size: var(--h5-fs);}
 
-small, .text_small {font-size: var(--small-fs);}
+small, .text-small {font-size: var(--small-fs);}
 
 p {
   margin-bottom: var(--p-mr);
@@ -132,6 +130,13 @@ a {
 
 a:hover {
   color: var(--blue-700);
+}
+
+.icon {
+  fill: var(--blue-500);
+  display: block;
+  width: 16px;
+  height: 16px;
 }
 
 @media (prefers-color-scheme: light) {
