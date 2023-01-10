@@ -132,6 +132,13 @@ a:hover {
   color: var(--blue-700);
 }
 
+.icon {
+  fill: var(--blue-500);
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: var(--gray-700);
