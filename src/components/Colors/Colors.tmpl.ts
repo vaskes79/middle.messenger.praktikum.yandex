@@ -1,4 +1,4 @@
-import { styles } from "./Colors.styles";
+import styles from 'bundle-text:./Colors.css'
 
 export const tmpl = document.createElement('template');
 
@@ -58,7 +58,9 @@ function drawColorBox(colorNames: string[]) {
 }
 
 tmpl.innerHTML = `
+<style>
 ${styles}
+</style>
 <div class="container">
   ${drawColorBox(colors)}
 </div>
