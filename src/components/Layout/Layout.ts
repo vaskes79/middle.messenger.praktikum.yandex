@@ -6,6 +6,7 @@ export class Layout extends HTMLElement {
   _chatPanel: HTMLDivElement | null;
   _settingsPanel: HTMLDivElement | null;
   _chatSettingsPanel: HTMLDivElement | null;
+  _removeEventListeners: () => void;
 
   constructor() {
     super();
@@ -18,8 +19,22 @@ export class Layout extends HTMLElement {
       this._chatPanel = this.shadowRoot.querySelector('.chat');
       this._chatSettingsPanel = this.shadowRoot.querySelector('.chatsettings');
     }
+  }
 
-    this._addEventListeners();
+  connectedCallback() {
+    this._removeEventListeners = this._addEventListeners();
+  }
+
+  disconnectedCallback() {
+    this._removeEventListeners();
+  }
+
+  static get observedAttributes() {
+    return ['activepanel']
+  }
+
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    console.log({ name, oldValue, newValue });
   }
 
   _switchPanel(name: string) {
@@ -42,8 +57,13 @@ export class Layout extends HTMLElement {
   }
 
   _addEventListeners() {
-    window.addEventListener(openPanel, this._togglePanel)
+    window.addEventListener(openPanel, this._togglePanel);
+
+    return () => {
+      window.removeEventListener(openPanel, this._togglePanel)
+    };
   }
+
 }
 
 export default customElements.define('ypr-layout', Layout);
