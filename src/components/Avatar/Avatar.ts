@@ -1,4 +1,4 @@
-import { tmpl } from './Avatar.tmpl'
+import tmpl from 'bundle-text:./Avatar.tmpl.html'
 
 type Attributes = 'imgurl' | 'name'
 
@@ -12,7 +12,9 @@ export class Avatar extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
-    this.shadowRoot?.appendChild(tmpl.content.cloneNode(true));
+    if (this.shadowRoot) {
+      this.shadowRoot.innerHTML = tmpl;
+    }
 
     // set elements
     this._img = this.shadowRoot?.querySelector(".img") as HTMLImageElement;
