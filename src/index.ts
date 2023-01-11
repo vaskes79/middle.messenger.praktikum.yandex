@@ -1,4 +1,5 @@
 import './components';
+import { chatListData } from './components/ChatItem/data';
 import { togglePanel } from './components/Layout/actions';
 import { routes } from './pages'
 import { demoModals } from './pages/SettingsPage/SettingsPage';
@@ -58,3 +59,13 @@ btnCloseChatSettings?.addEventListener('click', () => {
 // research watch attributes
 
 demoModals();
+
+const chatItems = document.getElementById("chat-items");
+
+if (chatItems) {
+  chatListData.forEach(item => {
+    const elem = document.createElement('ypr-chat-item');
+    elem.setAttribute('data', JSON.stringify(item));
+    chatItems.appendChild(elem);
+  })
+}

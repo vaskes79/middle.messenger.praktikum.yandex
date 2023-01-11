@@ -1,10 +1,10 @@
 import html from 'bundle-text:./StatusMessage.html'
 import { Icon } from '../Icons';
 
-export type StatusMessageState = "reed" | "seen" | "sent";
+export type StatusMessageState = "read" | "seen" | "sent";
 export type AttributeNames = "small" | "status";
 
-class StatusMessage extends HTMLElement {
+export class StatusMessage extends HTMLElement {
   // Elements
   _icons: NodeList | null;
   _iconContainer: HTMLElement | null;
@@ -25,8 +25,30 @@ class StatusMessage extends HTMLElement {
     }
   }
 
+  connectedCallback() {
+
+  }
+
   static get observedAttributes() {
     return ['small', 'status']
+  }
+
+  attributeChangedCallback(name: AttributeNames, oldValue: string, newValue: string) {
+    console.log({ name, oldValue, newValue })
+
+    if (name === "small") {
+      this._sizes = "12px";
+      this._small = true;
+    }
+    if (name === "status" && oldValue !== newValue) {
+      this.status = newValue as StatusMessageState;
+    }
+
+    this._sizes = this._sizes;
+    this._small = this._small;
+    this.status = this.status;
+    this._updateSize();
+    this._updateState();
   }
 
   _changeSizeIcon = () => {
@@ -47,24 +69,6 @@ class StatusMessage extends HTMLElement {
     this._container?.classList.add(this.status);
   }
 
-  attributeChangedCallback(name: AttributeNames, oldValue: string, newValue: string) {
-    console.log({ name, oldValue, newValue });
-    console.log(this)
-
-    if (name === "small") {
-      this._sizes = "12px";
-      this._small = true;
-    }
-    if (name === "status" && oldValue !== newValue) {
-      this.status = newValue as StatusMessageState;
-    }
-
-    this._sizes = this._sizes;
-    this._small = this._small;
-    this.status = this.status;
-    this._updateSize();
-    this._updateState();
-  }
 }
 
 export default customElements.define('ypr-status-message', StatusMessage)

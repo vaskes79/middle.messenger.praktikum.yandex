@@ -2,7 +2,7 @@ import html from 'bundle-text:./StatusUser.html'
 
 export type StatusUserValue = 'online' | 'ofline' | 'empty' | 'not-set';
 
-class StatusUser extends HTMLElement {
+export class StatusUser extends HTMLElement {
   _container: HTMLElement | null;
 
   constructor() {
