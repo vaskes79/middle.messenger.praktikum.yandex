@@ -39,6 +39,7 @@ class ChatItem extends HTMLElement {
   connectedCallback() {
     this._avatarEl?.setAttribute('name', this.data.name);
     this._avatarEl?.setAttribute('status', this.data.statusUser);
+    this._avatarEl?.setAttribute('imgurl', this.data.imgurl);
     this._messageStatusEl?.setAttribute('status', this.data.statusMessage);
     if (this._lastMessageEl) {
       this._lastMessageEl.textContent = this.data.lastMessage;

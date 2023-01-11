@@ -25,17 +25,11 @@ export class StatusMessage extends HTMLElement {
     }
   }
 
-  connectedCallback() {
-
-  }
-
   static get observedAttributes() {
     return ['small', 'status']
   }
 
   attributeChangedCallback(name: AttributeNames, oldValue: string, newValue: string) {
-    console.log({ name, oldValue, newValue })
-
     if (name === "small") {
       this._sizes = "12px";
       this._small = true;

@@ -1,18 +1,19 @@
 import { faker } from '@faker-js/faker';
+import { format } from 'date-fns'
+import { StatusUserValue, StatusMessageState } from '../Status';
 import { ChatItemData } from "./ChatItem";
 
 export const chatListData: ChatItemData[] = [];
 
 export function createDemoChatItems(): ChatItemData {
   return {
-    // userId: faker.datatype.uuid(),
     name: faker.name.fullName(),
     imgurl: faker.image.avatar(),
-    time: "12:44",
-    statusUser: "online",
-    statusMessage: "read",
+    time: format(faker.datatype.datetime(), "hh:mm"),
+    statusUser: faker.helpers.arrayElement<StatusUserValue>(["online", "empty", "ofline", "not-set"]),
+    statusMessage: faker.helpers.arrayElement<StatusMessageState>(["read", "seen", "sent"]),
     lastMessage: faker.random.words(5),
-    conterMessages: faker.random.numeric()
+    conterMessages: faker.helpers.arrayElement([faker.random.numeric(), faker.random.numeric(2)])
   };
 }
 
