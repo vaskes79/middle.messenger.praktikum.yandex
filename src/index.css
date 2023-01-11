@@ -66,6 +66,7 @@
   --h4-fs: 1.138rem;
   --h5-fs: 1.067rem;
   --small-fs: 0.937rem;
+  --x-small-fs: 0.75rem;
 
   font-size: 100%; /* 16px */
   font-weight: var(--base-fw);
@@ -77,6 +78,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  /* Animation */
+  --default-transition: all .3s ease;
 }
 
 /* Reset styles */

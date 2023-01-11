@@ -1,4 +1,4 @@
-import tmpl from 'bundle-text:./Avatar.tmpl.html'
+import tmpl from 'bundle-text:./Avatar.html'
 
 type Attributes = 'imgurl' | 'name'
 
