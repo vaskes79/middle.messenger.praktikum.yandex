@@ -1,0 +1,50 @@
+<style>
+  .container {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .small {
+    width: 12px;
+    height: 12px;
+  }
+
+  .icon-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: var(--default-transition);
+    transform: translateY(0);
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+
+
+  .read .icon-container {
+    transform: translateY(-16px);
+  }
+
+  .seen .icon-container {
+    transform: translateY(-32px);
+  }
+
+  .small.read .icon-container {
+    transform: translateY(-12px);
+  }
+
+  .small.seen .icon-container {
+    transform: translateY(-24px);
+  }
+</style>
+<div class="container">
+  <div class="icon-container">
+    <ypr-icon name="done" color="var(--blue-500)"></ypr-icon>
+    <ypr-icon name="doneall" color="var(--green-700)"></ypr-icon>
+    <ypr-icon name="done" color="var(--green-400)"></ypr-icon>
+  </div>
+</div>

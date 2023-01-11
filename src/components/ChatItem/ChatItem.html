@@ -24,6 +24,12 @@
     font-weight: 400;
   }
 
+  .message {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
   .info-container {
     display: flex;
     width: 100%;
@@ -88,7 +94,9 @@
   <div class="info-container">
     <div class="chat-info">
       <h3 class="title">Dianne Russell</h3>
-      <p class='message'><span>✔️</span> just ideas for next time</p>
+      <p class='message'>
+        <ypr-status-message small></ypr-status-message> just ideas for next time
+      </p>
     </div>
     <div class="meta-container">
       <span class="time">16:00</span>

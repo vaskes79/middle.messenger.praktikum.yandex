@@ -1,6 +1,6 @@
 import { tmpl } from "./Icons.tmpl";
 
-class Icon extends HTMLElement {
+export class Icon extends HTMLElement {
   name: string;
   color: string;
   width: string;
@@ -36,7 +36,7 @@ class Icon extends HTMLElement {
     }
 
     if (name === "width" || name === "height" && oldValue !== newValue) {
-      this._updateSize({ width: newValue, height: newValue });
+      this.updateSize({ width: newValue, height: newValue });
     }
   }
 
@@ -51,7 +51,7 @@ class Icon extends HTMLElement {
     }
   }
 
-  _updateSize = (size?: { width: string, height: string }) => {
+  public updateSize = (size?: { width: string, height: string }) => {
     if (this._iconContainer && size) {
       const { width, height } = size;
 
