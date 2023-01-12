@@ -7,3 +7,4 @@ import "./Icons";
 import "./ChatItem";
 import "./Status";
 import "./MessageItem";
+import "./Button";
