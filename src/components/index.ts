@@ -8,3 +8,4 @@ import "./ChatItem";
 import "./Status";
 import "./MessageItem";
 import "./Button";
+import "./MessageInput";
