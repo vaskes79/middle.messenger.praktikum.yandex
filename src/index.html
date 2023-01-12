@@ -7,10 +7,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>YPR messenger</title>
   <link href="index.css" rel="stylesheet" />
+  <style>
+    div {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+  </style>
 </head>
 
 <body>
-  <div id="message-items"></div>
+  <div>
+
+    <ypr-btn>
+      <ypr-icon name="send" color="var(--gray-100)"></ypr-icon>
+    </ypr-btn>
+    <ypr-btn link>
+      <ypr-icon name="attachfile" color="var(--blue-500)"></ypr-icon>
+    </ypr-btn>
+    <ypr-btn>
+      Default
+      <ypr-icon name="home" color="var(--gray-100)"></ypr-icon>
+    </ypr-btn>
+    <ypr-btn disabled>
+      Default disabled
+    </ypr-btn>
+    <ypr-btn natural>
+      Natural
+      <ypr-icon name="home" color="var(--gray-100)"></ypr-icon>
+    </ypr-btn>
+    <ypr-btn outline>
+      Outline
+      <ypr-icon name="close" color="var(--blue-500)"></ypr-icon>
+    </ypr-btn>
+    <ypr-btn outline disabled>
+      Outline disabled
+      <ypr-icon name="close" color="var(--blue-500)"></ypr-icon>
+    </ypr-btn>
+    <ypr-btn link>
+      Link
+      <ypr-icon name="close" color="var(--blue-500)"></ypr-icon>
+    </ypr-btn>
+    <ypr-btn link disabled>
+      Link disabled
+    </ypr-btn>
+    <ypr-btn distructive>
+      Distructive
+      <ypr-icon name="close" color="var(--gray-100)"></ypr-icon>
+    </ypr-btn>
+    <ypr-btn distructive disabled>
+      Distructive Disabled
+    </ypr-btn>
+  </div>
   <script src="./index.ts" type="module"></script>
 </body>
 
