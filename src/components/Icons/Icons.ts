@@ -1,4 +1,5 @@
-import { tmpl } from "./Icons.tmpl";
+import html from "bundle-text:./Icons.html";
+import spriteUrl from './icons-sprite.svg'
 
 export class Icon extends HTMLElement {
   name: string;
@@ -16,10 +17,12 @@ export class Icon extends HTMLElement {
     this.name = "arrowforward"
 
     if (this.shadowRoot) {
-      this.shadowRoot.appendChild(tmpl.content.cloneNode(true));
+      this.shadowRoot.innerHTML = html;
       this._iconElem = this.shadowRoot.getElementById('iconElem');
       this._iconContainer = this.shadowRoot.querySelector('.icon') as SVGElement;
     }
+
+    console.log({ spriteUrl })
   }
 
   static get observedAttributes() {
@@ -66,7 +69,7 @@ export class Icon extends HTMLElement {
   _updateIcon = (name?: string) => {
     if (this._iconElem) {
       this.name = name || this.name;
-      const newIcon = '#' + this.name;
+      const newIcon = spriteUrl + '#' + this.name;
       this._iconElem.setAttribute('href', newIcon)
     }
   }
