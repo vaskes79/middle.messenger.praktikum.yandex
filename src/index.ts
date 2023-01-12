@@ -1,6 +1,6 @@
 import './components';
-import { chatListData } from './components/ChatItem/data';
 import { togglePanel } from './components/Layout/actions';
+import { messageItemList } from './components/MessageItem/data';
 import { routes } from './pages'
 import { demoModals } from './pages/SettingsPage/SettingsPage';
 import { Paths } from './types'
@@ -60,12 +60,14 @@ btnCloseChatSettings?.addEventListener('click', () => {
 
 demoModals();
 
-const chatItems = document.getElementById("chat-items");
+const messageItems = document.getElementById("message-items");
 
-if (chatItems) {
-  chatListData.forEach(item => {
-    const elem = document.createElement('ypr-chat-item');
+if (messageItems) {
+  messageItemList.forEach(item => {
+    const elem = document.createElement('ypr-message-item');
     elem.setAttribute('data', JSON.stringify(item));
-    chatItems.appendChild(elem);
+    messageItems.appendChild(elem);
   })
 }
+
+
