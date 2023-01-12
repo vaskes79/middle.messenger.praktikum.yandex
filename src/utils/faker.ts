@@ -29,7 +29,11 @@ export function randomAvatar() {
 
 export function randomWords(wordCount?: number) {
   wordCount = wordCount || 5;
-  return faker.random.words(5);
+  return faker.random.words(wordCount);
+}
+
+export function randomMessage() {
+  return faker.lorem.sentences();
 }
 
 export function generateItems<Type = any>(itemGenerator: () => Type, itemNumber?: number) {
