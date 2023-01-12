@@ -6,3 +6,4 @@ import "./Headers";
 import "./Icons";
 import "./ChatItem";
 import "./Status";
+import "./MessageItem";
