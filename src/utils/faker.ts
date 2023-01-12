@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { format } from 'date-fns'
+import { OwnerMessage, TypeContentMessage } from '../components/MessageItem/MessageItem';
 import { StatusUserValue, StatusMessageState } from '../components/Status';
 
 export function randomStatusUser() {
@@ -8,6 +9,17 @@ export function randomStatusUser() {
 
 export function randomStatusMessage() {
   return faker.helpers.arrayElement<StatusMessageState>(["read", "seen", "sent"]);
+}
+
+export function randomOwnerMessage() {
+  return faker.helpers.arrayElement<OwnerMessage>(["me", "user"]);
+}
+export function randomTypeMessage() {
+  return faker.helpers.arrayElement<TypeContentMessage>(["text", "image"]);
+}
+
+export function randomImage() {
+  return faker.image.abstract(undefined, undefined, true);
 }
 
 export function randomNumber() {
