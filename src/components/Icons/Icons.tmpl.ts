@@ -12,6 +12,7 @@ tmpl.innerHTML = `
     .icon {
       width: 16px;
       height: 16px;
+      display: block;
       fill: var(--gray-700);
     }
   </style>
