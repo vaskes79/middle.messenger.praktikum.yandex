@@ -9,3 +9,4 @@ import "./Status";
 import "./MessageItem";
 import "./Button";
 import "./MessageInput";
+import "./Input";

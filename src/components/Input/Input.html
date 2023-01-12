@@ -1,0 +1,130 @@
+<style>
+  :host {
+    --icon-grid-width: 28px;
+    --color: var(--gray-500);
+    --color-active: var(--blue-500);
+    --icon-c: var(--color);
+  }
+
+  .container {
+    width: 100%;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-areas:
+      ". label labelRight"
+      "iconLeft input iconRight"
+      "line line line"
+      ". details details";
+    grid-template-columns: var(--icon-grid-width) auto var(--icon-grid-width);
+    grid-template-rows: auto;
+    gap: 4px;
+    align-items: center;
+    font-size: var(--x-small-fs);
+    font-family: var(--system-ui);
+    color: var(--color);
+    font-style: italic;
+    line-height: 1.2em;
+  }
+
+  .container>* {
+    transition: var(--default-transition);
+  }
+
+  .icon-left {
+    display: flex;
+    grid-area: iconLeft;
+    justify-content: center;
+  }
+
+  .icon-right {
+    display: flex;
+    grid-area: iconRight;
+    justify-content: flex-end;
+  }
+
+  .label {
+    grid-area: label;
+  }
+
+  .container:focus-within .label {
+    color: var(--color-active);
+  }
+
+  .input-container {
+    grid-area: input;
+  }
+
+  input {
+    font-size: 16px;
+    box-sizing: inherit;
+    font-family: inherit;
+    border: 1px solid transparent;
+    background: transparent;
+    color: inherit;
+    line-height: var(--base-lh);
+    width: 100%;
+  }
+
+  input:focus {
+    outline: 0;
+  }
+
+  input:focus {
+    color: var(--gray-700);
+  }
+
+  .info {
+    grid-area: labelRight;
+    justify-self: flex-end;
+  }
+
+  .line {
+    grid-area: line;
+    background: var(--color);
+    height: 2px;
+    width: 100%;
+  }
+
+  .container:focus-within .line {
+    background: var(--color-active);
+  }
+
+  .details {
+    box-sizing: inherit;
+    grid-area: details;
+  }
+
+  .require {
+    font-weight: 800;
+    color: var(--red-700);
+  }
+</style>
+<div class="container">
+  <slot class="icon-left" name="icon-left">
+    <ypr-icon name="personoutline" width="24px" color="var(--icon-c)"></ypr-icon>
+  </slot>
+
+  <label class="label" for="input">
+    Label
+    <i class="require">*</i>
+  </label>
+
+  <div class='info'>
+    <ypr-icon name="info" color="var(--icon-c)"></ypr-icon>
+  </div>
+
+  <div class="input-container">
+    <input type="text" placeholder="Input" id="input" />
+  </div>
+
+  <slot class="icon-right" name="icon-right">
+    <ypr-icon name="create" width="24px" color="var(--icon-c)"></ypr-icon>
+  </slot>
+
+  <div class="line">
+  </div>
+
+  <div class="details">
+    Details text
+  </div>
+</div>
