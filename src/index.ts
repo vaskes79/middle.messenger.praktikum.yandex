@@ -59,15 +59,3 @@ btnCloseChatSettings?.addEventListener('click', () => {
 // research watch attributes
 
 demoModals();
-
-const messageItems = document.getElementById("message-items");
-
-if (messageItems) {
-  messageItemList.forEach(item => {
-    const elem = document.createElement('ypr-message-item');
-    elem.setAttribute('data', JSON.stringify(item));
-    messageItems.appendChild(elem);
-  })
-}
-
-

@@ -7,10 +7,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>YPR messenger</title>
   <link href="index.css" rel="stylesheet" />
+  <style>
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 0 16px;
+    }
+  </style>
 </head>
 
+
 <body>
-  <ypr-message-input></ypr-message-input>
+  <div>
+
+    <ypr-input></ypr-input>
+    <ypr-input>
+      <ypr-icon name="home" color="var(--gray-500)" slot="icon-left" width="24px"></ypr-icon>
+    </ypr-input>
+    <ypr-input>
+      <ypr-icon name="key" color="var(--orange-500)" slot="icon-left" width="24px"></ypr-icon>
+    </ypr-input>
+    <ypr-input>
+      <ypr-icon name="photocamera" color="var(--red-500)" slot="icon-left" width="24px"></ypr-icon>
+    </ypr-input>
+    <ypr-input>
+      <ypr-icon name="send" color="var(--green-500)" slot="icon-left" width="24px"></ypr-icon>
+    </ypr-input>
+    <ypr-input>
+      <ypr-icon name="email" color="var(--blue-500)" slot="icon-left" width="24px"></ypr-icon>
+    </ypr-input>
+  </div>
   <script src="./index.ts" type="module"></script>
 </body>
 
