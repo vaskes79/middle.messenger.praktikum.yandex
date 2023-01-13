@@ -20,11 +20,10 @@
 
 <body>
   <div>
-
-    <ypr-input info></ypr-input>
-    <ypr-input details="Some details"></ypr-input>
+    <ypr-input info require name="email" value="my@mail.com" label="Email" details="User email"></ypr-input>
+    <ypr-input label="Username" details="Some details"></ypr-input>
     <ypr-input details="Some details" error="My custom error need fix"></ypr-input>
-    <ypr-input leftIcon>
+    <ypr-input label="Home" leftIcon>
       <ypr-icon name="home" color="var(--gray-500)" slot="icon-left" width="24px"></ypr-icon>
     </ypr-input>
     <ypr-input leftIcon>
