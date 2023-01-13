@@ -1,4 +1,4 @@
-import { rand, randImg, randNumber, randBetweenDate, randSentence, randParagraph, randFullName, randAvatar } from '@ngneat/falso';
+import { rand, randImg, randNumber, randBetweenDate, randParagraph, randFullName, randAvatar, randTextRange } from '@ngneat/falso';
 
 import format from 'date-fns/format';
 import { OwnerMessage, TypeContentMessage } from '../components/MessageItem/MessageItem';
@@ -24,7 +24,7 @@ export function randomImage() {
 }
 
 export function randomNumber() {
-  return randNumber({ min: 0, max: 99 });
+  return randNumber({ min: 0, max: 15 });
 }
 
 export function randomTime(formatTime?: string) {
@@ -42,7 +42,7 @@ export function randomAvatar() {
 }
 
 export function randomWords() {
-  return randSentence({ length: 1 })
+  return randTextRange({ min: 5, max: 20 });
 }
 
 export function randomMessage() {
