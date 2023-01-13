@@ -4,6 +4,8 @@
     --color: var(--gray-500);
     --color-active: var(--blue-500);
     --icon-c: var(--color);
+
+    --error-c: var(--red-700);
   }
 
   .container {
@@ -11,11 +13,11 @@
     box-sizing: border-box;
     display: grid;
     grid-template-areas:
-      ". label labelRight"
-      "iconLeft input iconRight"
-      "line line line"
-      ". details details";
-    grid-template-columns: var(--icon-grid-width) auto var(--icon-grid-width);
+      "label labelRight"
+      "input iconRight"
+      "line line"
+      "details details";
+    grid-template-columns: 1fr var(--icon-grid-width);
     grid-template-rows: auto;
     gap: 4px;
     align-items: center;
@@ -24,6 +26,16 @@
     color: var(--color);
     font-style: italic;
     line-height: 1.2em;
+  }
+
+  .container--icon {
+    grid-template-columns: var(--icon-grid-width) 1fr var(--icon-grid-width);
+    grid-template-rows: auto;
+    grid-template-areas:
+      ". label labelRight"
+      "iconLeft input iconRight"
+      "line line line"
+      ". details details";
   }
 
   .container>* {
@@ -40,14 +52,28 @@
     display: flex;
     grid-area: iconRight;
     justify-content: flex-end;
+    opacity: 0;
+  }
+
+  .container:focus-within .icon-right {
+    opacity: 1;
   }
 
   .label {
     grid-area: label;
   }
 
+  .error .label {
+    color: var(--error-c);
+  }
+
   .container:focus-within .label {
     color: var(--color-active);
+  }
+
+
+  .container.error:focus-within .label {
+    color: var(--error-c);
   }
 
   .input-container {
@@ -76,6 +102,19 @@
   .info {
     grid-area: labelRight;
     justify-self: flex-end;
+    opacity: 0;
+    cursor: pointer;
+    pointer-events: none;
+  }
+
+  .error .info {
+    opacity: 0;
+    pointer-events: all;
+  }
+
+  .info--show {
+    opacity: 1;
+    pointer-events: all;
   }
 
   .line {
@@ -85,23 +124,45 @@
     width: 100%;
   }
 
+  .error .line {
+    background: var(--error-c);
+  }
+
   .container:focus-within .line {
     background: var(--color-active);
+  }
+
+  .container.error:focus-within .line {
+    background: var(--error-c);
   }
 
   .details {
     box-sizing: inherit;
     grid-area: details;
+    opacity: 0;
   }
+
+  .error .details {
+    color: var(--error-c);
+    opacity: 1;
+  }
+
+  /* .container:focus-within .details {
+    opacity: 1;
+  }*/
 
   .require {
     font-weight: 800;
     color: var(--red-700);
   }
+
+  .empty {
+    display: none;
+  }
 </style>
 <div class="container">
   <slot class="icon-left" name="icon-left">
-    <ypr-icon name="personoutline" width="24px" color="var(--icon-c)"></ypr-icon>
+    <div class="empty"></div>
   </slot>
 
   <label class="label" for="input">
