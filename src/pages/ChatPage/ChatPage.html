@@ -6,9 +6,9 @@
     </ypr-button>
     <ypr-avatar slot="title" name="Ralph Edwards" imgurl="https://i.pravatar.cc/300"></ypr-avatar>
     <h2 slot="title">Base Chat</h2>
-    <ypr-button link slot="menu" id="openChatSettings">
+    <ypr-btn link slot="menu" id="openChatSettings">
       <ypr-icon name="morevert"></ypr-icon>
-    </ypr-button>
+    </ypr-btn>
   </ypr-header>
 
   <div id="chat-main" slot="chat-main"></div>
@@ -19,9 +19,9 @@
 
   <ypr-header slot="chatlist-header">
     <h2 slot="title" id="closeChatlistBtn">Chats</h2>
-    <ypr-button link slot="menu" id="openSettings">
+    <ypr-btn link slot="menu" id="openSettings">
       <ypr-icon name="morevert"></ypr-icon>
-    </ypr-button>
+    </ypr-btn>
   </ypr-header>
 
   <div id="chatlist-main" slot="chatlist-main"></div>
@@ -30,20 +30,31 @@
 
   <ypr-header slot="settings-header">
     <h2 slot="title" id="closeChatlistBtn">Profile</h2>
-    <ypr-button link slot="menu" id="settingsBtn">
+    <ypr-btn link slot="menu" id="settingsBtn">
       <ypr-icon name="arrowforwardios"></ypr-icon>
-    </ypr-button>
+    </ypr-btn>
   </ypr-header>
 
 
 
   <ypr-header slot="chatsettings-header">
-    <ypr-button link slot="title" id="closeChatSettingsBtn">
+    <ypr-btn link slot="title" id="closeChatSettingsBtn">
       <ypr-icon name="arrowbackios"></ypr-icon>
-    </ypr-button>
+    </ypr-btn>
     <h2 slot="title">Chat Menu</h2>
   </ypr-header>
 
   <ypr-nav slot="chatsettings-main"></ypr-nav>
+
+  <ypr-footer slot="chatsettings-footer">
+    <ypr-btn>
+      Save
+      <ypr-icon name="done" color="var(--gray-400)"></ypr-icon>
+    </ypr-btn>
+    <ypr-btn distructive>
+      Cancel
+      <ypr-icon name="close" color="var(--gray-400)"></ypr-icon>
+    </ypr-btn>
+  </ypr-footer>
 
 </ypr-layout>

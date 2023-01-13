@@ -14,7 +14,7 @@ export function cretaDemoContent() {
   const btnOpenChatSettings = document.getElementById('openChatSettings')
 
   const btnCloseSettings = document.getElementById('settingsBtn')
-  const btnCloseChatlist = document.getElementById('closeChatlistBtn')
+  const btnCloseChatlist = document.getElementById('chatlist-main')
   const btnCloseChatSettings = document.getElementById('closeChatSettingsBtn')
 
 
