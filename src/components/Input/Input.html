@@ -61,6 +61,11 @@
 
   .label {
     grid-area: label;
+    opacity: 0;
+  }
+
+  .container:focus-within .label {
+    opacity: 1;
   }
 
   .error .label {
@@ -154,6 +159,7 @@
   .require {
     font-weight: 800;
     color: var(--red-700);
+    opacity: 0;
   }
 
   .empty {
@@ -166,7 +172,7 @@
   </slot>
 
   <label class="label" for="input">
-    Label
+    <span>Label</span>
     <i class="require">*</i>
   </label>
 
@@ -175,7 +181,7 @@
   </div>
 
   <div class="input-container">
-    <input type="text" placeholder="Input" id="input" />
+    <input type="text" placeholder="Placeholder" id="input" />
   </div>
 
   <slot class="icon-right" name="icon-right">
