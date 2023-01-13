@@ -41,9 +41,8 @@ export function randomAvatar() {
   return randAvatar()
 }
 
-export function randomWords(wordCount?: number) {
-  const length = wordCount || 5;
-  return randSentence({ length })
+export function randomWords() {
+  return randSentence({ length: 1 })
 }
 
 export function randomMessage() {
