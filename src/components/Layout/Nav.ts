@@ -13,7 +13,7 @@ class Nav extends HTMLElement {
           <li><a href="${Paths.error404}">404</a></li>
           <li><a href="${Paths.error500}">500</a></li>
           <li><a href="${Paths.home}">chat</a></li>
-          <li><a href="${Paths.settings}">settings</a></li>
+          <li><a href="${Paths.dev}">dev page</a></li>
           <li><a href="${Paths.pageNotFound}">page not found</a></li>
         </ul>
       </nav>
