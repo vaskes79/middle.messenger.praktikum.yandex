@@ -28,5 +28,8 @@
     "cssModules": {
       "pattern": "[name]_[local]__[hash]"
     }
+  },
+  "dependencies": {
+    "uuid": "^9.0.0"
   }
 }
