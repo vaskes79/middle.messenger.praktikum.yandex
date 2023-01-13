@@ -13,7 +13,7 @@ export interface ChatItemData {
   conterMessages: string | number
 }
 
-class ChatItem extends HTMLElement {
+export class ChatItem extends HTMLElement {
   _avatarEl: Avatar | null;
   _messageStatusEl: StatusMessage | null;
   _lastMessageEl: HTMLSpanElement | null;

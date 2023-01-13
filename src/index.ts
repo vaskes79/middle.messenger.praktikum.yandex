@@ -1,4 +1,6 @@
 import './components';
+import { ChatItemData, ChatItem } from './components/ChatItem';
+import { chatListData } from './components/ChatItem/data';
 import { togglePanel } from './components/Layout/actions';
 import { MessageItem, MessageItemData } from './components/MessageItem';
 import { messageItemList } from './components/MessageItem/data';
@@ -61,4 +63,5 @@ btnCloseChatSettings?.addEventListener('click', () => {
 
 demoModals();
 generateCotnent<MessageItem, MessageItemData>('chat-main', 'ypr-message-item', messageItemList);
+generateCotnent<ChatItem, ChatItemData>('chatlist-main', 'ypr-chat-item', chatListData);
 
