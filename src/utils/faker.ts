@@ -60,3 +60,16 @@ export function generateItems<Type = any>(itemGenerator: () => Type, itemNumber?
 
   return items;
 }
+
+export function generateCotnent<ItemType extends HTMLElement, ItemDataType = any>(selector: string, elemName: string, itemList: ItemDataType[]) {
+  const target = document.getElementById(selector);
+
+  if (target) {
+    itemList.forEach(data => {
+      const elem = document.createElement(elemName) as ItemType;
+      elem.setAttribute('data', JSON.stringify(data));
+      target.append(elem);
+    })
+
+  }
+}

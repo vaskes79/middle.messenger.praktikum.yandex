@@ -1,10 +1,11 @@
 import './components';
 import { togglePanel } from './components/Layout/actions';
+import { MessageItem, MessageItemData } from './components/MessageItem';
 import { messageItemList } from './components/MessageItem/data';
 import { routes } from './pages'
 import { demoModals } from './pages/SettingsPage/SettingsPage';
 import { Paths } from './types'
-import { checkExistPath } from './utils'
+import { checkExistPath, generateCotnent } from './utils'
 
 
 const root = document.getElementById("root")
@@ -59,3 +60,5 @@ btnCloseChatSettings?.addEventListener('click', () => {
 // research watch attributes
 
 demoModals();
+generateCotnent<MessageItem, MessageItemData>('chat-main', 'ypr-message-item', messageItemList);
+
