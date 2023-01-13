@@ -21,8 +21,6 @@ export class Icon extends HTMLElement {
       this._iconElem = this.shadowRoot.getElementById('iconElem');
       this._iconContainer = this.shadowRoot.querySelector('.icon') as SVGElement;
     }
-
-    console.log({ spriteUrl })
   }
 
   static get observedAttributes() {
