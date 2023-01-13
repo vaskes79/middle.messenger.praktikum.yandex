@@ -1,6 +1,6 @@
 import html from 'bundle-text:./Input.html';
 import { Elem } from '../../types/Components';
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 export class Input extends HTMLElement {
   _containerEl: HTMLElement;
@@ -114,7 +114,7 @@ export class Input extends HTMLElement {
       this._setupLabel();
     }
     if (this.hasAttribute('name')) {
-      const name = this.getAttribute('name') || uuid();
+      const name = this.getAttribute('name') || uuidv4();
       this._name = name;
       this._inputEl.setAttribute('name', name)
     }
