@@ -1,25 +1,33 @@
 <ypr-layout activepanel="settings">
 
-  <ypr-button link slot="chat-header" id="openChatListBtn">
-    <ypr-icon name="menu"></ypr-icon>
-  </ypr-button>
-  <ypr-avatar slot="chat-header" name="Ralph Edwards" imgurl="https://i.pravatar.cc/300"></ypr-avatar>
-  <h2 slot="chat-header">Base Chat</h2>
+  <ypr-header slot="chat-header">
+    <ypr-button link slot="title" id="openChatListBtn">
+      <ypr-icon name="menu"></ypr-icon>
+    </ypr-button>
+    <ypr-avatar slot="title" name="Ralph Edwards" imgurl="https://i.pravatar.cc/300"></ypr-avatar>
+    <h2 slot="title">Base Chat</h2>
+    <ypr-button link slot="menu" id="openChatSettings">
+      <ypr-icon name="morevert"></ypr-icon>
+    </ypr-button>
+  </ypr-header>
 
-  <ypr-button class="action-btn" link slot="chat-header" id="openChatSettings">
-    <ypr-icon name="morevert"></ypr-icon>
-  </ypr-button>
 
   <div id="chat-main" slot="chat-main"></div>
 
   <ypr-message-input slot="chat-footer"></ypr-message-input>
 
 
-  <ypr-header slot="chatlist-header">
-    <button slot="tabs" id="closeChatlistBtn">clos chatlist</button>
-  </ypr-header>
+
+
+
+
+  <ypr-header slot="chatlist-header"></ypr-header>
 
   <div id="chatlist-main" slot="chatlist-main"></div>
+
+
+
+
 
 
   <div slot="settings-header">
