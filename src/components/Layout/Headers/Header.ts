@@ -1,4 +1,4 @@
-import tmpl from 'bundle-text:./Header.tmpl.html'
+import html from 'bundle-text:./Header.html'
 
 class ChatlistHeader extends HTMLElement {
   constructor() {
@@ -6,7 +6,7 @@ class ChatlistHeader extends HTMLElement {
     this.attachShadow({ mode: "open" });
 
     if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = tmpl
+      this.shadowRoot.innerHTML = html;
     }
   }
 }

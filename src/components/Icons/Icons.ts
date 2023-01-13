@@ -1,6 +1,7 @@
-import { tmpl } from "./Icons.tmpl";
+import html from "bundle-text:./Icons.html";
+import spriteUrl from './icons-sprite.svg'
 
-class Icon extends HTMLElement {
+export class Icon extends HTMLElement {
   name: string;
   color: string;
   width: string;
@@ -16,7 +17,7 @@ class Icon extends HTMLElement {
     this.name = "arrowforward"
 
     if (this.shadowRoot) {
-      this.shadowRoot.appendChild(tmpl.content.cloneNode(true));
+      this.shadowRoot.innerHTML = html;
       this._iconElem = this.shadowRoot.getElementById('iconElem');
       this._iconContainer = this.shadowRoot.querySelector('.icon') as SVGElement;
     }
@@ -36,7 +37,7 @@ class Icon extends HTMLElement {
     }
 
     if (name === "width" || name === "height" && oldValue !== newValue) {
-      this._updateSize({ width: newValue, height: newValue });
+      this.updateSize({ width: newValue, height: newValue });
     }
   }
 
@@ -51,7 +52,7 @@ class Icon extends HTMLElement {
     }
   }
 
-  _updateSize = (size?: { width: string, height: string }) => {
+  public updateSize = (size?: { width: string, height: string }) => {
     if (this._iconContainer && size) {
       const { width, height } = size;
 
@@ -66,7 +67,7 @@ class Icon extends HTMLElement {
   _updateIcon = (name?: string) => {
     if (this._iconElem) {
       this.name = name || this.name;
-      const newIcon = '#' + this.name;
+      const newIcon = spriteUrl + '#' + this.name;
       this._iconElem.setAttribute('href', newIcon)
     }
   }

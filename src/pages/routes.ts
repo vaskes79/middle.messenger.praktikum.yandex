@@ -1,4 +1,4 @@
-import SettingsPage from './SettingsPage'
+import DevPage from './DevPage'
 import ChatPage from './ChatPage'
 import SignInPage from './SignInPage'
 import SignUpPage from './SignUpPage'
@@ -8,7 +8,7 @@ import { Paths } from '../types'
 
 export const routes = {
   [Paths.home]: ChatPage,
-  [Paths.settings]: SettingsPage,
+  [Paths.dev]: DevPage,
   [Paths.signIn]: SignInPage,
   [Paths.signUp]: SignUpPage,
   [Paths.error404]: Error404(),

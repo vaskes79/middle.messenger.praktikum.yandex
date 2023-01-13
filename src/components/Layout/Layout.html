@@ -1,0 +1,136 @@
+<style>
+  :host {
+    margin: inherit;
+  }
+
+  .container {
+    box-sizing: inherit;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .panel {
+    width: 100%;
+    height: inherit;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    transition: all 300ms ease;
+    background: var(--blue-100);
+    box-shadow: 2px 0px 2px 0px;
+  }
+
+  .chatlist {
+    transform: translateX(-110%);
+    z-index: 1000;
+  }
+
+  .settings {
+    transform: translateX(-110%);
+    z-index: 2000;
+  }
+
+  .chat {
+    background: var(--gray-100);
+  }
+
+  .chatsettings {
+    left: auto;
+    right: 0;
+    transform: translateX(110%);
+    z-index: 3000;
+    box-shadow: -2px 0px 2px 0px;
+  }
+
+  header,
+  main,
+  footer {
+    padding: 16px;
+  }
+
+  main {
+    overflow-y: auto;
+    flex-basis: 100%;
+  }
+
+  footer {}
+
+  .panel--open {
+    transform: translateX(0);
+  }
+
+  @media (min-width: 700px) {
+
+    .chatlist,
+    .settings,
+    .chatsettings {
+      width: 320px;
+    }
+
+    .chatlist {
+      transform: translateX(0);
+    }
+
+    .chat {
+      margin-left: 320px;
+    }
+  }
+
+  slot[name=chat-header]::slotted(h2) {
+    margin: 0 !important;
+  }
+</style>
+<div class="container">
+  <div class="panel chatlist">
+    <header>
+      <slot name="chatlist-header"></slot>
+    </header>
+    <main>
+      <slot name="chatlist-main"></slot>
+    </main>
+    <footer>
+      <slot name="chatlist-footer"></slot>
+    </footer>
+  </div>
+
+  <div class="panel settings">
+    <header>
+      <slot name="settings-header">
+      </slot>
+    </header>
+    <main>
+      <slot name="settings-main"></slot>
+    </main>
+    <footer>
+      <slot name="settings-footer"></slot>
+    </footer>
+  </div>
+
+  <div class="panel chat">
+    <header>
+      <slot name="chat-header"></slot>
+    </header>
+    <main>
+      <slot name="chat-main"></slot>
+    </main>
+    <footer>
+      <slot name="chat-footer"></slot>
+    </footer>
+  </div>
+
+  <div class="panel chatsettings">
+    <header>
+      <slot name="chatsettings-header"></slot>
+    </header>
+    <main>
+      <slot name="chatsettings-main">Chat settings slot</slot>
+    </main>
+    <footer>
+      <slot name="chatsettings-footer"></slot>
+    </footer>
+  </div>
+</div>

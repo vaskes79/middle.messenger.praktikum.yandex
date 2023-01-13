@@ -1,23 +1,23 @@
 import { openPanel } from "./actions";
-import { tmpl } from "./Layout.tmp";
+import html from "bundle-text:./Layout.html";
 
 export class Layout extends HTMLElement {
-  _chatlistPanel: HTMLDivElement | null;
-  _chatPanel: HTMLDivElement | null;
-  _settingsPanel: HTMLDivElement | null;
-  _chatSettingsPanel: HTMLDivElement | null;
+  _chatlistPanel: HTMLDivElement;
+  _chatPanel: HTMLDivElement;
+  _settingsPanel: HTMLDivElement;
+  _chatSettingsPanel: HTMLDivElement;
   _removeEventListeners: () => void;
 
   constructor() {
     super();
     this.attachShadow({ mode: "open" })
-    this.shadowRoot?.appendChild(tmpl.content.cloneNode(true))
 
     if (this.shadowRoot) {
-      this._chatlistPanel = this.shadowRoot.querySelector('.chatlist');
-      this._settingsPanel = this.shadowRoot.querySelector('.settings');
-      this._chatPanel = this.shadowRoot.querySelector('.chat');
-      this._chatSettingsPanel = this.shadowRoot.querySelector('.chatsettings');
+      this.shadowRoot.innerHTML = html;
+      this._chatlistPanel = this.shadowRoot.querySelector('.chatlist') as HTMLDivElement;
+      this._settingsPanel = this.shadowRoot.querySelector('.settings') as HTMLDivElement;
+      this._chatPanel = this.shadowRoot.querySelector('.chat') as HTMLDivElement;
+      this._chatSettingsPanel = this.shadowRoot.querySelector('.chatsettings') as HTMLDivElement;
     }
   }
 
