@@ -28,6 +28,7 @@
 
   <ypr-header slot="chatlist-header">
     <h2 slot="title" id="closeChatlistBtn">Chats</h2>
+    <ypr-search slot="actions"></ypr-search>
     <ypr-menu slot="menu">
       <ypr-btn link slot="button">
         <ypr-icon name="morevert"></ypr-icon>
@@ -92,7 +93,13 @@
   </ypr-header>
 
   <ypr-main slot="chatsettings-main">
-    <ypr-nav></ypr-nav>
+    <ypr-nav>
+      <li slot="item"><a href="/signin">sign in</a></li>
+      <li slot="item"><a href="/signup">sign up</a></li>
+      <li slot="item"><a href="/error404">404</a></li>
+      <li slot="item"><a href="/error500">500</a></li>
+      <li slot="item"><a href="/dev">dev page</a></li>
+    </ypr-nav>
   </ypr-main>
 
   <ypr-footer slot="chatsettings-footer">

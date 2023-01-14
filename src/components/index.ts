@@ -13,3 +13,4 @@ import "./ProfileImg";
 import "./Form";
 import "./Menu";
 import "./Empty";
+import "./Search";
