@@ -5,5 +5,4 @@ export enum Paths {
   dev = '/dev',
   error404 = "/error404",
   error500 = "/error500",
-  pageNotFound = "/page-not-found",
 }

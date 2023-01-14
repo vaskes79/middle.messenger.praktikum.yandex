@@ -14,7 +14,7 @@ if (root) {
   }
 
   if (!pathExist) {
-    root.insertAdjacentHTML("afterbegin", routes[Paths.pageNotFound])
+    root.insertAdjacentHTML("afterbegin", routes[Paths.error404])
   }
 }
 
