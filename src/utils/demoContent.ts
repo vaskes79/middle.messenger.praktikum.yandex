@@ -6,7 +6,7 @@ import { MessageItem, MessageItemData } from '../components/MessageItem';
 import { messageItemList } from '../components/MessageItem/data';
 import { generateCotnent } from '../utils'
 
-export function demoModals() {
+function demoModals() {
   const btnOpenModal = document.getElementById("openModalBtn");
   const modal: any = document.getElementById('modal');
 
@@ -15,6 +15,17 @@ export function demoModals() {
       modal.open();
     }
   })
+}
+
+function clearChat() {
+  const btnClearChat = document.getElementById("btnClearChat");
+  const chatMain = document.getElementById("chat-main");
+
+  if (btnClearChat && chatMain) {
+    btnClearChat.addEventListener('click', () => {
+      chatMain.innerHTML = `<ypr-empty><h2>chat was clear</h2></ypr-empty>`;
+    })
+  }
 }
 
 export function cretaDemoContent() {
@@ -56,6 +67,7 @@ export function cretaDemoContent() {
   // research watch attributes
 
   demoModals();
+  clearChat();
   generateCotnent<MessageItem, MessageItemData>('chat-main', 'ypr-message-item', messageItemList);
   generateCotnent<ChatItem, ChatItemData>('chatlist-main', 'ypr-chat-item', chatListData);
 }
