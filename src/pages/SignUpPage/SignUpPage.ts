@@ -1,11 +1,7 @@
+import html from 'bundle-text:./SignUpPage.html'
 
 function buildPage() {
-  return `
-  <div>
-    <h1>Sign Up Page</h1>
-    <ypr-nav></ypr-nav>
-  </div>
-  `
+  return html;
 }
 
 export function SignUpPage() {

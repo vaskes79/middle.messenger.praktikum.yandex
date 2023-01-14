@@ -1,13 +1,7 @@
-import { Paths } from "../../types";
+import html from 'bundle-text:./SignInPage.html'
 
 function buildPage() {
-  return `
-  <div>
-    <h1>Sign In Page
-    </h1>
-    <ypr-nav></ypr-nav>
-  </div>
-`
+  return html;
 }
 
 export function SignInPage() {
