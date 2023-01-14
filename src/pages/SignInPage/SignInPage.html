@@ -1,0 +1,71 @@
+<style>
+  .container {
+    width: 100%;
+    height: 100%;
+    padding-top: 10%;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  p {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  h1 {
+    margin: 0;
+  }
+
+  .logo {
+    background: var(--gray-700);
+  }
+
+  ypr-form {
+    width: 100%;
+    max-width: 480;
+    box-sizing: border-box;
+  }
+
+  footer {
+    display: flex;
+    padding-top: 8px;
+    justify-content: space-between;
+    align-items: center;
+  }
+</style>
+<div class="container">
+  <ypr-base-page>
+
+    <ypr-icon slot="header" class="logo" name="logo" color="var(--red-400)" width="64px"></ypr-icon>
+    <h1 slot="header">Sign In</h1>
+
+    <ypr-form>
+      <ypr-input leftIcon label="Email" details="User email" type="email" name="emai" info>
+        <ypr-icon slot="icon-left" name="email" color="var(--gray-400)"></ypr-icon>
+      </ypr-input>
+      <ypr-input leftIcon label="Password" name="password" type="password" details="Password field" info>
+        <ypr-icon slot="icon-left" name="lock" color="var(--gray-400)"></ypr-icon>
+      </ypr-input>
+
+      <footer>
+        <ypr-btn link>
+          <a href="/signup">
+            Forgot password?
+          </a>
+        </ypr-btn>
+        <ypr-btn>Sign Up<ypr-icon name="arrowforwardios" color="var(--gray-100)"></ypr-icon>
+        </ypr-btn>
+      </footer>
+    </ypr-form>
+
+    <p slot="footer">
+      Not a member?
+      <ypr-btn link>
+        <a href="/signup">
+          Sign Up
+        </a>
+      </ypr-btn>
+    </p>
+  </ypr-base-page>
+</div>

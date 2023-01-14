@@ -1,14 +1,12 @@
-import { defineComponents } from './components';
+import './components';
 import { routes } from './pages'
 import { Paths } from './types'
-import { checkExistPath } from './utils'
+import { checkExistPath, cretaDemoContent } from './utils'
 
 
 const root = document.getElementById("root")
 const path = window.location.pathname;
 const pathExist = checkExistPath(path);
-
-defineComponents();
 
 if (root) {
   if (pathExist) {
@@ -16,6 +14,8 @@ if (root) {
   }
 
   if (!pathExist) {
-    root.insertAdjacentHTML("afterbegin", routes[Paths.pageNotFound])
+    root.insertAdjacentHTML("afterbegin", routes[Paths.error404])
   }
 }
+
+cretaDemoContent();

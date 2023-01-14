@@ -1,0 +1,51 @@
+<style>
+  :host {
+    width: 100%;
+  }
+
+  form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .input-container {
+    flex-basis: 100%;
+  }
+
+  .action-container {
+    flex-shrink: 0;
+    flex-grow: 0;
+  }
+
+  input {
+    width: 100%;
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: 16px;
+    background: transparent;
+    border: 1px solid var(--gray-400);
+    padding: 11px 14px;
+  }
+
+  input:focus {
+    outline: 0;
+    border: 1px solid var(--blue-700);
+  }
+</style>
+<form>
+  <div class="action-container">
+    <ypr-btn link>
+      <ypr-icon width="24px" name="attachfile" color="var(--blue-500)"></ypr-icon>
+    </ypr-btn>
+  </div>
+  <div class="input-container">
+    <input type="text" placeholder="Input your message" />
+  </div>
+  <div class="action-container">
+    <ypr-btn>
+      <ypr-icon name="send" color="var(--gray-100)"></ypr-icon>
+    </ypr-btn>
+    <div class="action-container">
+</form>

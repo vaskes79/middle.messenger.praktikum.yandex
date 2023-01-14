@@ -1,0 +1,97 @@
+<style>
+  .container {
+    position: relative;
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+  }
+
+  header {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 32px;
+  }
+
+
+  .logo {
+    background: var(--gray-700);
+  }
+
+  header h1 {
+    margin: 0;
+  }
+
+  nav {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 10000;
+  }
+
+  footer {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+  }
+
+  footer a {
+    font-size: inherit !important;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  a {
+    color: var(--blue-500);
+    text-decoration: inherit;
+  }
+
+  a:hover {
+    color: var(--blue-700);
+  }
+</style>
+<div class="container">
+  <nav>
+    <slot name="menu">
+      <ypr-menu>
+        <li slot="menu-item"><a href="/">Chat</a></li>
+        <li slot="menu-item"><a href="/signin">Sign In</a></li>
+        <li slot="menu-item"><a href="/signup">Sign Up</a></li>
+        <li slot="menu-item"><a href="/error404">404</a></li>
+        <li slot="menu-item"><a href="/error500">500</a></li>
+        <li slot="menu-item"><a href="/dev">Dev Page</a></li>
+      </ypr-menu>
+    </slot>
+  </nav>
+  <header>
+    <slot name="header"></slot>
+  </header>
+  <slot>
+  </slot>
+  <footer>
+    <slot name="footer">
+      Not a member?
+      <ypr-btn link>
+        <a href="/signup">
+          Sign Up
+        </a>
+      </ypr-btn>
+    </slot>
+  </footer>
+</div>

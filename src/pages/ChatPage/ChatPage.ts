@@ -1,14 +1,9 @@
-import { chatList } from "./ChatData";
+import html from 'bundle-text:./ChatPage.html';
 
-function buildChatPage(data: { imgurl: string, name: string }) {
-  return `
-    <div>
-        <h2>ChatList</h2>
-        <ypr-avatar imgurl="${data.imgurl}" name="${data.name}"></ypr-avatar>
-    </div>
-  `
+function buildChatPage() {
+  return html;
 }
 
 export function ChatPage() {
-  return buildChatPage(chatList);
+  return buildChatPage();
 }

@@ -1,0 +1,80 @@
+<style>
+  .container {
+    position: relative;
+    z-index: 200;
+  }
+
+  .backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0);
+    z-index: 100;
+    transition: var(--default-transition);
+  }
+
+  .backdrop--open {
+    pointer-events: all;
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  .menu-list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    display: flex;
+    flex-direction: column !important;
+    width: max-content;
+    height: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transform: translateX(-100%);
+    margin: 0;
+    padding: 0;
+    gap: 0;
+    background: var(--gray-100);
+    border: 1px solid var(--gray-700);
+    color: var(--gray-700);
+    border-radius: 4px;
+    transition: var(--default-transition);
+  }
+
+  .menu-list--open {
+    opacity: 1;
+    height: fit-content;
+    padding: 8px;
+    gap: 8px;
+    pointer-events: all;
+  }
+
+  slot[name="menu-item"]::slotted(li) {
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    list-style: none;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    list-style: none;
+    cursor: pointer;
+  }
+</style>
+<div class="backdrop"></div>
+<div class="container">
+  <slot id="btn" name="button">
+    <ypr-btn link>
+      <ypr-icon width="24px" name="morevert"></ypr-icon>
+    </ypr-btn>
+  </slot>
+
+  <ul class="menu-list">
+    <slot name="menu-item"></slot>
+  </ul>
+</div>

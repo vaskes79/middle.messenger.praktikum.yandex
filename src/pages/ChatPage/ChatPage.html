@@ -1,0 +1,119 @@
+<style>
+  @media (min-width: 700px) {
+    #openChatListBtn {
+      display: none;
+    }
+  }
+</style>
+<ypr-layout activepanel="settings">
+  <!-- Chat -->
+  <ypr-header slot="chat-header">
+    <ypr-button link slot="title" id="openChatListBtn">
+      <ypr-icon name="menu"></ypr-icon>
+    </ypr-button>
+    <ypr-avatar slot="title" name="Ralph Edwards" imgurl="https://i.pravatar.cc/300"></ypr-avatar>
+    <h2 slot="title">Base Chat</h2>
+    <ypr-btn link slot="menu" id="openChatSettings">
+      <ypr-icon name="morevert"></ypr-icon>
+    </ypr-btn>
+  </ypr-header>
+
+  <ypr-main id="chat-main" slot="chat-main"></ypr-main>
+
+  <ypr-footer slot="chat-footer">
+    <ypr-message-input></ypr-message-input>
+  </ypr-footer>
+
+  <!-- Chatlist -->
+
+  <ypr-header slot="chatlist-header">
+    <h2 slot="title" id="closeChatlistBtn">Chats</h2>
+    <ypr-search slot="actions"></ypr-search>
+    <ypr-menu slot="menu">
+      <ypr-btn link slot="button">
+        <ypr-icon name="morevert"></ypr-icon>
+      </ypr-btn>
+      <li slot="menu-item" id="openSettings">
+        <ypr-icon name="personoutline" color="var(--gray-700)"></ypr-icon>Profile
+      </li>
+      <!-- <li slot="menu-item">
+        <ypr-icon name="chatbuble" color="var(--gray-700)"></ypr-icon>Create Chat
+      </li>
+      -->
+      <li slot="menu-item">
+        <ypr-icon name="logout" color="var(--gray-700)"></ypr-icon>
+        <a href="/signin" target="_blank">
+          Logout
+        </a>
+      </li>
+    </ypr-menu>
+  </ypr-header>
+
+  <ypr-main id="chatlist-main" slot="chatlist-main"></ypr-main>
+
+  <!-- Profile -->
+
+  <ypr-header slot="settings-header">
+    <h2 slot="title" id="closeChatlistBtn">Profile</h2>
+    <ypr-btn link slot="menu" id="settingsBtn">
+      <ypr-icon name="arrowforwardios"></ypr-icon>
+    </ypr-btn>
+  </ypr-header>
+
+  <ypr-main slot="settings-main">
+    <ypr-profile-input></ypr-profile-input>
+    <ypr-form>
+      <ypr-input label="Email" value="email@mail.com" details="User email" type="email" name="emai" info></ypr-input>
+      <ypr-input label="Username" value="@username" details="User name" name="emai" info></ypr-input>
+      <ypr-input label="Display Name" value="John Doe" name="emai" details="Name that displayed" info></ypr-input>
+      <ypr-input label="Change Password" name="password" details="Password field" info></ypr-input>
+      <ypr-input label="Confirm Password" name="password" details="Password field" info></ypr-input>
+    </ypr-form>
+  </ypr-main>
+
+  <ypr-footer slot="settings-footer">
+    <ypr-btn>
+      Save
+      <ypr-icon name="done" color="var(--gray-400)"></ypr-icon>
+    </ypr-btn>
+    <ypr-btn distructive>
+      Cancel
+      <ypr-icon name="close" color="var(--gray-400)"></ypr-icon>
+    </ypr-btn>
+  </ypr-footer>
+
+
+  <!-- Chatsettings -->
+
+  <ypr-header slot="chatsettings-header">
+    <ypr-btn link slot="title" id="closeChatSettingsBtn">
+      <ypr-icon name="arrowbackios"></ypr-icon>
+    </ypr-btn>
+    <h2 slot="title">Chat Menu</h2>
+  </ypr-header>
+
+  <ypr-main slot="chatsettings-main">
+    <ypr-nav>
+      <li slot="item">
+        <ypr-btn link id="btnClearChat">Clear chat</ypr-btn>
+      </li>
+      <li slot="item"><a href="/signin">sign in</a></li>
+      <li slot="item"><a href="/signup">sign up</a></li>
+      <li slot="item"><a href="/error404">404</a></li>
+      <li slot="item"><a href="/error500">500</a></li>
+      <li slot="item"><a href="/dev">dev page</a></li>
+    </ypr-nav>
+  </ypr-main>
+
+  <ypr-footer slot="chatsettings-footer">
+    <ypr-btn>
+      Save
+      <ypr-icon name="done" color="var(--gray-400)"></ypr-icon>
+    </ypr-btn>
+    <ypr-btn distructive>
+      Cancel
+      <ypr-icon name="close" color="var(--gray-400)"></ypr-icon>
+    </ypr-btn>
+  </ypr-footer>
+
+</ypr-layout>

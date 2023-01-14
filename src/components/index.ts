@@ -1,7 +1,16 @@
-import { initAvatar } from "./Avatar";
-import { initColors } from "./Colors";
-
-export function defineComponents() {
-  initColors();
-  initAvatar();
-}
+import "./Layout";
+import "./Avatar";
+import "./Colors";
+import './Modal';
+import "./Icons";
+import "./ChatItem";
+import "./Status";
+import "./MessageItem";
+import "./Button";
+import "./MessageInput";
+import "./Input";
+import "./ProfileImg";
+import "./Form";
+import "./Menu";
+import "./Empty";
+import "./Search";
