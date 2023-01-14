@@ -21,7 +21,8 @@
     flex-direction: column;
     transition: all 300ms ease;
     background: var(--blue-100);
-    box-shadow: 2px 0px 2px 0px;
+    border-right: 1px solid var(--gray-400);
+    box-sizing: border-box;
   }
 
   .chatlist {
@@ -43,13 +44,14 @@
     right: 0;
     transform: translateX(110%);
     z-index: 3000;
-    box-shadow: -2px 0px 2px 0px;
+    border: none;
+    border-left: 1px solid var(--gray-400);
   }
 
   header,
   main,
   footer {
-    padding: 16px;
+    padding: 0 16px;
   }
 
   main {
@@ -77,6 +79,7 @@
 
     .chat {
       margin-left: 320px;
+      width: fit-content;
     }
   }
 
