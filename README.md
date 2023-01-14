@@ -1,6 +1,8 @@
-## messenger sprint 1 [ypr-msg netlify link](https://ypr-msg.netlify.app/) [![Netlify Status](https://api.netlify.com/api/v1/badges/56837701-b2e9-41fe-bb52-83ecc6572342/deploy-status)](https://app.netlify.com/sites/ypr-msg/deploys)
+# YPR-MSG sprint 1 
 
-### Дизайн макет
+[![Netlify Status](https://api.netlify.com/api/v1/badges/56837701-b2e9-41fe-bb52-83ecc6572342/deploy-status)](https://app.netlify.com/sites/ypr-msg/deploys)
+
+## Дизайн макет
 
 - [chat](https://www.figma.com/file/3PTzvlTjzP9fxIJEEMPqQR/YPR-MSG)
 - [components](https://www.figma.com/file/3PTzvlTjzP9fxIJEEMPqQR/YPR-MSG?node-id=0%3A1)
