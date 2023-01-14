@@ -23,7 +23,10 @@ function clearChat() {
 
   if (btnClearChat && chatMain) {
     btnClearChat.addEventListener('click', () => {
-      chatMain.innerHTML = `<ypr-empty><h2>chat was clear</h2></ypr-empty>`;
+      chatMain.innerHTML = `
+      <ypr-empty>
+        <h2>No Messages</h2>
+      </ypr-empty>`;
     })
   }
 }
