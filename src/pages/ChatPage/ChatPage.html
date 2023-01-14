@@ -1,5 +1,12 @@
+<style>
+  @media (min-width: 700px) {
+    #openChatListBtn {
+      display: none;
+    }
+  }
+</style>
 <ypr-layout activepanel="settings">
-  <!-- Chat --!>
+  <!-- Chat -->
   <ypr-header slot="chat-header">
     <ypr-button link slot="title" id="openChatListBtn">
       <ypr-icon name="menu"></ypr-icon>
@@ -17,7 +24,7 @@
     <ypr-message-input></ypr-message-input>
   </ypr-footer>
 
-  <!-- Chatlist --!>
+  <!-- Chatlist -->
 
   <ypr-header slot="chatlist-header">
     <h2 slot="title" id="closeChatlistBtn">Chats</h2>
@@ -28,7 +35,7 @@
 
   <ypr-main id="chatlist-main" slot="chatlist-main"></ypr-main>
 
-  <!-- Profile --!>
+  <!-- Profile -->
 
   <ypr-header slot="settings-header">
     <h2 slot="title" id="closeChatlistBtn">Profile</h2>
@@ -40,12 +47,27 @@
   <ypr-main slot="settings-main">
     <ypr-profile-input></ypr-profile-input>
     <ypr-form>
-      <ypr-input label="email" value="email@mail.com" details="user email" info require></ypr-input>
+      <ypr-input label="Email" value="email@mail.com" details="User email" type="email" name="emai" info></ypr-input>
+      <ypr-input label="Username" value="@username" details="User name" name="emai" info></ypr-input>
+      <ypr-input label="Display Name" value="John Doe" name="emai" details="Name that displayed" info></ypr-input>
+      <ypr-input label="Change Password" name="password" details="Password field" info></ypr-input>
+      <ypr-input label="Confirm Password" name="password" details="Password field" info></ypr-input>
     </ypr-form>
   </ypr-main>
 
+  <ypr-footer slot="settings-footer">
+    <ypr-btn>
+      Save
+      <ypr-icon name="done" color="var(--gray-400)"></ypr-icon>
+    </ypr-btn>
+    <ypr-btn distructive>
+      Cancel
+      <ypr-icon name="close" color="var(--gray-400)"></ypr-icon>
+    </ypr-btn>
+  </ypr-footer>
 
-  <!-- Chatsettings --!>
+
+  <!-- Chatsettings -->
 
   <ypr-header slot="chatsettings-header">
     <ypr-btn link slot="title" id="closeChatSettingsBtn">
