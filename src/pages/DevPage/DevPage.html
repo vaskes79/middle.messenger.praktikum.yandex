@@ -1,10 +1,14 @@
-<h2>Settings</h2>
-<ypr-modal id="modal">
-  <ypr-colors slot="content"></ypr-colors>
-</ypr-modal>
-<ypr-avatar></ypr-avatar>
-<ypr-nav></ypr-nav>
-<ypr-icon name="home" color="var(--orange-400)" width="320px"></ypr-icon>
-<ypr-icon width="120px"></ypr-icon>
-<ypr-icon name="morevert" width="120px"></ypr-icon>
-<button id='openModalBtn' type="button">Open modal</button>
+<ypr-base-page>
+  <h1 slot="header">Dev Page</h1>
+  <ypr-btn id='openModalBtn'>
+    Open modal
+  </ypr-btn>
+  <ypr-modal id="modal">
+    <h2 slot="content">input</h2>
+    <ypr-input slot="content"></ypr-input>
+    <h2 slot="content">Avatar</h2>
+    <ypr-avatar slot="content"></ypr-avatar>
+    <h2 slot="content">Colors variables</h2>
+    <ypr-colors slot="content"></ypr-colors>
+  </ypr-modal>
+</ypr-base-page>

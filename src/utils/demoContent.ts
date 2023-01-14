@@ -4,8 +4,18 @@ import { chatListData } from '../components/ChatItem/data';
 import { togglePanel } from '../components/Layout/actions';
 import { MessageItem, MessageItemData } from '../components/MessageItem';
 import { messageItemList } from '../components/MessageItem/data';
-import { demoModals } from '../pages/DevPage/DevPage';
 import { generateCotnent } from '../utils'
+
+export function demoModals() {
+  const btnOpenModal = document.getElementById("openModalBtn");
+  const modal: any = document.getElementById('modal');
+
+  btnOpenModal?.addEventListener('click', () => {
+    if (modal) {
+      modal.open();
+    }
+  })
+}
 
 export function cretaDemoContent() {
   // reasearch Custom Events

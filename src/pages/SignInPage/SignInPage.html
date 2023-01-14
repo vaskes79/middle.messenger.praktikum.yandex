@@ -1,93 +1,57 @@
 <style>
   .container {
-    position: relative;
     width: 100%;
     height: 100%;
-    max-width: 480px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    padding-top: 10%;
-    gap: 16px;
-    align-items: center;
-    justify-content: flex-start;
+    padding-top: 14%;
   }
 
-  ypr-form {
-    width: 80%;
+  p {
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 
-  header {
-    display: flex;
-    width: 80%;
-    justify-content: flex-start;
-    gap: 16px;
-    align-items: center;
-    margin-bottom: 32px;
+  h1 {
+    margin: 0;
   }
 
   .logo {
     background: var(--gray-700);
   }
 
-  header h1 {
-    margin: 0;
-  }
-
-  ypr-menu {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-  }
-
-  footer {
-    position: absolute;
+  ypr-form {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 4px;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 14px;
-  }
-
-  footer a {
-    font-size: inherit !important;
+    max-width: 480;
+    box-sizing: border-box;
   }
 </style>
 <div class="container">
-  <ypr-menu>
-    <li slot="menu-item"><a href="/">Chat</a></li>
-    <li slot="menu-item"><a href="/signup">Sign Up</a></li>
-    <li slot="menu-item"><a href="/error404">404</a></li>
-    <li slot="menu-item"><a href="/dev">Dev Page</a></li>
-    <li slot="menu-item"><a href="/page-not-found">Page Not Found</a></li>
-  </ypr-menu>
-  <header>
-    <ypr-icon class="logo" name="logo" color="var(--red-400)" width="64px"></ypr-icon>
-    <h1>Sign In</h1>
-  </header>
-  <ypr-form>
-    <ypr-input leftIcon label="Email" details="User email" type="email" name="emai" info>
-      <ypr-icon slot="icon-left" name="email" color="var(--gray-400)"></ypr-icon>
-    </ypr-input>
-    <ypr-input leftIcon label="Password" name="password" type="password" details="Password field" info>
-      <ypr-icon slot="icon-left" name="lock" color="var(--gray-400)"></ypr-icon>
-    </ypr-input>
-    <ypr-btn link>
-      <a href="/signup">
-        Forgot password?
-      </a>
-    </ypr-btn>
-  </ypr-form>
-  <footer>
-    Not a member?
-    <ypr-btn link>
-      <a href="/signup">
-        Sign Up
-      </a>
-    </ypr-btn>
-  </footer>
+  <ypr-base-page>
+
+    <ypr-icon slot="header" class="logo" name="logo" color="var(--red-400)" width="64px"></ypr-icon>
+    <h1 slot="header">Sign In</h1>
+
+    <ypr-form>
+      <ypr-input leftIcon label="Email" details="User email" type="email" name="emai" info>
+        <ypr-icon slot="icon-left" name="email" color="var(--gray-400)"></ypr-icon>
+      </ypr-input>
+      <ypr-input leftIcon label="Password" name="password" type="password" details="Password field" info>
+        <ypr-icon slot="icon-left" name="lock" color="var(--gray-400)"></ypr-icon>
+      </ypr-input>
+      <ypr-btn link>
+        <a href="/signup">
+          Forgot password?
+        </a>
+      </ypr-btn>
+    </ypr-form>
+
+    <p slot="footer">
+      Not a member?
+      <ypr-btn link>
+        <a href="/signup">
+          Sign Up
+        </a>
+      </ypr-btn>
+    </p>
+  </ypr-base-page>
 </div>
