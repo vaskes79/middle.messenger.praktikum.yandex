@@ -81,6 +81,9 @@
 
   /* Animation */
   --default-transition: all .3s ease;
+
+  /* Breakpoints */
+  --tab: 700px;
 }
 
 /* Reset styles */
