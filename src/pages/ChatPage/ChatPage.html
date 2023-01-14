@@ -11,7 +11,7 @@
     </ypr-btn>
   </ypr-header>
 
-  <div id="chat-main" slot="chat-main"></div>
+  <ypr-main id="chat-main" slot="chat-main"></ypr-main>
 
   <ypr-footer slot="chat-footer">
     <ypr-message-input></ypr-message-input>
@@ -26,7 +26,7 @@
     </ypr-btn>
   </ypr-header>
 
-  <div id="chatlist-main" slot="chatlist-main"></div>
+  <ypr-main id="chatlist-main" slot="chatlist-main"></ypr-main>
 
 
 
@@ -46,7 +46,9 @@
     <h2 slot="title">Chat Menu</h2>
   </ypr-header>
 
-  <ypr-nav slot="chatsettings-main"></ypr-nav>
+  <ypr-main slot="chatsettings-main">
+    <ypr-nav></ypr-nav>
+  </ypr-main>
 
   <ypr-footer slot="chatsettings-footer">
     <ypr-btn>
