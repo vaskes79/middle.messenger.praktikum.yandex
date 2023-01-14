@@ -28,9 +28,24 @@
 
   <ypr-header slot="chatlist-header">
     <h2 slot="title" id="closeChatlistBtn">Chats</h2>
-    <ypr-btn link slot="menu" id="openSettings">
-      <ypr-icon name="morevert"></ypr-icon>
-    </ypr-btn>
+    <ypr-menu slot="menu">
+      <ypr-btn link slot="button">
+        <ypr-icon name="morevert"></ypr-icon>
+      </ypr-btn>
+      <li slot="menu-item" id="openSettings">
+        <ypr-icon name="personoutline" color="var(--gray-700)"></ypr-icon>Profile
+      </li>
+      <!-- <li slot="menu-item">
+        <ypr-icon name="chatbuble" color="var(--gray-700)"></ypr-icon>Create Chat
+      </li>
+      -->
+      <li slot="menu-item">
+        <ypr-icon name="logout" color="var(--gray-700)"></ypr-icon>
+        <a href="/signin" target="_blank">
+          Logout
+        </a>
+      </li>
+    </ypr-menu>
   </ypr-header>
 
   <ypr-main id="chatlist-main" slot="chatlist-main"></ypr-main>
