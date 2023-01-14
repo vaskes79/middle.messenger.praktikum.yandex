@@ -13,13 +13,18 @@
 
 - [ypr-msg.netlify.app](https://ypr-msg.netlify.app/)
 
+## Backend server 
+
+- `npm start`
+
 ## Dev mode
 
-- `npm run start`
+- `npm run dev`
 
 ## Build
 
 - `npm run build`
+
 
 ## Зависимости
 
