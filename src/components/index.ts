@@ -9,3 +9,4 @@ import "./MessageItem";
 import "./Button";
 import "./MessageInput";
 import "./Input";
+import "./ProfileImg";
