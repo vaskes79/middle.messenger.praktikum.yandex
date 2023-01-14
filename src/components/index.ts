@@ -11,3 +11,4 @@ import "./MessageInput";
 import "./Input";
 import "./ProfileImg";
 import "./Form";
+import "./Menu";
