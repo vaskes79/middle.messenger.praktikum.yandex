@@ -1,5 +1,5 @@
 <ypr-layout activepanel="settings">
-
+  <!-- Chat --!>
   <ypr-header slot="chat-header">
     <ypr-button link slot="title" id="openChatListBtn">
       <ypr-icon name="menu"></ypr-icon>
@@ -17,7 +17,7 @@
     <ypr-message-input></ypr-message-input>
   </ypr-footer>
 
-
+  <!-- Chatlist --!>
 
   <ypr-header slot="chatlist-header">
     <h2 slot="title" id="closeChatlistBtn">Chats</h2>
@@ -28,7 +28,7 @@
 
   <ypr-main id="chatlist-main" slot="chatlist-main"></ypr-main>
 
-
+  <!-- Profile --!>
 
   <ypr-header slot="settings-header">
     <h2 slot="title" id="closeChatlistBtn">Profile</h2>
@@ -37,7 +37,12 @@
     </ypr-btn>
   </ypr-header>
 
+  <ypr-main slot="settings-main">
+    <ypr-profile-input></ypr-profile-input>
+  </ypr-main>
 
+
+  <!-- Chatsettings --!>
 
   <ypr-header slot="chatsettings-header">
     <ypr-btn link slot="title" id="closeChatSettingsBtn">
