@@ -2,7 +2,7 @@
   .container {
     width: 100%;
     height: 100%;
-    padding-top: 14%;
+    padding-top: 10%;
     max-width: 480px;
     margin: 0 auto;
   }
@@ -25,6 +25,12 @@
     width: 100%;
     max-width: 480;
   }
+
+  footer {
+    display: flex;
+    padding-top: 8px;
+    justify-content: flex-end;
+  }
 </style>
 <div class="container">
   <ypr-base-page>
@@ -46,6 +52,11 @@
         type="password" details="The passwords do not match" info>
         <ypr-icon slot="icon-left" name="lock" color="var(--gray-400)"></ypr-icon>
       </ypr-input>
+
+      <footer>
+        <ypr-btn>Sign Up<ypr-icon name="arrowforwardios" color="var(--gray-100)"></ypr-icon>
+        </ypr-btn>
+      </footer>
     </ypr-form>
 
     <p slot="footer">
