@@ -1,7 +1,10 @@
-import html from 'bundle-text:./SignInPage.html'
+import html from "bundle-text:./SignInPage.html";
+import css from "bundle-text:./SignInPage.css";
+
+const tmpl = `<style>${css}</style>${html}`;
 
 function buildPage() {
-  return html;
+  return tmpl;
 }
 
 export function SignInPage() {
