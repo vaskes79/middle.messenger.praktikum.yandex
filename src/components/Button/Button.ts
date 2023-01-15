@@ -1,4 +1,7 @@
 import html from 'bundle-text:./Button.html';
+import css from 'bundle-text:./Button.css';
+
+const tmpl = `<style>${css}</style>${html}`
 
 export class Button extends HTMLElement {
   _btn: HTMLButtonElement;
@@ -8,7 +11,7 @@ export class Button extends HTMLElement {
     this.attachShadow({ mode: "open" });
 
     if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = html;
+      this.shadowRoot.innerHTML = tmpl;
       this._btn = this.shadowRoot.querySelector('button') as HTMLButtonElement;
     }
   }
