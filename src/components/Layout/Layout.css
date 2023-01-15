@@ -64,14 +64,14 @@ nav {
   flex-basis: 100%;
 }
 
-footer {}
+footer {
+}
 
 .panel--open {
   transform: translateX(0);
 }
 
 @media (min-width: 700px) {
-
   .chatlist,
   .settings,
   .chatsettings {
@@ -88,6 +88,6 @@ footer {}
   }
 }
 
-slot[name=chat-header]::slotted(h2) {
+slot[name="chat-header"]::slotted(h2) {
   margin: 0 !important;
 }
