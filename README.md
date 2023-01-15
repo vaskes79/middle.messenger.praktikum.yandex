@@ -1,6 +1,9 @@
-## messenger sprint 1 [ypr-msg netlify link](https://ypr-msg.netlify.app/) [![Netlify Status](https://api.netlify.com/api/v1/badges/56837701-b2e9-41fe-bb52-83ecc6572342/deploy-status)](https://app.netlify.com/sites/ypr-msg/deploys)
+# YPR-MSG [PR sprint 1 ](https://github.com/vaskes79/middle.messenger.praktikum.yandex/pull/42)
 
-### Дизайн макет
+[![Netlify Status](https://api.netlify.com/api/v1/badges/56837701-b2e9-41fe-bb52-83ecc6572342/deploy-status)](https://app.netlify.com/sites/ypr-msg/deploys)
+
+
+## Дизайн макет
 
 - [chat](https://www.figma.com/file/3PTzvlTjzP9fxIJEEMPqQR/YPR-MSG)
 - [components](https://www.figma.com/file/3PTzvlTjzP9fxIJEEMPqQR/YPR-MSG?node-id=0%3A1)
@@ -11,13 +14,21 @@
 
 - [ypr-msg.netlify.app](https://ypr-msg.netlify.app/)
 
+## Backend server 
+
+- `npm start`
+
 ## Dev mode
 
-- `npm run start`
+- `npm run dev`
 
 ## Build
 
 - `npm run build`
+
+## Environment
+
+-  `PORT` - меняет порт запуска статического сервера. По умолчанию стоит `3000`
 
 ## Зависимости
 
