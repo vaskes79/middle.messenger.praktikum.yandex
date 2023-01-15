@@ -1,5 +1,8 @@
 import { openPanel } from "./actions";
 import html from "bundle-text:./Layout.html";
+import css from "bundle-text:./Layout.css";
+
+const tmpl = `<style>${css}</style>${html}`
 
 export class Layout extends HTMLElement {
   _chatlistPanel: HTMLDivElement;
@@ -13,7 +16,7 @@ export class Layout extends HTMLElement {
     this.attachShadow({ mode: "open" })
 
     if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = html;
+      this.shadowRoot.innerHTML = tmpl;
       this._chatlistPanel = this.shadowRoot.querySelector('.chatlist') as HTMLDivElement;
       this._settingsPanel = this.shadowRoot.querySelector('.settings') as HTMLDivElement;
       this._chatPanel = this.shadowRoot.querySelector('.chat') as HTMLDivElement;
