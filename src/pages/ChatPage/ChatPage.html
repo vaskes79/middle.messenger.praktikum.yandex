@@ -61,11 +61,17 @@
   </ypr-header>
 
   <ypr-main slot="settings-main">
-    <ypr-profile-input></ypr-profile-input>
+    <ypr-profile-input name="avatar"></ypr-profile-input>
     <ypr-form>
       <ypr-input label="Email" value="email@mail.com" details="User email" type="email" name="emai" info></ypr-input>
-      <ypr-input label="Username" value="@username" details="User name" name="emai" info></ypr-input>
-      <ypr-input label="Display Name" value="John Doe" name="emai" details="Name that displayed" info></ypr-input>
+      <ypr-input label="Username" value="@username" details="User name" name="login" info></ypr-input>
+      <ypr-input label="First Name" value="John" name="first_name" details="First name user" info></ypr-input>
+      <ypr-input label="Last Name" value="Doe" name="second_name" details="Last name user" info></ypr-input>
+      <ypr-input label="Display Name" value="John Doe" name="display_name" details="Name that displayed" info>
+      </ypr-input>
+      <ypr-input label="Phone Number" value="+7 (000) 000-00-00" name="phone" details="Phone number user" type="phone"
+        info>
+      </ypr-input>
       <ypr-input label="Change Password" name="password" details="Password field" info></ypr-input>
       <ypr-input label="Confirm Password" name="password" details="Password field" info></ypr-input>
     </ypr-form>
