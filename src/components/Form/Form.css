@@ -1,0 +1,24 @@
+:host {
+  width: 100%;
+}
+
+header,
+form,
+.content,
+footer {
+  box-sizing: inherit;
+}
+
+form {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex-basis: 100%;
+  height: 100%;
+  overflow-y: auto;
+  display: block;
+}
