@@ -21,6 +21,11 @@ export class Button extends HTMLElement {
       this._btn.setAttribute('disabled', '')
     }
 
+    if (this.hasAttribute('type')) {
+      const type = this.getAttribute('type') || 'button';
+      this._btn.setAttribute('type', type)
+    }
+
     if (this.hasAttribute('natural')) {
       this._btn.classList.add('natural')
     }
