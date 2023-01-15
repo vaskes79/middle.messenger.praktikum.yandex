@@ -19,9 +19,7 @@
     justify-content: flex-start;
     gap: 16px;
     align-items: center;
-    margin-bottom: 32px;
   }
-
 
   .logo {
     background: var(--gray-700);
@@ -38,7 +36,7 @@
     z-index: 10000;
   }
 
-  footer {
+  .footer {
     position: absolute;
     width: 100%;
     display: flex;
@@ -51,7 +49,7 @@
     font-size: 14px;
   }
 
-  footer a {
+  .footer a {
     font-size: inherit !important;
     text-decoration: none;
     color: inherit;
@@ -82,16 +80,11 @@
   <header>
     <slot name="header"></slot>
   </header>
-  <slot>
+  <slot> </slot>
+  <slot class="footer" name="footer">
+    Not a member?
+    <ypr-btn link>
+      <a href="/signup"> Sign Up </a>
+    </ypr-btn>
   </slot>
-  <footer>
-    <slot name="footer">
-      Not a member?
-      <ypr-btn link>
-        <a href="/signup">
-          Sign Up
-        </a>
-      </ypr-btn>
-    </slot>
-  </footer>
 </div>
