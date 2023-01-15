@@ -50,11 +50,17 @@
 
   header,
   main,
+  nav,
+  aside,
+  details,
   footer {
     padding: 0 16px;
   }
 
-  main {
+  main,
+  aside,
+  details,
+  nav {
     overflow-y: auto;
     flex-basis: 100%;
   }
@@ -92,9 +98,9 @@
     <header>
       <slot name="chatlist-header"></slot>
     </header>
-    <main>
+    <nav>
       <slot name="chatlist-main"></slot>
-    </main>
+    </nav>
     <footer>
       <slot name="chatlist-footer"></slot>
     </footer>
@@ -105,9 +111,9 @@
       <slot name="settings-header">
       </slot>
     </header>
-    <main>
+    <aside>
       <slot name="settings-main"></slot>
-    </main>
+    </aside>
     <footer>
       <slot name="settings-footer"></slot>
     </footer>
@@ -129,9 +135,9 @@
     <header>
       <slot name="chatsettings-header"></slot>
     </header>
-    <main>
+    <details>
       <slot name="chatsettings-main">Chat settings slot</slot>
-    </main>
+    </details>
     <footer>
       <slot name="chatsettings-footer"></slot>
     </footer>
