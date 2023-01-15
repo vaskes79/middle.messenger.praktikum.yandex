@@ -1,17 +1,14 @@
-<style>
-  @media (min-width: 700px) {
-    #openChatListBtn {
-      display: none;
-    }
-  }
-</style>
 <ypr-layout activepanel="settings">
   <!-- Chat -->
   <ypr-header slot="chat-header">
     <ypr-button link slot="title" id="openChatListBtn">
       <ypr-icon name="menu"></ypr-icon>
     </ypr-button>
-    <ypr-avatar slot="title" name="Ralph Edwards" imgurl="https://i.pravatar.cc/300"></ypr-avatar>
+    <ypr-avatar
+      slot="title"
+      name="Ralph Edwards"
+      imgurl="https://i.pravatar.cc/300"
+    ></ypr-avatar>
     <h2 slot="title">Base Chat</h2>
     <ypr-btn link slot="menu" id="openChatSettings">
       <ypr-icon name="morevert"></ypr-icon>
@@ -34,7 +31,8 @@
         <ypr-icon name="morevert"></ypr-icon>
       </ypr-btn>
       <li slot="menu-item" id="openSettings">
-        <ypr-icon name="personoutline" color="var(--gray-700)"></ypr-icon>Profile
+        <ypr-icon name="personoutline" color="var(--gray-700)"></ypr-icon
+        >Profile
       </li>
       <!-- <li slot="menu-item">
         <ypr-icon name="chatbuble" color="var(--gray-700)"></ypr-icon>Create Chat
@@ -42,9 +40,7 @@
       -->
       <li slot="menu-item">
         <ypr-icon name="logout" color="var(--gray-700)"></ypr-icon>
-        <a href="/signin" target="_blank">
-          Logout
-        </a>
+        <a href="/signin" target="_blank"> Logout </a>
       </li>
     </ypr-menu>
   </ypr-header>
@@ -63,17 +59,65 @@
   <ypr-main slot="settings-main">
     <ypr-profile-input name="avatar"></ypr-profile-input>
     <ypr-form>
-      <ypr-input label="Email" value="email@mail.com" details="User email" type="email" name="emai" info></ypr-input>
-      <ypr-input label="Username" value="@username" details="User name" name="login" info></ypr-input>
-      <ypr-input label="First Name" value="John" name="first_name" details="First name user" info></ypr-input>
-      <ypr-input label="Last Name" value="Doe" name="second_name" details="Last name user" info></ypr-input>
-      <ypr-input label="Display Name" value="John Doe" name="display_name" details="Name that displayed" info>
+      <ypr-input
+        label="Email"
+        value="email@mail.com"
+        details="User email"
+        type="email"
+        name="emai"
+        info
+      ></ypr-input>
+      <ypr-input
+        label="Username"
+        value="@username"
+        details="User name"
+        name="login"
+        info
+      ></ypr-input>
+      <ypr-input
+        label="First Name"
+        value="John"
+        name="first_name"
+        details="First name user"
+        info
+      ></ypr-input>
+      <ypr-input
+        label="Last Name"
+        value="Doe"
+        name="second_name"
+        details="Last name user"
+        info
+      ></ypr-input>
+      <ypr-input
+        label="Display Name"
+        value="John Doe"
+        name="display_name"
+        details="Name that displayed"
+        info
+      >
       </ypr-input>
-      <ypr-input label="Phone Number" value="+7 (000) 000-00-00" name="phone" details="Phone number user" type="phone"
-        info>
+      <ypr-input
+        label="Phone Number"
+        value="+7 (000) 000-00-00"
+        name="phone"
+        details="Phone number user"
+        type="phone"
+        info
+      >
       </ypr-input>
-      <ypr-input label="Change Password" name="password" details="Password field" info></ypr-input>
-      <ypr-input label="Confirm Password" name="password" details="Password field" info></ypr-input>
+      <ypr-input
+        slot="content"
+        label="Change Password"
+        name="password"
+        details="Password field"
+        info
+      ></ypr-input>
+      <ypr-input
+        label="Confirm Password"
+        name="password"
+        details="Password field"
+        info
+      ></ypr-input>
     </ypr-form>
   </ypr-main>
 
@@ -87,7 +131,6 @@
       <ypr-icon name="close" color="var(--gray-400)"></ypr-icon>
     </ypr-btn>
   </ypr-footer>
-
 
   <!-- Chatsettings -->
 
@@ -121,5 +164,4 @@
       <ypr-icon name="close" color="var(--gray-400)"></ypr-icon>
     </ypr-btn>
   </ypr-footer>
-
 </ypr-layout>

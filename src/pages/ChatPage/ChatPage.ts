@@ -1,7 +1,10 @@
-import html from 'bundle-text:./ChatPage.html';
+import html from "bundle-text:./ChatPage.html";
+import css from "bundle-text:./ChatPage.css";
+
+const tmpl = `<style>${css}</style>${html}`;
 
 function buildChatPage() {
-  return html;
+  return tmpl;
 }
 
 export function ChatPage() {
