@@ -1,0 +1,40 @@
+{
+  "name": "ypr-messenger",
+  "version": "0.0.1",
+  "description": "Yandex practicum learn project",
+  "source": "src/index.html",
+  "scripts": {
+    "dev": "parcel",
+    "build": "parcel build",
+    "preserver": "npm run build",
+    "server": "node back/server.js",
+    "start": "npm run server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vaskes79/middle.messenger.praktikum.yandex.git"
+  },
+  "author": "Vasily Guzov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vaskes79/middle.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/vaskes79/middle.messenger.praktikum.yandex#readme",
+  "devDependencies": {
+    "@ngneat/falso": "6.4.0",
+    "@parcel/transformer-inline-string": "2.8.2",
+    "date-fns": "2.29.3",
+    "parcel": "2.8.2",
+    "parcel-transformer-ts-css-modules": "1.0.14",
+    "prettier": "^2.8.3"
+  },
+  "@parcel/transformer-css": {
+    "cssModules": {
+      "pattern": "[name]_[local]__[hash]"
+    }
+  },
+  "dependencies": {
+    "express": "4.18.2",
+    "uuid": "9.0.0"
+  }
+}

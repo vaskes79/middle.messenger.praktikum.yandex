@@ -1,0 +1,106 @@
+<style>
+  .container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--x-small-fs);
+    line-height: 1;
+    color: var(--gray-500);
+  }
+
+  ypr-avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .title,
+  .message {
+    margin: 0;
+  }
+
+  .title {
+    color: var(--gray-700);
+    font-size: var(--h5-fs);
+    font-weight: 400;
+  }
+
+  .message {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .info-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--gray-200);
+    transition: var(--default-transition);
+    padding: 12px 0;
+    gap: 4px;
+  }
+
+  .active .info-container {
+    border-bottom: 1px solid var(--blue-500);
+  }
+
+  .chat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+
+  span {
+    margin: 0;
+    display: inline-block;
+  }
+
+  .counter {
+    width: 2em;
+    height: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--gray-200);
+    color: var(--gray-700);
+    transition: var(--default-transition);
+  }
+
+  .active .counter {
+    background-color: var(--blue-500);
+    color: var(--gray-100);
+  }
+
+  .time {
+    color: var(--gray-500);
+    transition: var(--default-transition);
+  }
+
+  .active .time {
+    color: var(--blue-500);
+  }
+</style>
+<div class="container">
+  <ypr-avatar></ypr-avatar>
+  <div class="info-container">
+    <div class="chat-info">
+      <h3 class="title">Dianne Russell</h3>
+      <p class='message'>
+        <ypr-status-message small></ypr-status-message> <span class="last-message"></span>
+      </p>
+    </div>
+    <div class="meta-container">
+      <span class="time"></span>
+      <span class="counter"></span>
+    </div>
+  </div>
+</div>

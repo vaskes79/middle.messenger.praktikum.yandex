@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="panel chatlist">
+    <header>
+      <slot name="chatlist-header"></slot>
+    </header>
+    <nav>
+      <slot name="chatlist-main"></slot>
+    </nav>
+    <footer>
+      <slot name="chatlist-footer"></slot>
+    </footer>
+  </div>
+
+  <div class="panel settings">
+    <header>
+      <slot name="settings-header">
+      </slot>
+    </header>
+    <aside>
+      <slot name="settings-main"></slot>
+    </aside>
+    <footer>
+      <slot name="settings-footer"></slot>
+    </footer>
+  </div>
+
+  <div class="panel chat">
+    <header>
+      <slot name="chat-header"></slot>
+    </header>
+    <main>
+      <slot name="chat-main"></slot>
+    </main>
+    <footer>
+      <slot name="chat-footer"></slot>
+    </footer>
+  </div>
+
+  <div class="panel chatsettings">
+    <header>
+      <slot name="chatsettings-header"></slot>
+    </header>
+    <details>
+      <slot name="chatsettings-main">Chat settings slot</slot>
+    </details>
+    <footer>
+      <slot name="chatsettings-footer"></slot>
+    </footer>
+  </div>
+</div>

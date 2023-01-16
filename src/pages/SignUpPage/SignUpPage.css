@@ -1,0 +1,44 @@
+.container {
+  width: 100%;
+  height: 100%;
+  padding-top: 24px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+p {
+  margin: 0 !important;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+h1 {
+  margin: 0;
+}
+
+.logo {
+  background: var(--gray-700);
+}
+
+ypr-form {
+  width: 100%;
+  height: 78%;
+  max-width: 480;
+}
+
+@media (min-width: 700px) {
+  .container {
+    padding-top: 5%;
+  }
+  ypr-form {
+    height: auto;
+  }
+}
+
+footer {
+  display: flex;
+  padding-top: 8px;
+  justify-content: flex-end;
+  align-items: center;
+}

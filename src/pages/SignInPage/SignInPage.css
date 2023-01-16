@@ -1,0 +1,34 @@
+.container {
+  width: 100%;
+  height: 100%;
+  padding-top: 30%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+@media (min-width: 700px) {
+  .container {
+    padding-top: 15%;
+  }
+}
+
+h1 {
+  margin: 0;
+}
+
+.logo {
+  background: var(--gray-700);
+}
+
+ypr-form {
+  width: 100%;
+  max-width: 480;
+  box-sizing: border-box;
+}
+
+footer {
+  display: flex;
+  padding-top: 8px;
+  justify-content: space-between;
+  align-items: center;
+}

@@ -1,0 +1,57 @@
+<div class="container">
+  <ypr-base-page>
+    <ypr-icon
+      slot="header"
+      class="logo"
+      name="logo"
+      color="var(--red-400)"
+      width="64px"
+    ></ypr-icon>
+    <h1 slot="header">Sign In</h1>
+
+    <ypr-form>
+      <ypr-input
+        slot="content"
+        leftIcon
+        label="Email"
+        details="User email"
+        type="email"
+        name="emai"
+        info
+      >
+        <ypr-icon
+          slot="icon-left"
+          name="email"
+          color="var(--gray-400)"
+        ></ypr-icon>
+      </ypr-input>
+      <ypr-input
+        slot="content"
+        leftIcon
+        label="Password"
+        name="password"
+        type="password"
+        details="Password field"
+        info
+      >
+        <ypr-icon
+          slot="icon-left"
+          name="lock"
+          color="var(--gray-400)"
+        ></ypr-icon>
+      </ypr-input>
+
+      <footer slot="footer">
+        <ypr-btn link>
+          <a href="/signup"> Forgot password? </a>
+        </ypr-btn>
+        <ypr-btn slot="footer"
+          >Sign Up<ypr-icon
+            name="arrowforwardios"
+            color="var(--gray-100)"
+          ></ypr-icon>
+        </ypr-btn>
+      </footer>
+    </ypr-form>
+  </ypr-base-page>
+</div>

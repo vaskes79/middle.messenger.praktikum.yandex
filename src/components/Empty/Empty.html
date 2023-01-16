@@ -1,0 +1,24 @@
+<style>
+  :host {
+    width: 90%;
+    height: 90%;
+    margin: auto;
+  }
+
+  .container {
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 559 568' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg opacity='0.5'%3E%3Cpath d='M1 159.495L59.1005 69.498M59.1005 69.498C74.594 61.3982 114.296 44.4787 149.156 41.5988C192.732 37.9989 195.637 38.8989 246.959 77.5977C298.281 116.297 289.566 149.596 264.389 178.395C239.212 207.194 235.339 262.092 264.389 273.792C293.439 285.491 371.875 283.691 387.368 258.492C399.763 238.333 404.153 215.294 404.799 206.294L8.74674 159.495L31.0186 252.192L158.84 265.692L210.162 58.6983L350.571 2L189.827 226.993L367.033 288.191L339.92 69.498H59.1005ZM557.797 397.988L189.827 336.79L387.368 416.887L398.02 566.283L557.797 423.187V397.988Z' stroke='%23DF517E' stroke-width='0.935793'/%3E%3Cpath d='M190.03 337.014L558 398.212V423.411L398.224 566.507L387.572 417.111L190.03 337.014Z' stroke='%23579DED' stroke-width='0.935793'/%3E%3C/g%3E%3C/svg%3E%0A");
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    gap: 4px;
+  }
+</style>
+<div class="container">
+  <slot></slot>
+</div>
