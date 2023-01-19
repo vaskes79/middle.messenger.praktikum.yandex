@@ -38,6 +38,7 @@ export class StatusMessage extends HTMLElement {
       this.status = newValue as StatusMessageState;
     }
 
+    // todo: remake logic check working afte eslint fix
     // this._sizes = this._sizes;
     // this._small = this._small;
     // this.status = this.status;

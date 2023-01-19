@@ -53,6 +53,7 @@ export class Avatar extends HTMLElement {
   }
 
   public updateName(name?: string) {
+    // todo: check working attribute name after eslint fix
     this._name = name || this.getAttribute('name') || this._name;
     this._img.setAttribute('alt', this._name);
 

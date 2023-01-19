@@ -69,6 +69,7 @@ export function generateItems<Type = unknown>(itemGenerator: () => Type, itemNum
   return items;
 }
 
+// todo: check ItemDataType after eslint fix
 export function generateCotnent<ItemType extends HTMLElement, ItemDataType = unknown>(
   selector: string,
   elemName: string,
