@@ -1,4 +1,4 @@
-import html from 'bundle-text:./Nav.html'
+import html from 'bundle-text:./Nav.html';
 
 class Nav extends HTMLElement {
   constructor() {
@@ -14,6 +14,6 @@ export default customElements.define('ypr-nav', Nav);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ypr-nav': Nav
+    'ypr-nav': Nav;
   }
 }

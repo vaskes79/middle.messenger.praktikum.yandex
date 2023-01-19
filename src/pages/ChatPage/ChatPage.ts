@@ -1,5 +1,5 @@
-import html from "bundle-text:./ChatPage.html";
-import css from "bundle-text:./ChatPage.css";
+import html from 'bundle-text:./ChatPage.html';
+import css from 'bundle-text:./ChatPage.css';
 
 const tmpl = `<style>${css}</style>${html}`;
 

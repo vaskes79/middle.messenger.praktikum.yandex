@@ -1,4 +1,4 @@
-import html from 'bundle-text:./StatusUser.html'
+import html from 'bundle-text:./StatusUser.html';
 
 export type StatusUserValue = 'online' | 'ofline' | 'empty' | 'not-set';
 
@@ -7,7 +7,7 @@ export class StatusUser extends HTMLElement {
 
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: 'open' });
 
     if (this.shadowRoot) {
       this.shadowRoot.innerHTML = html;
@@ -16,20 +16,20 @@ export class StatusUser extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['status']
+    return ['status'];
   }
 
   _clearStatus = () => {
     this._container?.classList.remove('online', 'ofline', 'empty', 'not-set');
-  }
+  };
 
   _updateStatus = (status: StatusUserValue) => {
     this._clearStatus();
     this._container?.classList.add(status);
-  }
+  };
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    if (name === "status" && oldValue !== newValue) {
+    if (name === 'status' && oldValue !== newValue) {
       this._updateStatus(newValue as StatusUserValue);
     }
   }

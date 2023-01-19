@@ -1,1 +1,1 @@
-export * from './ErrorsPages'
+export * from './ErrorsPages';

@@ -1,0 +1,14 @@
+node_modules/
+.parcel-cache/
+dist
+.eslintrc.json
+\*.html
+\*.css
+yarn.lock
+yarn-error.log
+package-lock.json
+netlify.toml
+.prettierrc
+.parcelrc
+.nvmrc
+.gitignore

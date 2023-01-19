@@ -1,9 +1,9 @@
-import html from 'bundle-text:./BasePage.html'
+import html from 'bundle-text:./BasePage.html';
 
 export class BasePage extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: 'open' });
     if (this.shadowRoot) {
       this.shadowRoot.innerHTML = html;
     }

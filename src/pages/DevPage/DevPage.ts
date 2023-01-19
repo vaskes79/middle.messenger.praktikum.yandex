@@ -1,4 +1,4 @@
-import html from 'bundle-text:./DevPage.html'
+import html from 'bundle-text:./DevPage.html';
 function buildSettingsPage() {
   return html;
 }

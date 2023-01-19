@@ -1,6 +1,6 @@
-import { tmpl } from "./Modal.tmpl";
+import { tmpl } from './Modal.tmpl';
 
-class Modal extends HTMLElement {
+export class Modal extends HTMLElement {
   _confirmBtn: HTMLButtonElement | null;
   _cancelBtn: HTMLButtonElement | null;
   _bg: HTMLDivElement | null;
@@ -8,7 +8,7 @@ class Modal extends HTMLElement {
 
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: 'open' });
     if (this.shadowRoot) {
       this.shadowRoot.appendChild(tmpl.content.cloneNode(true));
       this._confirmBtn = this.shadowRoot.getElementById('confirmBtn') as HTMLButtonElement;
@@ -20,7 +20,7 @@ class Modal extends HTMLElement {
 
   _closeEventListener = () => {
     this.close();
-  }
+  };
 
   _addEventListeners() {
     this._cancelBtn?.addEventListener('click', this._closeEventListener);
@@ -29,9 +29,9 @@ class Modal extends HTMLElement {
 
     return () => {
       this._cancelBtn?.removeEventListener('click', this._closeEventListener);
-      this._confirmBtn?.removeEventListener('click', this._closeEventListener)
+      this._confirmBtn?.removeEventListener('click', this._closeEventListener);
       this._bg?.removeEventListener('click', this._closeEventListener);
-    }
+    };
   }
 
   connectedCallback() {
@@ -43,20 +43,19 @@ class Modal extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['open']
+    return ['open'];
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
     console.log({ name, oldValue, newValue });
   }
 
-
   public open() {
-    this.setAttribute('open', '')
+    this.setAttribute('open', '');
   }
 
   public close() {
-    this.removeAttribute('open')
+    this.removeAttribute('open');
   }
 }
 
@@ -64,6 +63,6 @@ customElements.define('ypr-modal', Modal);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ypr-modal': Modal
+    'ypr-modal': Modal;
   }
 }

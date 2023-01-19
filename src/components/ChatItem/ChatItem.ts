@@ -1,16 +1,16 @@
 import html from 'bundle-text:./ChatItem.html';
-import { Avatar } from '../Avatar'
-import { defaultData } from './data'
-import type { StatusUserValue, StatusMessageState, StatusMessage } from '../Status'
+import { Avatar } from '../Avatar';
+import { defaultData } from './data';
+import type { StatusUserValue, StatusMessageState, StatusMessage } from '../Status';
 
 export interface ChatItemData {
-  name: string,
-  imgurl: string,
-  time: string,
-  statusUser: StatusUserValue,
-  statusMessage: StatusMessageState,
-  lastMessage: string,
-  conterMessages: string | number
+  name: string;
+  imgurl: string;
+  time: string;
+  statusUser: StatusUserValue;
+  statusMessage: StatusMessageState;
+  lastMessage: string;
+  conterMessages: string | number;
 }
 
 export class ChatItem extends HTMLElement {
@@ -24,9 +24,9 @@ export class ChatItem extends HTMLElement {
 
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: 'open' });
     if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = html
+      this.shadowRoot.innerHTML = html;
       this._avatarEl = this.shadowRoot.querySelector('ypr-avatar');
       this._messageStatusEl = this.shadowRoot.querySelector('ypr-status-message');
       this._lastMessageEl = this.shadowRoot.querySelector('.last-message');
@@ -69,14 +69,11 @@ export class ChatItem extends HTMLElement {
     return ['data'];
   }
 
-
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
     if (name === 'data' && oldValue !== newValue) {
       this._updateData();
     }
   }
-
-
 }
 
 export default customElements.define('ypr-chat-item', ChatItem);

@@ -2,12 +2,10 @@ import tmpl from 'bundle-text:./Avatar.html';
 import { StatusUser } from '../Status';
 import defaultAvatar from './default-avatar.svg';
 
-type Attributes = 'imgurl' | 'name'
-
 export class Avatar extends HTMLElement {
   _imgUrl: string = defaultAvatar;
-  _name: string = "Display Name";
-  _initial: string = "DN"
+  _name = 'Display Name';
+  _initial = 'DN';
 
   _container: HTMLDivElement;
   _img: HTMLImageElement;
@@ -26,57 +24,56 @@ export class Avatar extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    if (name === "name" && oldValue !== newValue) {
+    if (name === 'name' && oldValue !== newValue) {
       this.updateName(newValue);
     }
 
-    if (name === "status" && oldValue !== newValue) {
+    if (name === 'status' && oldValue !== newValue) {
       this._statusUserEl.setAttribute('status', newValue);
     }
 
-    if (name === "imgurl" && oldValue !== newValue) {
+    if (name === 'imgurl' && oldValue !== newValue) {
       this._img.setAttribute('src', newValue);
-      this._nameEl.style.display = "none";
+      this._nameEl.style.display = 'none';
     }
   }
 
   connectedCallback() {
     if (this.shadowRoot) {
       // set elements
-      this._img = this.shadowRoot?.querySelector(".img") as HTMLImageElement;
+      this._img = this.shadowRoot?.querySelector('.img') as HTMLImageElement;
       this._container = this.shadowRoot?.querySelector('.container') as HTMLDivElement;
       this._nameEl = this.shadowRoot?.querySelector('.name') as HTMLElement;
       this._statusUserEl = this.shadowRoot?.querySelector('ypr-status-user') as StatusUser;
-      this._statusUserEl.setAttribute('status', "ofline");
-      // set Attributes 
+      this._statusUserEl.setAttribute('status', 'ofline');
       this._imgUrl = this.getAttribute('imgurl') || this._imgUrl;
-      this._img.setAttribute("src", this._imgUrl);
+      this._img.setAttribute('src', this._imgUrl);
     }
     this.updateName();
   }
 
   public updateName(name?: string) {
-    this._name = this.getAttribute('name') || this._name;
-    this._img.setAttribute("alt", this._name);
+    // todo: check working attribute name after eslint fix
+    this._name = name || this.getAttribute('name') || this._name;
+    this._img.setAttribute('alt', this._name);
 
     if (!this.hasAttribute('imgurl')) {
       this._createInitials();
       this._nameEl.innerHTML = this._initial;
-      this._nameEl.style.display = "flex";
+      this._nameEl.style.display = 'flex';
     }
   }
 
   _createInitials = () => {
-    const [firstName, lastName] = this._name.split(' ')
+    const [firstName, lastName] = this._name.split(' ');
     this._initial = firstName[0] + lastName[0];
-  }
-
+  };
 }
 
 export default customElements.define('ypr-avatar', Avatar);
 
 declare global {
   export interface HTMLElementTagNameMap {
-    'ypr-avatar': Avatar
+    'ypr-avatar': Avatar;
   }
 }
