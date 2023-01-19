@@ -8,7 +8,9 @@
     "build": "parcel build",
     "preserver": "npm run build",
     "server": "node back/server.js",
-    "start": "npm run server"
+    "start": "npm run server",
+    "lint": "eslint  src/ --ext .ts",
+    "lint:fix": "eslint src/ --ext .ts --fix"
   },
   "repository": {
     "type": "git",
@@ -23,10 +25,16 @@
   "devDependencies": {
     "@ngneat/falso": "6.4.0",
     "@parcel/transformer-inline-string": "2.8.2",
+    "@typescript-eslint/eslint-plugin": "5.48.2",
+    "@typescript-eslint/parser": "5.48.2",
     "date-fns": "2.29.3",
+    "eslint": "8.32.0",
+    "eslint-config-prettier": "8.6.0",
+    "eslint-plugin-prettier": "4.2.1",
     "parcel": "2.8.2",
     "parcel-transformer-ts-css-modules": "1.0.14",
-    "prettier": "^2.8.3"
+    "prettier": "2.8.3",
+    "typescript": "4.9.4"
   },
   "@parcel/transformer-css": {
     "cssModules": {
