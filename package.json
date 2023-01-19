@@ -9,6 +9,7 @@
     "preserver": "npm run build",
     "server": "node back/server.js",
     "start": "npm run server",
+    "ts:check": "tsc --noEmit",
     "lint": "eslint  src/ --ext .ts",
     "lint:styles": "stylelint  src/**/*.css",
     "lint:styles:fix": "stylelint  src/**/*.css --fix",
