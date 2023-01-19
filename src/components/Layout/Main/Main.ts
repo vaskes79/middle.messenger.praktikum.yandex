@@ -1,9 +1,9 @@
-import html from 'bundle-text:./Main.html'
+import html from 'bundle-text:./Main.html';
 
 export class Main extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: 'open' });
 
     if (this.shadowRoot) {
       this.shadowRoot.innerHTML = html;

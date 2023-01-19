@@ -4,22 +4,23 @@ import { chatListData } from '../components/ChatItem/data';
 import { togglePanel } from '../components/Layout/actions';
 import { MessageItem, MessageItemData } from '../components/MessageItem';
 import { messageItemList } from '../components/MessageItem/data';
-import { generateCotnent } from '../utils'
+import { Modal } from '../components/Modal';
+import { generateCotnent } from '../utils';
 
 function demoModals() {
-  const btnOpenModal = document.getElementById("openModalBtn");
-  const modal: any = document.getElementById('modal');
+  const btnOpenModal = document.getElementById('openModalBtn');
+  const modal = document.getElementById('modal') as Modal;
 
   btnOpenModal?.addEventListener('click', () => {
     if (modal) {
       modal.open();
     }
-  })
+  });
 }
 
 function clearChat() {
-  const btnClearChat = document.getElementById("btnClearChat");
-  const chatMain = document.getElementById("chat-main");
+  const btnClearChat = document.getElementById('btnClearChat');
+  const chatMain = document.getElementById('chat-main');
 
   if (btnClearChat && chatMain) {
     btnClearChat.addEventListener('click', () => {
@@ -27,45 +28,43 @@ function clearChat() {
       <ypr-empty>
         <h2>No Messages</h2>
       </ypr-empty>`;
-    })
+    });
   }
 }
 
 export function cretaDemoContent() {
   // reasearch Custom Events
-  const btnOpenSettings = document.getElementById('openSettings')
-  const btnOpenChatList = document.getElementById('openChatListBtn')
-  const btnOpenChatSettings = document.getElementById('openChatSettings')
+  const btnOpenSettings = document.getElementById('openSettings');
+  const btnOpenChatList = document.getElementById('openChatListBtn');
+  const btnOpenChatSettings = document.getElementById('openChatSettings');
 
-  const btnCloseSettings = document.getElementById('settingsBtn')
-  const btnCloseChatlist = document.getElementById('chatlist-main')
-  const btnCloseChatSettings = document.getElementById('closeChatSettingsBtn')
-
+  const btnCloseSettings = document.getElementById('settingsBtn');
+  const btnCloseChatlist = document.getElementById('chatlist-main');
+  const btnCloseChatSettings = document.getElementById('closeChatSettingsBtn');
 
   btnOpenChatSettings?.addEventListener('click', () => {
     togglePanel('chatsettings');
-  })
+  });
 
   btnOpenChatList?.addEventListener('click', () => {
     togglePanel('chatlist');
-  })
+  });
 
   btnOpenSettings?.addEventListener('click', () => {
     togglePanel('settings');
-  })
-
+  });
 
   btnCloseSettings?.addEventListener('click', () => {
-    togglePanel("settings");
-  })
+    togglePanel('settings');
+  });
 
   btnCloseChatlist?.addEventListener('click', () => {
-    togglePanel("chatlist");
-  })
+    togglePanel('chatlist');
+  });
 
   btnCloseChatSettings?.addEventListener('click', () => {
-    togglePanel("chatsettings");
-  })
+    togglePanel('chatsettings');
+  });
 
   // research watch attributes
 

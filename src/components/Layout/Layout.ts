@@ -1,8 +1,8 @@
-import { openPanel } from "./actions";
-import html from "bundle-text:./Layout.html";
-import css from "bundle-text:./Layout.css";
+import { openPanel } from './actions';
+import html from 'bundle-text:./Layout.html';
+import css from 'bundle-text:./Layout.css';
 
-const tmpl = `<style>${css}</style>${html}`
+const tmpl = `<style>${css}</style>${html}`;
 
 export class Layout extends HTMLElement {
   _chatlistPanel: HTMLDivElement;
@@ -13,7 +13,7 @@ export class Layout extends HTMLElement {
 
   constructor() {
     super();
-    this.attachShadow({ mode: "open" })
+    this.attachShadow({ mode: 'open' });
 
     if (this.shadowRoot) {
       this.shadowRoot.innerHTML = tmpl;
@@ -33,7 +33,7 @@ export class Layout extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['activepanel']
+    return ['activepanel'];
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
@@ -57,22 +57,21 @@ export class Layout extends HTMLElement {
     if (detail) {
       this._switchPanel(detail.name);
     }
-  }
+  };
 
   _addEventListeners() {
     window.addEventListener(openPanel, this._togglePanel);
 
     return () => {
-      window.removeEventListener(openPanel, this._togglePanel)
+      window.removeEventListener(openPanel, this._togglePanel);
     };
   }
-
 }
 
 export default customElements.define('ypr-layout', Layout);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ypr-layout': Layout
+    'ypr-layout': Layout;
   }
 }

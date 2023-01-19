@@ -1,5 +1,4 @@
 import html from 'bundle-text:./Input.html';
-import { Elem } from '../../types/Components';
 import { v4 as uuidv4 } from 'uuid';
 
 export class Input extends HTMLElement {
@@ -11,23 +10,23 @@ export class Input extends HTMLElement {
   _labelEl: HTMLElement;
 
   _detailsContent: string;
-  _detailsShow: boolean = false;
+  _detailsShow = false;
 
   _errorContent: string;
-  _error: boolean = false;
+  _error = false;
 
-  _require: boolean = false;
+  _require = false;
 
   _name: string;
   _value: string;
 
-  _label: string = 'Input Label';
+  _label = 'Input Label';
 
   _removeEventListeners: () => void;
 
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: 'open' });
     if (this.shadowRoot) {
       this.shadowRoot.innerHTML = html;
       this._containerEl = this.shadowRoot.querySelector('.container') as HTMLElement;
@@ -44,8 +43,8 @@ export class Input extends HTMLElement {
   connectedCallback() {
     this._removeEventListeners = this._addEventListeners();
 
-    if (this.hasAttribute("leftIcon")) {
-      this._containerEl.classList.add('container--icon')
+    if (this.hasAttribute('leftIcon')) {
+      this._containerEl.classList.add('container--icon');
     }
 
     this._setupInput();
@@ -55,26 +54,26 @@ export class Input extends HTMLElement {
   }
 
   disconnectedCallback() {
-    console.log("unmount input", this);
+    console.log('unmount input', this);
   }
 
   static get observedAttributes() {
-    return ["error"];
+    return ['error'];
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    if (name === "error" && oldValue !== newValue) {
+    if (name === 'error' && oldValue !== newValue) {
       this.showError(newValue);
     }
   }
 
   _infoMouseoverListener = () => {
     this.showDetails();
-  }
+  };
 
   _infoMouseleaveListener = () => {
     this.hideDetails();
-  }
+  };
 
   _onChangeInputListener = (e: Event) => {
     const { target } = e;
@@ -83,42 +82,42 @@ export class Input extends HTMLElement {
       this.clearError();
     }
     this._setupLabel();
-  }
+  };
 
   _addEventListeners() {
     this._infoEl.addEventListener('mouseover', this._infoMouseoverListener);
     this._infoEl.addEventListener('mouseleave', this._infoMouseleaveListener);
-    this._inputEl.addEventListener('change', this._onChangeInputListener)
+    this._inputEl.addEventListener('change', this._onChangeInputListener);
 
     return () => {
       this._infoEl.removeEventListener('mouseover', this._infoMouseoverListener);
       this._infoEl.removeEventListener('mouseleave', this._infoMouseleaveListener);
-      this._inputEl.removeEventListener('change', this._onChangeInputListener)
-    }
+      this._inputEl.removeEventListener('change', this._onChangeInputListener);
+    };
   }
 
   _setupInput = () => {
-    if (this.hasAttribute("require")) {
-      this._requireEl.style.opacity = "1";
-      this._inputEl.setAttribute('require', '')
+    if (this.hasAttribute('require')) {
+      this._requireEl.style.opacity = '1';
+      this._inputEl.setAttribute('require', '');
       this._require = true;
     }
     if (this.hasAttribute('type')) {
       const type = this.getAttribute('type') || 'text';
-      this._inputEl.setAttribute('type', type)
+      this._inputEl.setAttribute('type', type);
     }
     if (this.hasAttribute('value')) {
       const value = this.getAttribute('value') || '';
-      this._inputEl.setAttribute('value', value)
+      this._inputEl.setAttribute('value', value);
       this._value = value;
       this._setupLabel();
     }
     if (this.hasAttribute('name')) {
       const name = this.getAttribute('name') || uuidv4();
       this._name = name;
-      this._inputEl.setAttribute('name', name)
+      this._inputEl.setAttribute('name', name);
     }
-  }
+  };
 
   _setupLabel = () => {
     if (this.hasAttribute('label')) {
@@ -128,31 +127,31 @@ export class Input extends HTMLElement {
         labelElText.textContent = label;
       }
       if (this._inputEl) {
-        label = this._require ? label + " *" : label;
+        label = this._require ? label + ' *' : label;
         this._inputEl.placeholder = label;
       }
     }
 
     if (this._value) {
-      this._labelEl.style.opacity = "1";
+      this._labelEl.style.opacity = '1';
     }
     if (!this.value) {
-      this._labelEl.style.opacity = "0";
+      this._labelEl.style.opacity = '0';
     }
-  }
+  };
 
   _setupInfo = () => {
     if (this.hasAttribute('info')) {
       this._infoEl.classList.add('info--show');
     }
-  }
+  };
 
   _setupDetails = () => {
     if (this.hasAttribute('details')) {
-      this._detailsContent = this.getAttribute('details') || "";
+      this._detailsContent = this.getAttribute('details') || '';
       this._detailsEl.textContent = this._detailsContent;
     }
-  }
+  };
 
   public get name() {
     return this._name;
@@ -164,32 +163,32 @@ export class Input extends HTMLElement {
 
   public showError = (errorText?: string) => {
     this._error = true;
-    this._errorContent = errorText || "Error input";
-    this._containerEl.classList.add("error");
+    this._errorContent = errorText || 'Error input';
+    this._containerEl.classList.add('error');
     if (this._detailsEl) {
       this._detailsEl.textContent = this._errorContent;
     }
-  }
+  };
 
   public clearError = () => {
-    this._containerEl.classList.remove("error");
-    this.removeAttribute("error");
+    this._containerEl.classList.remove('error');
+    this.removeAttribute('error');
     this._error = false;
     this._errorContent = '';
     this._detailsEl.textContent = this._detailsContent;
-  }
+  };
 
   public showDetails = () => {
     if (this._detailsEl) {
-      this._detailsEl.style.opacity = "1"
+      this._detailsEl.style.opacity = '1';
     }
-  }
+  };
 
   public hideDetails = () => {
     if (this._detailsEl) {
       this._detailsEl.style.opacity = '0';
     }
-  }
+  };
 }
 
-export default customElements.define('ypr-input', Input)
+export default customElements.define('ypr-input', Input);

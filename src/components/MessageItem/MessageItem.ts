@@ -1,17 +1,16 @@
-import html from 'bundle-text:./MessageItem.html'
+import html from 'bundle-text:./MessageItem.html';
 import { Elem } from '../../types/Components';
 import { StatusMessageState } from '../Status/StatusMessage';
-import { defaultData } from './data';
 
 export type TypeContentMessage = 'text' | 'image';
-export type OwnerMessage = "me" | "user";
+export type OwnerMessage = 'me' | 'user';
 
 export interface MessageItemData {
-  owner: OwnerMessage,
-  type: TypeContentMessage,
-  time: string,
-  status: StatusMessageState,
-  content: string
+  owner: OwnerMessage;
+  type: TypeContentMessage;
+  time: string;
+  status: StatusMessageState;
+  content: string;
 }
 
 export class MessageItem extends HTMLElement {
@@ -24,14 +23,14 @@ export class MessageItem extends HTMLElement {
 
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: 'open' });
     if (this.shadowRoot) {
       this.shadowRoot.innerHTML = html;
-      this._containerEl = this.shadowRoot.querySelector("article");
-      this._contentEl = this.shadowRoot.querySelector(".content");
-      this._footerEl = this.shadowRoot.querySelector("footer");
-      this._timeEl = this.shadowRoot.querySelector("time");
-      this._statusMessageEl = this.shadowRoot.querySelector("ypr-status-message");
+      this._containerEl = this.shadowRoot.querySelector('article');
+      this._contentEl = this.shadowRoot.querySelector('.content');
+      this._footerEl = this.shadowRoot.querySelector('footer');
+      this._timeEl = this.shadowRoot.querySelector('time');
+      this._statusMessageEl = this.shadowRoot.querySelector('ypr-status-message');
     }
   }
 
@@ -41,7 +40,7 @@ export class MessageItem extends HTMLElement {
 
   clear = () => {
     this._containerEl?.classList.remove('text', 'image');
-  }
+  };
 
   updateData = (data?: MessageItemData) => {
     data = data || this.data;
@@ -53,27 +52,26 @@ export class MessageItem extends HTMLElement {
       this._timeEl.innerHTML = data.time;
     }
 
-    if (this._contentEl && data.type === "text") {
+    if (this._contentEl && data.type === 'text') {
       this._contentEl.textContent = data.content;
     }
 
-    if (this._contentEl && data.type === "image") {
+    if (this._contentEl && data.type === 'image') {
       this._contentEl.innerHTML = `<img src="${data.content}" alt="name"/>`;
     }
 
     if (this._statusMessageEl) {
-      this._statusMessageEl.setAttribute('status', data.status)
-      this._statusMessageEl.setAttribute('small', '')
+      this._statusMessageEl.setAttribute('status', data.status);
+      this._statusMessageEl.setAttribute('small', '');
     }
-  }
+  };
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    if (name === "data" && oldValue !== newValue) {
+    if (name === 'data' && oldValue !== newValue) {
       this.data = JSON.parse(newValue);
       this.updateData();
     }
   }
-
 }
 
 export default customElements.define('ypr-message-item', MessageItem);

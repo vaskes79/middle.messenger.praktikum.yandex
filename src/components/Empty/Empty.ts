@@ -1,9 +1,9 @@
-import html from 'bundle-text:./Empty.html'
+import html from 'bundle-text:./Empty.html';
 
 export class Empty extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: 'open' });
     if (this.shadowRoot) {
       this.shadowRoot.innerHTML = html;
     }
@@ -11,4 +11,3 @@ export class Empty extends HTMLElement {
 }
 
 export default customElements.define('ypr-empty', Empty);
-

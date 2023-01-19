@@ -3,7 +3,7 @@ import html from 'bundle-text:./ProfileImg.html';
 export class ProfileImg extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: 'open' });
 
     if (this.shadowRoot) {
       this.shadowRoot.innerHTML = html;

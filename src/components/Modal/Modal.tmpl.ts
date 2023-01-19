@@ -1,4 +1,4 @@
-import { styles } from "./Modal.styles";
+import { styles } from './Modal.styles';
 
 export const tmpl = document.createElement('template');
 
@@ -19,4 +19,4 @@ tmpl.innerHTML = `
       </slot>
     </footer>
   </div>
-`
+`;
