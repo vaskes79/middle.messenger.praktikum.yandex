@@ -9,7 +9,7 @@ const pathExist = checkExistPath(path);
 
 if (root) {
   if (pathExist) {
-    root.insertAdjacentHTML('afterbegin', routes[path]);
+    root.insertAdjacentHTML('afterbegin', routes[path as Paths]);
   }
 
   if (!pathExist) {

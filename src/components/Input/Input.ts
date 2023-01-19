@@ -1,5 +1,5 @@
 import html from 'bundle-text:./Input.html';
-import { v4 as uuidv4 } from 'uuid';
+import { nanoid } from 'nanoid';
 
 export class Input extends HTMLElement {
   _containerEl: HTMLElement;
@@ -113,7 +113,7 @@ export class Input extends HTMLElement {
       this._setupLabel();
     }
     if (this.hasAttribute('name')) {
-      const name = this.getAttribute('name') || uuidv4();
+      const name = this.getAttribute('name') || nanoid();
       this._name = name;
       this._inputEl.setAttribute('name', name);
     }
