@@ -5,7 +5,11 @@ import { togglePanel } from '../components/Layout/actions';
 import { MessageItem, MessageItemData } from '../components/MessageItem';
 import { messageItemList } from '../components/MessageItem/data';
 import { Modal } from '../components/Modal';
+import { EventBus } from '../core';
+import { ChatPageEvent } from '../pages/ChatPage/ChatPage';
 import { generateCotnent } from '../utils';
+
+const eventBus = EventBus.getInstance();
 
 function demoModals() {
   const btnOpenModal = document.getElementById('openModalBtn');
@@ -44,6 +48,7 @@ export function cretaDemoContent() {
 
   btnOpenChatSettings?.addEventListener('click', () => {
     togglePanel('chatsettings');
+    eventBus.emmit(ChatPageEvent.CHATPAGE_UNMOUNT);
   });
 
   btnOpenChatList?.addEventListener('click', () => {
