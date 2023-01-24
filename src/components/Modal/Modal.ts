@@ -1,3 +1,4 @@
+import { EventBus } from '../../core';
 import { tmpl } from './Modal.tmpl';
 
 export class Modal extends HTMLElement {
@@ -5,6 +6,7 @@ export class Modal extends HTMLElement {
   _cancelBtn: HTMLButtonElement | null;
   _bg: HTMLDivElement | null;
   _removeEventListeners: () => void;
+  _eventBuss: EventBus = EventBus.getInstance();
 
   constructor() {
     super();
@@ -26,6 +28,16 @@ export class Modal extends HTMLElement {
     this._cancelBtn?.addEventListener('click', this._closeEventListener);
     this._confirmBtn?.addEventListener('click', this._closeEventListener);
     this._bg?.addEventListener('click', this._closeEventListener);
+
+    this._eventBuss.on('open:modal', (id: string) => {
+      this.open();
+      console.log('open:modal', id);
+    });
+
+    this._eventBuss.on('close:modal', (id: string) => {
+      this.close();
+      console.log('close:modal', id);
+    });
 
     return () => {
       this._cancelBtn?.removeEventListener('click', this._closeEventListener);

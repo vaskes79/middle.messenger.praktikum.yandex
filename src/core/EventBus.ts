@@ -1,6 +1,10 @@
 import { ChatPageEvent } from '../pages/ChatPage/ChatPage';
 
-export type EventName = keyof GlobalEventHandlersEventMap | `${ChatPageEvent}`;
+export type EventName =
+  | keyof GlobalEventHandlersEventMap
+  | `${ChatPageEvent}`
+  | 'open:modal'
+  | 'close:modal';
 export type Callback<T = any> = (...args: T[]) => void;
 type ListenersList = Record<EventName, Callback[]>;
 
