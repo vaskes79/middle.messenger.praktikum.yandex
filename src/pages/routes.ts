@@ -1,4 +1,3 @@
-import DevPage from './DevPage';
 import ChatPage from './ChatPage';
 import SignInPage from './SignInPage';
 import SignUpPage from './SignUpPage';
@@ -8,7 +7,7 @@ import { Paths } from '../types';
 
 export const routes = {
   [Paths.home]: ChatPage,
-  [Paths.dev]: DevPage,
+  [Paths.dev]: `<ypr-dev-page id="ypr-dev-page"></ypr-dev-page>`,
   [Paths.signIn]: SignInPage,
   [Paths.signUp]: SignUpPage,
   [Paths.error404]: Error404(),
