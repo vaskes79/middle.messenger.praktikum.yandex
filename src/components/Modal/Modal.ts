@@ -1,6 +1,11 @@
 import { EventBus } from '../../core';
 import { tmpl } from './Modal.tmpl';
 
+export enum ModalEvents {
+  OPEN = 'modal:open',
+  CLOSE = 'modal:close'
+}
+
 export class Modal extends HTMLElement {
   _confirmBtn: HTMLButtonElement | null;
   _cancelBtn: HTMLButtonElement | null;
@@ -29,12 +34,12 @@ export class Modal extends HTMLElement {
     this._confirmBtn?.addEventListener('click', this._closeEventListener);
     this._bg?.addEventListener('click', this._closeEventListener);
 
-    this._eventBuss.on('open:modal', (id: string) => {
+    this._eventBuss.on(ModalEvents.OPEN, (id: string) => {
       this.open();
       console.log('open:modal', id);
     });
 
-    this._eventBuss.on('close:modal', (id: string) => {
+    this._eventBuss.on(ModalEvents.CLOSE, (id: string) => {
       this.close();
       console.log('close:modal', id);
     });
