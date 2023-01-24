@@ -1,4 +1,4 @@
-import { AttributeChangedCallback } from '../../core/CreatePage';
+import { AttributeChangedCallback } from '../../types';
 
 export const attributeChangedCallback: AttributeChangedCallback = (name, oldName, newValue) => {
   if (oldName !== newValue) {

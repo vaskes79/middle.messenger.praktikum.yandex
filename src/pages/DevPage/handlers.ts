@@ -4,7 +4,7 @@ import { Handlers } from '../../types';
 const eventBuss = EventBus.getInstance();
 
 const handleModal = () => {
-  eventBuss.emmit('open:modal', 'id');
+  eventBuss.emmit('modal:open', 'id');
 };
 
 export const handlers: Handlers[] = [
