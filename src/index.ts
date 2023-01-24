@@ -1,4 +1,5 @@
 import './components';
+import './pages';
 import { EventBus } from './core';
 import { routes } from './pages';
 import { ChatPageEvent } from './pages/ChatPage/ChatPage';
