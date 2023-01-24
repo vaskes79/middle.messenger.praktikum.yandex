@@ -42,7 +42,7 @@ export function createPage(options: CreatePageOptions) {
       return attributes;
     }
 
-    attributeChangedCallback(name: string, oldValue: string, newValue: sring) {
+    attributeChangedCallback(name: string, oldValue: string, newValue: string) {
       if (attributeChangedCallback) {
         attributeChangedCallback(name, oldValue, newValue);
       }
