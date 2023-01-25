@@ -1,11 +1,13 @@
 import { ModalEvents } from '../components/Modal';
 import { ChatPageEvent } from '../pages/ChatPage/ChatPage';
 import { PageEvents } from '../types/Page';
+import { BaseComponentEvents } from './BaseComponent';
 
 export type EventName =
   | keyof GlobalEventHandlersEventMap
   | `${ChatPageEvent}`
   | `${PageEvents}`
+  | `${BaseComponentEvents}`
   | `${ModalEvents}`;
 
 export type Callback<T = any> = (...args: T[]) => void;

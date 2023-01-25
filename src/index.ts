@@ -1,26 +1,26 @@
 import './components';
 import './pages';
-import { EventBus } from './core';
-import { routes } from './pages';
-import { ChatPageEvent } from './pages/ChatPage/ChatPage';
 import { Paths } from './types';
+import { BaseComponentEvents, EventBus } from './core';
+import { routes } from './pages';
 import { checkExistPath, cretaDemoContent } from './utils';
 
+const eventBus = EventBus.getInstance();
 const root = document.getElementById('root');
 const path = window.location.pathname;
 const pathExist = checkExistPath(path);
 
+eventBus.on(BaseComponentEvents.MOUNT, (name: string) => {
+  console.log(`Component ${name} MOUNT`);
+});
+
+eventBus.on(BaseComponentEvents.UNMOUNT, (name: string) => {
+  console.log(`Component ${name} UNMOUNT`);
+});
+
 if (root) {
   if (pathExist) {
     root.insertAdjacentHTML('afterbegin', routes[path as Paths]);
-    const eventBus = EventBus.getInstance();
-
-    const obj = {
-      route: '/',
-      value: 1
-    };
-
-    eventBus.emmit(ChatPageEvent.CHATPAGE_MOUNT, obj);
   }
 
   if (!pathExist) {
