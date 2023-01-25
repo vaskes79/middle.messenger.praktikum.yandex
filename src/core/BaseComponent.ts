@@ -1,89 +1,102 @@
-import { Handlers, AttributeChangedCallback } from '../types';
+import { Handlers } from '../types';
+import { EventBus } from './EventBus';
 
-export interface createBaseComponeOptions {
+export type AttributeChangedCallback = (name: string, oldValue: string, newValue: string) => void;
+
+type RemoveEventListener = () => void;
+
+export interface BaseComponentOptions {
   html: string;
   tagName: string;
   css?: string;
   handlers?: Handlers[];
   attributes?: string[];
-  attributeChangedCallback?: AttributeChangedCallback;
   connectedCallbackMixin?: () => void;
+  attributeChangedCallback?: AttributeChangedCallback;
   disconnectedCallbackMixin?: () => void;
 }
-/**
- * @description: Create custom element for pages
- */
-export function createBaseCompone(options: createBaseComponeOptions) {
-  const {
-    html,
-    tagName,
-    css,
-    handlers,
-    attributes = [],
-    attributeChangedCallback,
-    connectedCallbackMixin,
-    disconnectedCallbackMixin
-  } = options;
 
-  class Page extends HTMLElement {
-    private _removeEventListeners: () => void;
+export enum BaseComponentEvents {
+  MOUNT = 'component:mount',
+  UNMOUNT = 'component:unmount'
+}
 
-    constructor() {
-      super();
-      this.attachShadow({ mode: 'open' });
-      if (this.shadowRoot) {
-        this.shadowRoot.innerHTML = css ? `<style>${css}</style>${html}` : html;
-      }
+export abstract class BaseComponent extends HTMLElement {
+  protected static _attributes: string[];
+  protected _removeEventListener: RemoveEventListener;
+  protected _handlers: Handlers[];
+  protected _eventBuss: EventBus;
+  protected _connectedCallbackMixin: () => void;
+  protected _disconnectedCallbackMixin: () => void;
+  static tagName: string;
+
+  constructor(options: BaseComponentOptions) {
+    super();
+    const {
+      html,
+      tagName = 'base-component',
+      css,
+      attributes = [],
+      handlers = [],
+      connectedCallbackMixin = () => {},
+      disconnectedCallbackMixin = () => {}
+    } = options;
+    this.attachShadow({ mode: 'open' });
+    if (!this.shadowRoot) {
+      this.errorHandler('Error: this.shadowRoot is not exist');
     }
-
-    static get observedAttributes() {
-      return attributes;
-    }
-
-    attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-      if (attributeChangedCallback) {
-        attributeChangedCallback(name, oldValue, newValue);
-      }
-    }
-
-    _addEventListeners = () => {
-      if (!this.shadowRoot) {
-        throw Error('Error: no shadowRoot');
-      }
-      if (!handlers) {
-        throw Error('Error: no handlers');
-      }
-      handlers.forEach((handle) => {
-        this.shadowRoot
-          ?.querySelector(handle.selector)
-          ?.addEventListener(handle.event, handle.handler);
-      });
-
-      return () => {
-        handlers.forEach((handle) => {
-          this.shadowRoot
-            ?.querySelector(handle.selector)
-            ?.removeEventListener(handle.event, handle.handler);
-        });
-      };
-    };
-
-    connectedCallback() {
-      if (this.shadowRoot) {
-        this._removeEventListeners = this._addEventListeners();
-      }
-      if (connectedCallbackMixin) {
-        connectedCallbackMixin();
-      }
-    }
-
-    disconnectedCallback() {
-      this._removeEventListeners();
-      if (disconnectedCallbackMixin) {
-        disconnectedCallbackMixin();
-      }
-    }
+    (this.shadowRoot as ShadowRoot).innerHTML = css ? `<style>${css}</style>${html}` : html;
+    BaseComponent._attributes = attributes;
+    BaseComponent.tagName = tagName;
+    this._handlers = handlers;
+    this._eventBuss = EventBus.getInstance();
+    this._connectedCallbackMixin = connectedCallbackMixin.bind(this);
+    this._disconnectedCallbackMixin = disconnectedCallbackMixin.bind(this);
   }
 
-  return customElements.define(tagName, Page);
+  protected static get observedAttributes() {
+    return BaseComponent._attributes;
+  }
+
+  abstract attributeChangedCallback(name: string, oldValue: string, newValue: string): void;
+
+  errorHandler = (msg: string) => {
+    msg = msg || 'Error: BaseComponent';
+    // todo: add this._eventBuss.emmit('error', msg)
+    throw Error(msg);
+  };
+
+  _addEventListeners() {
+    if (!this.shadowRoot) {
+      this.errorHandler('Error: no shadowRoot');
+    }
+    if (!this._handlers) {
+      this.errorHandler('Error: no handlers');
+    }
+    this._handlers.forEach((handle) => {
+      this.shadowRoot
+        ?.querySelector(handle.selector)
+        ?.addEventListener(handle.event, handle.handler);
+    });
+
+    return () => {
+      this._handlers.forEach((handle) => {
+        this.shadowRoot
+          ?.querySelector(handle.selector)
+          ?.removeEventListener(handle.event, handle.handler);
+      });
+    };
+  }
+
+  connectedCallback() {
+    this._connectedCallbackMixin();
+    this._eventBuss.emmit(BaseComponentEvents.MOUNT, BaseComponent.tagName);
+    this._removeEventListener = this._addEventListeners();
+  }
+
+  disconnectedCallback() {
+    this._disconnectedCallbackMixin();
+    this._eventBuss.emmit(BaseComponentEvents.UNMOUNT, BaseComponent.tagName);
+    this._removeEventListener;
+  }
 }
