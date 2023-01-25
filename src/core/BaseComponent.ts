@@ -11,7 +11,7 @@ export interface BaseComponentOptions {
   css?: string;
   handlers?: Handlers[];
   attributes?: string[];
-  connectedCallbackMixin?: (root: ShadowRoot) => void;
+  connectedCallbackMixin?: (root?: ShadowRoot) => void;
   disconnectedCallbackMixin?: (root?: ShadowRoot) => void;
   attributeChangedCallback?: AttributeChangedCallback;
 }
@@ -26,7 +26,7 @@ export abstract class BaseComponent extends HTMLElement {
   protected _removeEventListener: RemoveEventListener;
   protected _handlers: Handlers[];
   protected _eventBuss: EventBus;
-  protected _connectedCallbackMixin: (root: ShadowRoot) => void;
+  protected _connectedCallbackMixin: (root?: ShadowRoot | null) => void;
   protected _disconnectedCallbackMixin: (root?: ShadowRoot | null) => void;
   static tagName: string;
 
@@ -58,7 +58,11 @@ export abstract class BaseComponent extends HTMLElement {
     return BaseComponent._attributes;
   }
 
-  abstract attributeChangedCallback(name: string, oldValue: string, newValue: string): void;
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    if (name === 'name' && oldValue !== newValue) {
+      console.log({ name, oldValue, newValue });
+    }
+  }
 
   errorHandler = (msg: string) => {
     msg = msg || 'Error: BaseComponent';
@@ -89,9 +93,7 @@ export abstract class BaseComponent extends HTMLElement {
   }
 
   connectedCallback() {
-    if (this.shadowRoot) {
-      this._connectedCallbackMixin(this.shadowRoot);
-    }
+    this._connectedCallbackMixin(this.shadowRoot);
     this._eventBuss.emmit(BaseComponentEvents.MOUNT, BaseComponent.tagName);
     this._removeEventListener = this._addEventListeners();
   }
