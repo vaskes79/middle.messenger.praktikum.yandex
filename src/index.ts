@@ -1,22 +1,15 @@
 import './components';
 import './pages';
 import { Paths } from './types';
-import { BaseComponentEvents, EventBus } from './core';
 import { routes } from './pages';
 import { checkExistPath, cretaDemoContent } from './utils';
+import { setupRootEventListeners } from './initHandlers';
 
-const eventBus = EventBus.getInstance();
+setupRootEventListeners();
+
 const root = document.getElementById('root');
 const path = window.location.pathname;
 const pathExist = checkExistPath(path);
-
-eventBus.on(BaseComponentEvents.MOUNT, (name: string) => {
-  console.log(`Component ${name} MOUNT`);
-});
-
-eventBus.on(BaseComponentEvents.UNMOUNT, (name: string) => {
-  console.log(`Component ${name} UNMOUNT`);
-});
 
 if (root) {
   if (pathExist) {
