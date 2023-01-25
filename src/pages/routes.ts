@@ -1,9 +1,7 @@
-import ChatPage from './ChatPage';
-
 import { Paths } from '../types';
 
 export const routes = {
-  [Paths.home]: ChatPage,
+  [Paths.home]: `<ypr-chat-page></ypr-chat-page>`,
   [Paths.dev]: `<ypr-dev-page id="ypr-dev-page"></ypr-dev-page>`,
   [Paths.signIn]: `<ypr-signin-page></ypr-signin-page>`,
   [Paths.signUp]: `<ypr-signup-page></ypr-signup-page>`,
