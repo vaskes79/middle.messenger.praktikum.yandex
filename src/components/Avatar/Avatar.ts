@@ -2,11 +2,9 @@ import html from 'bundle-text:./Avatar.html';
 import css from 'bundle-text:./Avatar.css';
 import { BaseComponent } from '../../core';
 import { StatusUser } from '../Status';
-import { handlers } from './handlers';
 import defaultAvatar from './default-avatar.svg';
-import { connectedCallbackMixin } from './connectedCallbackMixin';
 
-const TAG = 'ypr-avatar';
+const tagName = 'ypr-avatar';
 
 export class Avatar extends BaseComponent {
   _imgUrl: string = defaultAvatar;
@@ -19,7 +17,16 @@ export class Avatar extends BaseComponent {
   _statusUserEl: StatusUser;
 
   constructor() {
-    super({ html, tagName: TAG, css, handlers, connectedCallbackMixin });
+    super({ html, css, tagName });
+    if (this.shadowRoot) {
+      this._img = this.shadowRoot.querySelector('.img') as HTMLImageElement;
+      this._container = this.shadowRoot.querySelector('.container') as HTMLDivElement;
+      this._nameEl = this.shadowRoot.querySelector('.name') as HTMLElement;
+      this._statusUserEl = this.shadowRoot.querySelector('ypr-status-user') as StatusUser;
+      this._statusUserEl.setAttribute('status', 'ofline');
+      this._imgUrl = this.getAttribute('imgurl') || this._imgUrl;
+      this._img.setAttribute('src', this._imgUrl);
+    }
   }
 
   static get observedAttributes() {
@@ -58,4 +65,4 @@ export class Avatar extends BaseComponent {
   };
 }
 
-export default customElements.define(TAG, Avatar);
+export default customElements.define(tagName, Avatar);
