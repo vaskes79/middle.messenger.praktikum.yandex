@@ -11,9 +11,9 @@ export interface BaseComponentOptions {
   css?: string;
   handlers?: Handlers[];
   attributes?: string[];
-  connectedCallbackMixin?: () => void;
+  connectedCallbackMixin?: (root: ShadowRoot) => void;
+  disconnectedCallbackMixin?: (root?: ShadowRoot) => void;
   attributeChangedCallback?: AttributeChangedCallback;
-  disconnectedCallbackMixin?: () => void;
 }
 
 export enum BaseComponentEvents {
@@ -26,8 +26,8 @@ export abstract class BaseComponent extends HTMLElement {
   protected _removeEventListener: RemoveEventListener;
   protected _handlers: Handlers[];
   protected _eventBuss: EventBus;
-  protected _connectedCallbackMixin: () => void;
-  protected _disconnectedCallbackMixin: () => void;
+  protected _connectedCallbackMixin: (root: ShadowRoot) => void;
+  protected _disconnectedCallbackMixin: (root?: ShadowRoot | null) => void;
   static tagName: string;
 
   constructor(options: BaseComponentOptions) {
@@ -89,13 +89,15 @@ export abstract class BaseComponent extends HTMLElement {
   }
 
   connectedCallback() {
-    this._connectedCallbackMixin();
+    if (this.shadowRoot) {
+      this._connectedCallbackMixin(this.shadowRoot);
+    }
     this._eventBuss.emmit(BaseComponentEvents.MOUNT, BaseComponent.tagName);
     this._removeEventListener = this._addEventListeners();
   }
 
   disconnectedCallback() {
-    this._disconnectedCallbackMixin();
+    this._disconnectedCallbackMixin(this.shadowRoot);
     this._eventBuss.emmit(BaseComponentEvents.UNMOUNT, BaseComponent.tagName);
     this._removeEventListener;
   }
