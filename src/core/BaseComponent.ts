@@ -21,7 +21,6 @@ export enum BaseComponentEvents {
   UNMOUNT = 'component:unmount'
 }
 
-export abstract class BaseComponent extends HTMLElement {
 export abstract class BaseComponent<TData = {}> extends HTMLElement {
   protected static _attributes: string[];
   protected _root: ShadowRoot;
@@ -46,10 +45,8 @@ export abstract class BaseComponent<TData = {}> extends HTMLElement {
     } = options;
     this.attachShadow({ mode: 'open' });
     if (!this.shadowRoot) {
-      this.errorHandler('Error: this.shadowRoot is not exist');
       return this.errorHandler('Error: this.shadowRoot is not exist');
     }
-    (this.shadowRoot as ShadowRoot).innerHTML = css ? `<style>${css}</style>${html}` : html;
     this._root = this.shadowRoot;
     this._root.innerHTML = css ? `<style>${css}</style>${html}` : html;
     BaseComponent._attributes = attributes;
@@ -106,14 +103,19 @@ export abstract class BaseComponent<TData = {}> extends HTMLElement {
     };
   }
 
+  protected _mount(): void {}
+  protected _unmount(): void {}
+
   connectedCallback() {
     this._connectedCallbackMixin(this.shadowRoot);
+    this._mount();
     this._eventBuss.emmit(BaseComponentEvents.MOUNT, BaseComponent.tagName);
     this._removeEventListener = this._addEventListeners();
   }
 
   disconnectedCallback() {
     this._disconnectedCallbackMixin(this.shadowRoot);
+    this._unmount();
     this._eventBuss.emmit(BaseComponentEvents.UNMOUNT, BaseComponent.tagName);
     this._removeEventListener;
   }
