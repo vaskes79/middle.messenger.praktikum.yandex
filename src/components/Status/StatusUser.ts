@@ -1,18 +1,17 @@
 import html from 'bundle-text:./StatusUser.html';
+import css from 'bundle-text:./StatusUser.css';
+import { BaseComponent } from '../../core';
 
 export type StatusUserValue = 'online' | 'ofline' | 'empty' | 'not-set';
 
-export class StatusUser extends HTMLElement {
+const tagName = 'ypr-status-user';
+
+export class StatusUser extends BaseComponent {
   _container: HTMLElement | null;
 
   constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-
-    if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = html;
-      this._container = this.shadowRoot.querySelector('.container');
-    }
+    super({ html, css, tagName });
+    this._container = this._root.querySelector('.container');
   }
 
   static get observedAttributes() {
@@ -35,4 +34,4 @@ export class StatusUser extends HTMLElement {
   }
 }
 
-export default customElements.define('ypr-status-user', StatusUser);
+export default customElements.define(tagName, StatusUser);

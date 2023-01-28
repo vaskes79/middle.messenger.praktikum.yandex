@@ -1,0 +1,22 @@
+.container {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gray-500);
+}
+
+.not-set {
+  background: var(--gray-500);
+}
+
+.online {
+  background: var(--green-600);
+}
+
+.empty {
+  background: var(--orange-500);
+}
+
+.ofline {
+  background: var(--red-600);
+}
