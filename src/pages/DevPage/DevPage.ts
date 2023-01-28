@@ -1,5 +1,5 @@
 import html from 'bundle-text:./DevPage.html';
-import { createPage } from '../../core/CreatePage';
+import { createPage } from '../../core';
 import { attributeChangedCallback } from './attributeChangedCallback';
 import { handlers } from './handlers';
 
