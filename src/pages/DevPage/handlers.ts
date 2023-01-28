@@ -10,12 +10,36 @@ type TodoItem = {
   userId: number;
 };
 
-type DTOTodoItem = Omit<TodoItem, 'id'>;
-
 const handleModal = () => {
   eventBuss.emmit('modal:open', 'id');
 };
 
+export const handlers: Handlers[] = [
+  {
+    event: 'click',
+    selector: '#openModalBtn',
+    handler: () => handleModal()
+  },
+  {
+    event: 'click',
+    selector: '#btn',
+    handler: () => {
+      console.log('testGetRequest');
+      // testGetRequest();
+      // testPostRequest();
+      // testPutRequest();
+      testDeleteRequest();
+    }
+  }
+];
+
+async function testDeleteRequest() {
+  const data = await HTTPTransport.DELETE('https://jsonplaceholder.typicode.com/posts/1');
+
+  console.log(data);
+}
+
+// type DTOTodoItem = Omit<TodoItem, 'id'>;
 // async function testGetRequest() {
 //   const data = await HTTPTransport.GET<TodoItem>('https://jsonplaceholder.typicode.com/posts/1');
 //   console.log({ data });
@@ -35,34 +59,16 @@ const handleModal = () => {
 //   console.log({ data });
 // }
 
-async function testPutRequest() {
-  const data = await HTTPTransport.PUT<DTOTodoItem, { id: number }>(
-    'https://jsonplaceholder.typicode.com/posts/1',
-    {
-      data: {
-        title: 'foo000',
-        body: 'bar',
-        userId: 1
-      }
-    }
-  );
-  console.log({ data });
-}
-
-export const handlers: Handlers[] = [
-  {
-    event: 'click',
-    selector: '#openModalBtn',
-    handler: () => handleModal()
-  },
-  {
-    event: 'click',
-    selector: '#btn',
-    handler: () => {
-      console.log('testGetRequest');
-      // testGetRequest();
-      // testPostRequest();
-      testPutRequest();
-    }
-  }
-];
+// async function testPutRequest() {
+//   const data = await HTTPTransport.PUT<DTOTodoItem, { id: number }>(
+//     'https://jsonplaceholder.typicode.com/posts/1',
+//     {
+//       data: {
+//         title: 'foo000',
+//         body: 'bar',
+//         userId: 1
+//       }
+//     }
+//   );
+//   console.log({ data });
+// }
