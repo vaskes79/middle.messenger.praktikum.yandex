@@ -97,4 +97,10 @@ export class HTTPTransport {
       }
     });
   }
+
+  static DELETE<TReq = unknown, TRes = unknown>(url: string): Promise<TRes> {
+    return HTTPTransport._instance._request<TReq, TRes>(url, {
+      method: METHOD.DELETE
+    });
+  }
 }
