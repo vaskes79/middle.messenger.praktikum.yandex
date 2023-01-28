@@ -1,5 +1,5 @@
 import { EventBus } from '../../core';
-import { HTTPTransport } from '../../core/HTTPTransport';
+import { HTTPTransport } from '../../core';
 import { Handlers } from '../../types';
 
 const eventBuss = EventBus.getInstance();
