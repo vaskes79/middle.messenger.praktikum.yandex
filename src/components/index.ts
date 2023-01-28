@@ -1,6 +1,5 @@
 import './Layout';
 import './Avatar';
-import './Colors';
 import './Modal';
 import './Icons';
 import './ChatItem';
