@@ -22,12 +22,14 @@ export enum BaseComponentEvents {
 }
 
 export abstract class BaseComponent extends HTMLElement {
+export abstract class BaseComponent<TData = {}> extends HTMLElement {
   protected static _attributes: string[];
   protected _removeEventListener: RemoveEventListener;
   protected _handlers: Handlers[];
   protected _eventBuss: EventBus;
   protected _connectedCallbackMixin: (root?: ShadowRoot | null) => void;
   protected _disconnectedCallbackMixin: (root?: ShadowRoot | null) => void;
+  protected _data: TData;
   static tagName: string;
 
   constructor(options: BaseComponentOptions) {
@@ -56,6 +58,14 @@ export abstract class BaseComponent extends HTMLElement {
 
   protected static get observedAttributes() {
     return BaseComponent._attributes;
+  }
+
+  get data() {
+    return this._data;
+  }
+
+  set data(data: TData) {
+    this._data = data;
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
