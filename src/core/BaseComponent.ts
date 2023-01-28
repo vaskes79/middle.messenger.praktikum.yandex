@@ -21,7 +21,7 @@ export enum BaseComponentEvents {
   UNMOUNT = 'component:unmount'
 }
 
-export abstract class BaseComponent<TData = {}> extends HTMLElement {
+export abstract class BaseComponent<TData = unknown> extends HTMLElement {
   protected static _attributes: string[];
   protected _root: ShadowRoot;
   protected _removeEventListener: RemoveEventListener;
@@ -40,8 +40,8 @@ export abstract class BaseComponent<TData = {}> extends HTMLElement {
       css,
       attributes = [],
       handlers = [],
-      connectedCallbackMixin = () => {},
-      disconnectedCallbackMixin = () => {}
+      connectedCallbackMixin,
+      disconnectedCallbackMixin
     } = options;
     this.attachShadow({ mode: 'open' });
     if (!this.shadowRoot) {
@@ -53,8 +53,12 @@ export abstract class BaseComponent<TData = {}> extends HTMLElement {
     BaseComponent.tagName = tagName;
     this._handlers = handlers;
     this._eventBuss = EventBus.getInstance();
-    this._connectedCallbackMixin = connectedCallbackMixin.bind(this);
-    this._disconnectedCallbackMixin = disconnectedCallbackMixin.bind(this);
+    if (connectedCallbackMixin) {
+      this._connectedCallbackMixin = connectedCallbackMixin.bind(this);
+    }
+    if (disconnectedCallbackMixin) {
+      this._disconnectedCallbackMixin = disconnectedCallbackMixin.bind(this);
+    }
   }
 
   protected static get observedAttributes() {
@@ -100,18 +104,26 @@ export abstract class BaseComponent<TData = {}> extends HTMLElement {
     };
   }
 
-  protected _mount(): void {}
-  protected _unmount(): void {}
+  protected _mount(): void {
+    console.log('_mount');
+  }
+  protected _unmount(): void {
+    console.log('_unmount');
+  }
 
   connectedCallback() {
-    this._connectedCallbackMixin(this._root);
+    if (this._connectedCallbackMixin) {
+      this._connectedCallbackMixin(this._root);
+    }
     this._mount();
     this._eventBuss.emmit(BaseComponentEvents.MOUNT, BaseComponent.tagName);
     this._removeEventListener = this._addEventListeners();
   }
 
   disconnectedCallback() {
-    this._disconnectedCallbackMixin(this._root);
+    if (this._disconnectedCallbackMixin) {
+      this._disconnectedCallbackMixin(this._root);
+    }
     this._unmount();
     this._eventBuss.emmit(BaseComponentEvents.UNMOUNT, BaseComponent.tagName);
     this._removeEventListener;

@@ -10,7 +10,7 @@ export type EventName =
   | `${LayoutEvents}`
   | `${ModalEvents}`;
 
-export type Callback<T = any> = (...args: T[]) => void;
+export type Callback<T = unknown> = (...args: T[]) => void;
 type ListenersList = Record<EventName, Callback[]>;
 
 export class EventBus {
