@@ -16,8 +16,6 @@ type Options<TData = unknown> = {
 
 type OptionsWithoutMethod<TData> = Omit<Options<TData>, 'method'>;
 
-type Req = Document | XMLHttpRequestBodyInit | null | undefined;
-
 export class HTTPTransport {
   private static _instance: HTTPTransport = new HTTPTransport();
 
@@ -44,7 +42,6 @@ export class HTTPTransport {
     url: string,
     options: Options<TRes> = { method: METHOD.GET }
   ): Promise<TReq> {
-    const { method, data } = options;
     const { method, data, headers } = options;
 
     return new Promise((resolve, reject) => {
@@ -81,7 +78,23 @@ export class HTTPTransport {
   ): Promise<TRes> {
     return HTTPTransport._instance._request<TReq, TRes>(url, {
       method: METHOD.POST,
-      data: options.data
+      data: options.data,
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      }
+    });
+  }
+
+  static PUT<TReq = unknown, TRes = unknown>(
+    url: string,
+    options: OptionsWithoutMethod<TReq>
+  ): Promise<TRes> {
+    return HTTPTransport._instance._request<TReq, TRes>(url, {
+      method: METHOD.PUT,
+      data: options.data,
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      }
     });
   }
 }
