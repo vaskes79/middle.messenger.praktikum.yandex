@@ -3,12 +3,6 @@ import { HTTPTransport } from '../../core';
 import { Handlers } from '../../types';
 
 const eventBuss = EventBus.getInstance();
-type TodoItem = {
-  id: number;
-  title: string;
-  body: string;
-  userId: number;
-};
 
 const handleModal = () => {
   eventBuss.emmit('modal:open', 'id');
@@ -28,16 +22,33 @@ export const handlers: Handlers[] = [
       // testGetRequest();
       // testPostRequest();
       // testPutRequest();
-      testDeleteRequest();
+      // testDeleteRequest();
+      testGetWithParams();
     }
   }
 ];
 
-async function testDeleteRequest() {
-  const data = await HTTPTransport.DELETE('https://jsonplaceholder.typicode.com/posts/1');
+async function testGetWithParams() {
+  const data = await HTTPTransport.GET<{ userId: number }>(
+    'https://jsonplaceholder.typicode.com/posts',
+    { userId: 1 }
+  );
 
   console.log(data);
 }
+
+// async function testDeleteRequest() {
+//   const data = await HTTPTransport.DELETE('https://jsonplaceholder.typicode.com/posts/1');
+
+//   console.log(data);
+// }
+
+// type TodoItem = {
+//   id: number;
+//   title: string;
+//   body: string;
+//   userId: number;
+// };
 
 // type DTOTodoItem = Omit<TodoItem, 'id'>;
 // async function testGetRequest() {
