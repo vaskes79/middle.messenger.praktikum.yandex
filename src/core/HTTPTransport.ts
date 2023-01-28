@@ -68,7 +68,11 @@ export class HTTPTransport {
       }
     });
   }
-  static GET<TReq = unknown>(url: string): Promise<TReq> {
+  static GET<TReq = unknown>(url: string, data?: TReq): Promise<TReq> {
+    if (data) {
+      const params = new URLSearchParams(data);
+      url = `${url}?${params}`;
+    }
     return HTTPTransport._instance._request<null, TReq>(url);
   }
 
