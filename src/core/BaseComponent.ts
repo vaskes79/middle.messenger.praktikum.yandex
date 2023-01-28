@@ -82,21 +82,18 @@ export abstract class BaseComponent<TData = {}> extends HTMLElement {
   };
 
   _addEventListeners() {
-    if (!this.shadowRoot) {
-      this.errorHandler('Error: no shadowRoot');
-    }
     if (!this._handlers) {
       this.errorHandler('Error: no handlers');
     }
     this._handlers.forEach((handle) => {
-      this.shadowRoot
+      this._root
         ?.querySelector(handle.selector)
         ?.addEventListener(handle.event, handle.handler);
     });
 
     return () => {
       this._handlers.forEach((handle) => {
-        this.shadowRoot
+        this._root
           ?.querySelector(handle.selector)
           ?.removeEventListener(handle.event, handle.handler);
       });
@@ -107,14 +104,14 @@ export abstract class BaseComponent<TData = {}> extends HTMLElement {
   protected _unmount(): void {}
 
   connectedCallback() {
-    this._connectedCallbackMixin(this.shadowRoot);
+    this._connectedCallbackMixin(this._root);
     this._mount();
     this._eventBuss.emmit(BaseComponentEvents.MOUNT, BaseComponent.tagName);
     this._removeEventListener = this._addEventListeners();
   }
 
   disconnectedCallback() {
-    this._disconnectedCallbackMixin(this.shadowRoot);
+    this._disconnectedCallbackMixin(this._root);
     this._unmount();
     this._eventBuss.emmit(BaseComponentEvents.UNMOUNT, BaseComponent.tagName);
     this._removeEventListener;
