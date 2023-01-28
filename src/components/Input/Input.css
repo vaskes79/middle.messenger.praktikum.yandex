@@ -3,7 +3,6 @@
   --color: var(--gray-500);
   --color-active: var(--blue-500);
   --icon-c: var(--color);
-
   --error-c: var(--red-700);
 }
 
@@ -17,7 +16,6 @@
     'line line'
     'details details';
   grid-template-columns: 1fr var(--icon-grid-width);
-  grid-template-rows: auto;
   gap: 4px;
   align-items: center;
   font-size: var(--x-small-fs);
@@ -29,7 +27,6 @@
 
 .container--icon {
   grid-template-columns: var(--icon-grid-width) 1fr var(--icon-grid-width);
-  grid-template-rows: auto;
   grid-template-areas:
     '. label labelRight'
     'iconLeft input iconRight'
@@ -152,7 +149,7 @@ input:focus {
 
 /* .container:focus-within .details {
     opacity: 1;
-  }*/
+  } */
 
 .require {
   font-weight: 800;
