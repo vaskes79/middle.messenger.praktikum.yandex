@@ -2,7 +2,7 @@ import './components';
 import './pages';
 import { Paths } from './types';
 import { routes } from './pages';
-import { checkExistPath, cretaDemoContent } from './utils';
+import { checkExistPath } from './utils';
 import { setupRootEventListeners } from './initHandlers';
 
 setupRootEventListeners();
@@ -20,5 +20,3 @@ if (root) {
     root.insertAdjacentHTML('afterbegin', routes[Paths.error404]);
   }
 }
-
-cretaDemoContent();
