@@ -1,14 +1,5 @@
 import '../components';
-import { ChatItemData, ChatItem } from '../components/ChatItem';
-import { chatListData } from '../components/ChatItem/data';
 import { togglePanel } from '../components/Layout/actions';
-import { MessageItem, MessageItemData } from '../components/MessageItem';
-import { messageItemList } from '../components/MessageItem/data';
-import { EventBus } from '../core';
-import { ChatPageEvent } from '../pages/ChatPage/ChatPage';
-import { generateCotnent } from '../utils';
-
-const eventBus = EventBus.getInstance();
 
 function clearChat() {
   const btnClearChat = document.getElementById('btnClearChat');
@@ -36,7 +27,6 @@ export function cretaDemoContent() {
 
   btnOpenChatSettings?.addEventListener('click', () => {
     togglePanel('chatsettings');
-    eventBus.emmit(ChatPageEvent.CHATPAGE_UNMOUNT);
   });
 
   btnOpenChatList?.addEventListener('click', () => {
@@ -62,6 +52,4 @@ export function cretaDemoContent() {
   // research watch attributes
 
   clearChat();
-  generateCotnent<MessageItem, MessageItemData>('chat-main', 'ypr-message-item', messageItemList);
-  generateCotnent<ChatItem, ChatItemData>('chatlist-main', 'ypr-chat-item', chatListData);
 }
