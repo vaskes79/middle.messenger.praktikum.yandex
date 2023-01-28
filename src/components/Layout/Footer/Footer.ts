@@ -1,13 +1,13 @@
 import html from 'bundle-text:./Footer.html';
+import css from 'bundle-text:./Footer.css';
+import { BaseComponent } from '../../../core';
 
-export class Footer extends HTMLElement {
+const tagName = 'ypr-footer';
+
+export class Footer extends BaseComponent {
   constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-    if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = html;
-    }
+    super({ html, css, tagName });
   }
 }
 
-export default customElements.define('ypr-footer', Footer);
+export default customElements.define(tagName, Footer);
