@@ -1,13 +1,13 @@
 import html from 'bundle-text:./Empty.html';
+import css from 'bundle-text:./Empty.css';
+import { BaseComponent } from '../../core';
 
-export class Empty extends HTMLElement {
+const tagName = 'ypr-empty';
+
+export class Empty extends BaseComponent {
   constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-    if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = html;
-    }
+    super({ html, css, tagName });
   }
 }
 
-export default customElements.define('ypr-empty', Empty);
+export default customElements.define(tagName, Empty);
