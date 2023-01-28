@@ -1,14 +1,13 @@
 import html from 'bundle-text:./Main.html';
+import css from 'bundle-text:./Main.css';
+import { BaseComponent } from '../../../core';
 
-export class Main extends HTMLElement {
+const tagName = 'ypr-main';
+
+export class Main extends BaseComponent {
   constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-
-    if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = html;
-    }
+    super({ html, css, tagName });
   }
 }
 
-export default customElements.define('ypr-main', Main);
+export default customElements.define(tagName, Main);

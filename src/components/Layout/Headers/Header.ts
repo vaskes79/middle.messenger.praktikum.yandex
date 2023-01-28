@@ -1,14 +1,13 @@
 import html from 'bundle-text:./Header.html';
+import css from 'bundle-text:./Header.css';
+import { BaseComponent } from '../../../core';
 
-class ChatlistHeader extends HTMLElement {
+const tagName = 'ypr-header';
+
+class ChatlistHeader extends BaseComponent {
   constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-
-    if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = html;
-    }
+    super({ html, css, tagName });
   }
 }
 
-export default customElements.define('ypr-header', ChatlistHeader);
+export default customElements.define(tagName, ChatlistHeader);

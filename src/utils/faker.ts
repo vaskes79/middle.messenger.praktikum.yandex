@@ -69,18 +69,18 @@ export function generateItems<Type = unknown>(itemGenerator: () => Type, itemNum
   return items;
 }
 
+type ItemT = HTMLElement & { data: unknown };
+
 // todo: check ItemDataType after eslint fix
-export function generateCotnent<ItemType extends HTMLElement, ItemDataType = unknown>(
-  selector: string,
+export function generateCotnent<ItemType extends ItemT, ItemDataType = unknown>(
+  target: HTMLElement,
   elemName: string,
   itemList: ItemDataType[]
 ) {
-  const target = document.getElementById(selector);
-
   if (target) {
     itemList.forEach((data) => {
       const elem = document.createElement(elemName) as ItemType;
-      elem.setAttribute('data', JSON.stringify(data));
+      elem.data = data;
       target.append(elem);
     });
   }

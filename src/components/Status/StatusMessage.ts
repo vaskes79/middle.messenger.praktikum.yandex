@@ -1,10 +1,14 @@
 import html from 'bundle-text:./StatusMessage.html';
+import css from 'bundle-text:./StatusMessage.css';
 import { Icon } from '../Icons';
+import { BaseComponent } from '../../core';
 
 export type StatusMessageState = 'read' | 'seen' | 'sent';
 export type AttributeNames = 'small' | 'status';
 
-export class StatusMessage extends HTMLElement {
+const tagName = 'ypr-status-message';
+
+export class StatusMessage extends BaseComponent {
   // Elements
   _icons: NodeList | null;
   _iconContainer: HTMLElement | null;
@@ -15,14 +19,10 @@ export class StatusMessage extends HTMLElement {
   status: StatusMessageState = 'sent';
 
   constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-    if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = html;
-      this._icons = this.shadowRoot.querySelectorAll<Icon>('ypr-icon');
-      this._iconContainer = this.shadowRoot.querySelector('.icon-container');
-      this._container = this.shadowRoot.querySelector('.container');
-    }
+    super({ html, css, tagName });
+    this._icons = this._root.querySelectorAll<Icon>('ypr-icon');
+    this._iconContainer = this._root.querySelector('.icon-container');
+    this._container = this._root.querySelector('.container');
   }
 
   static get observedAttributes() {
@@ -65,4 +65,4 @@ export class StatusMessage extends HTMLElement {
   };
 }
 
-export default customElements.define('ypr-status-message', StatusMessage);
+export default customElements.define(tagName, StatusMessage);

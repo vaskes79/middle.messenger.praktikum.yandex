@@ -1,10 +1,16 @@
-import { openPanel } from './actions';
 import html from 'bundle-text:./Layout.html';
 import css from 'bundle-text:./Layout.css';
+import { BaseComponent } from '../../core';
 
-const tmpl = `<style>${css}</style>${html}`;
+const tagName = 'ypr-layout';
 
-export class Layout extends HTMLElement {
+export enum LayoutEvents {
+  TOGGLE_PANEL = 'panel:toggle'
+}
+
+export type PanelNames = 'settings' | 'chatlist' | 'chatsettings';
+
+export class Layout extends BaseComponent {
   _chatlistPanel: HTMLDivElement;
   _chatPanel: HTMLDivElement;
   _settingsPanel: HTMLDivElement;
@@ -12,66 +18,62 @@ export class Layout extends HTMLElement {
   _removeEventListeners: () => void;
 
   constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
+    super({ html, css, tagName });
 
-    if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = tmpl;
-      this._chatlistPanel = this.shadowRoot.querySelector('.chatlist') as HTMLDivElement;
-      this._settingsPanel = this.shadowRoot.querySelector('.settings') as HTMLDivElement;
-      this._chatPanel = this.shadowRoot.querySelector('.chat') as HTMLDivElement;
-      this._chatSettingsPanel = this.shadowRoot.querySelector('.chatsettings') as HTMLDivElement;
-    }
-  }
-
-  connectedCallback() {
-    this._removeEventListeners = this._addEventListeners();
-  }
-
-  disconnectedCallback() {
-    this._removeEventListeners();
+    this._chatlistPanel = this._root.querySelector('.chatlist') as HTMLDivElement;
+    this._settingsPanel = this._root.querySelector('.settings') as HTMLDivElement;
+    this._chatPanel = this._root.querySelector('.chat') as HTMLDivElement;
+    this._chatSettingsPanel = this._root.querySelector('.chatsettings') as HTMLDivElement;
   }
 
   static get observedAttributes() {
     return ['activepanel'];
   }
 
-  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    console.log({ name, oldValue, newValue });
+  protected _mount(): void {
+    this._eventBuss.on('panel:toggle', (name?: PanelNames) => {
+      this._closePanel();
+      if (name) {
+        this._switchPanel(name);
+      }
+    });
   }
 
-  _switchPanel(name: string) {
-    if (name === 'settings' && this._settingsPanel) {
+  _closePanel(name?: PanelNames) {
+    switch (name) {
+      case 'settings':
+        this._settingsPanel.classList.remove('panel--open');
+        break;
+      case 'chatlist':
+        this._chatlistPanel.classList.remove('panel--open');
+        break;
+      case 'chatsettings':
+        this._chatSettingsPanel.classList.remove('panel--open');
+        break;
+      default:
+        this._chatSettingsPanel.classList.remove('panel--open');
+        this._chatlistPanel.classList.remove('panel--open');
+        this._settingsPanel.classList.remove('panel--open');
+    }
+  }
+
+  _switchPanel(name: PanelNames) {
+    if (name === 'settings') {
       this._settingsPanel.classList.toggle('panel--open');
     }
-    if (name === 'chatlist' && this._chatlistPanel) {
+    if (name === 'chatlist') {
       this._chatlistPanel.classList.toggle('panel--open');
     }
-    if (name === 'chatsettings' && this._chatSettingsPanel) {
+    if (name === 'chatsettings') {
       this._chatSettingsPanel.classList.toggle('panel--open');
     }
   }
-
-  _togglePanel = (event: CustomEventInit<{ name: string }>) => {
-    const { detail } = event;
-    if (detail) {
-      this._switchPanel(detail.name);
-    }
-  };
-
-  _addEventListeners() {
-    window.addEventListener(openPanel, this._togglePanel);
-
-    return () => {
-      window.removeEventListener(openPanel, this._togglePanel);
-    };
-  }
 }
 
-export default customElements.define('ypr-layout', Layout);
+export default customElements.define(tagName, Layout);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ypr-layout': Layout;
+    tagName: Layout;
   }
 }

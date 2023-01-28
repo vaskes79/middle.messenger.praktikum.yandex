@@ -1,7 +1,9 @@
 import html from 'bundle-text:./ChatItem.html';
+import css from 'bundle-text:./ChatItem.css';
 import { Avatar } from '../Avatar';
 import { defaultData } from './data';
 import type { StatusUserValue, StatusMessageState, StatusMessage } from '../Status';
+import { BaseComponent } from '../../core';
 
 export interface ChatItemData {
   name: string;
@@ -13,67 +15,38 @@ export interface ChatItemData {
   conterMessages: string | number;
 }
 
-export class ChatItem extends HTMLElement {
-  _avatarEl: Avatar | null;
-  _messageStatusEl: StatusMessage | null;
-  _lastMessageEl: HTMLSpanElement | null;
-  _timeEl: HTMLSpanElement | null;
-  _counterMessageEl: HTMLSpanElement | null;
-  _titleEl: HTMLHeadingElement | null;
-  data: ChatItemData = defaultData;
+const tagName = 'ypr-chat-item';
+
+export class ChatItem extends BaseComponent<ChatItemData> {
+  _lastMessageEl: HTMLSpanElement;
+  _timeEl: HTMLSpanElement;
+  _counterMessageEl: HTMLSpanElement;
+  _titleEl: HTMLHeadingElement;
+  _avatarEl: Avatar;
+  _messageStatusEl: StatusMessage;
 
   constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-    if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = html;
-      this._avatarEl = this.shadowRoot.querySelector('ypr-avatar');
-      this._messageStatusEl = this.shadowRoot.querySelector('ypr-status-message');
-      this._lastMessageEl = this.shadowRoot.querySelector('.last-message');
-      this._timeEl = this.shadowRoot.querySelector('.time');
-      this._counterMessageEl = this.shadowRoot.querySelector('.counter');
-      this._titleEl = this.shadowRoot.querySelector('.title');
-    }
+    super({ html, css, tagName });
+    this._titleEl = this._root.querySelector('.title') as HTMLHeadingElement;
+    this._lastMessageEl = this._root.querySelector('.last-message') as HTMLSpanElement;
+    this._timeEl = this._root.querySelector('.time') as HTMLSpanElement;
+    this._counterMessageEl = this._root.querySelector('.counter') as HTMLSpanElement;
+    this._avatarEl = this._root.querySelector('ypr-avatar') as Avatar;
+    this._messageStatusEl = this._root.querySelector('ypr-status-message') as StatusMessage;
+
+    this._data = defaultData;
   }
 
-  connectedCallback() {
-    this._avatarEl?.setAttribute('name', this.data.name);
-    this._avatarEl?.setAttribute('status', this.data.statusUser);
-    this._avatarEl?.setAttribute('imgurl', this.data.imgurl);
-    this._messageStatusEl?.setAttribute('status', this.data.statusMessage);
-    if (this._lastMessageEl) {
-      this._lastMessageEl.textContent = this.data.lastMessage;
-    }
-    if (this._timeEl) {
-      this._timeEl.textContent = this.data.time;
-    }
-    if (this._counterMessageEl) {
-      this._counterMessageEl.textContent = `${this.data.conterMessages}`;
-    }
-    if (this._titleEl) {
-      this._titleEl.textContent = this.data.name;
-    }
-    this._updateData();
-  }
-
-  _updateData() {
-    if (this.hasAttribute('data')) {
-      const loData = this.getAttribute('data');
-      if (loData) {
-        this.data = JSON.parse(loData);
-      }
-    }
-  }
-
-  static get observedAttributes() {
-    return ['data'];
-  }
-
-  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    if (name === 'data' && oldValue !== newValue) {
-      this._updateData();
+  _mount(): void {
+    try {
+      this._lastMessageEl.textContent = this._data.lastMessage;
+      this._titleEl.textContent = this._data.name;
+      this._timeEl.textContent = this._data.time;
+      this._counterMessageEl.textContent = `${this._data.conterMessages}`;
+    } catch (error) {
+      this.errorHandler(`ChatItem: Not found element ${error}`);
     }
   }
 }
 
-export default customElements.define('ypr-chat-item', ChatItem);
+export default customElements.define(tagName, ChatItem);

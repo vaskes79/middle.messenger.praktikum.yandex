@@ -1,14 +1,16 @@
+import { LayoutEvents } from '../components/Layout';
 import { ModalEvents } from '../components/Modal';
-import { ChatPageEvent } from '../pages/ChatPage/ChatPage';
 import { PageEvents } from '../types/Page';
+import { BaseComponentEvents } from './BaseComponent';
 
 export type EventName =
   | keyof GlobalEventHandlersEventMap
-  | `${ChatPageEvent}`
   | `${PageEvents}`
+  | `${BaseComponentEvents}`
+  | `${LayoutEvents}`
   | `${ModalEvents}`;
 
-export type Callback<T = any> = (...args: T[]) => void;
+export type Callback<T = unknown> = (...args: T[]) => void;
 type ListenersList = Record<EventName, Callback[]>;
 
 export class EventBus {

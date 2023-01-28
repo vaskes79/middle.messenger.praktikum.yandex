@@ -1,12 +1,5 @@
 import html from 'bundle-text:./SignInPage.html';
 import css from 'bundle-text:./SignInPage.css';
+import { createPage } from '../../core';
 
-const tmpl = `<style>${css}</style>${html}`;
-
-function buildPage() {
-  return tmpl;
-}
-
-export function SignInPage() {
-  return buildPage();
-}
+export default createPage({ html, css, tagName: 'ypr-signin-page' });

@@ -1,26 +1,27 @@
 import html from 'bundle-text:./Icons.html';
+import css from 'bundle-text:./Icons.css';
+import { BaseComponent } from '../../core';
 import spriteUrl from './icons-sprite.svg';
 
-export class Icon extends HTMLElement {
+const tagName = 'ypr-icon';
+
+export class Icon extends BaseComponent {
   name: string;
   color: string;
   width: string;
   height: string;
-  _iconElem: HTMLElement | null;
+  _iconElem: HTMLElement;
   _iconContainer: SVGElement;
 
   constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
+    super({ html, css, tagName });
+
+    this._iconElem = this._root.getElementById('iconElem') as HTMLElement;
+    this._iconContainer = this._root.querySelector('.icon') as SVGElement;
+
     this.width = '16px';
     this.height = '16px';
     this.name = 'arrowforward';
-
-    if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = html;
-      this._iconElem = this.shadowRoot.getElementById('iconElem');
-      this._iconContainer = this.shadowRoot.querySelector('.icon') as SVGElement;
-    }
   }
 
   static get observedAttributes() {
@@ -73,4 +74,4 @@ export class Icon extends HTMLElement {
   };
 }
 
-export default customElements.define('ypr-icon', Icon);
+export default customElements.define(tagName, Icon);

@@ -1,7 +1,12 @@
 import html from 'bundle-text:./Input.html';
+import css from 'bundle-text:./Input.css';
 import { nanoid } from 'nanoid';
+import { BaseComponent } from '../../core';
+import { handlers } from './handlers';
 
-export class Input extends HTMLElement {
+const tagName = 'ypr-input';
+
+export class Input extends BaseComponent {
   _containerEl: HTMLElement;
   _infoEl: HTMLElement;
   _detailsEl: HTMLElement;
@@ -22,27 +27,17 @@ export class Input extends HTMLElement {
 
   _label = 'Input Label';
 
-  _removeEventListeners: () => void;
-
   constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-    if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = html;
-      this._containerEl = this.shadowRoot.querySelector('.container') as HTMLElement;
-      this._infoEl = this.shadowRoot.querySelector('.info') as HTMLElement;
-      this._detailsEl = this.shadowRoot.querySelector('.details') as HTMLElement;
-      this._requireEl = this.shadowRoot.querySelector('.require') as HTMLElement;
-      this._inputEl = this.shadowRoot.querySelector('input') as HTMLInputElement;
-      this._labelEl = this.shadowRoot.querySelector('.label') as HTMLElement;
-    } else {
-      throw new Error('Input Root element not found');
-    }
+    super({ html, css, tagName, handlers });
+    this._containerEl = this._root.querySelector('.container') as HTMLElement;
+    this._infoEl = this._root.querySelector('.info') as HTMLElement;
+    this._detailsEl = this._root.querySelector('.details') as HTMLElement;
+    this._requireEl = this._root.querySelector('.require') as HTMLElement;
+    this._inputEl = this._root.querySelector('input') as HTMLInputElement;
+    this._labelEl = this._root.querySelector('.label') as HTMLElement;
   }
 
-  connectedCallback() {
-    this._removeEventListeners = this._addEventListeners();
-
+  _mount() {
     if (this.hasAttribute('leftIcon')) {
       this._containerEl.classList.add('container--icon');
     }
@@ -53,10 +48,6 @@ export class Input extends HTMLElement {
     this._setupInfo();
   }
 
-  disconnectedCallback() {
-    console.log('unmount input', this);
-  }
-
   static get observedAttributes() {
     return ['error'];
   }
@@ -65,35 +56,6 @@ export class Input extends HTMLElement {
     if (name === 'error' && oldValue !== newValue) {
       this.showError(newValue);
     }
-  }
-
-  _infoMouseoverListener = () => {
-    this.showDetails();
-  };
-
-  _infoMouseleaveListener = () => {
-    this.hideDetails();
-  };
-
-  _onChangeInputListener = (e: Event) => {
-    const { target } = e;
-    this._value = (target as HTMLInputElement).value;
-    if (!this._value && this._error) {
-      this.clearError();
-    }
-    this._setupLabel();
-  };
-
-  _addEventListeners() {
-    this._infoEl.addEventListener('mouseover', this._infoMouseoverListener);
-    this._infoEl.addEventListener('mouseleave', this._infoMouseleaveListener);
-    this._inputEl.addEventListener('change', this._onChangeInputListener);
-
-    return () => {
-      this._infoEl.removeEventListener('mouseover', this._infoMouseoverListener);
-      this._infoEl.removeEventListener('mouseleave', this._infoMouseleaveListener);
-      this._inputEl.removeEventListener('change', this._onChangeInputListener);
-    };
   }
 
   _setupInput = () => {
@@ -153,15 +115,15 @@ export class Input extends HTMLElement {
     }
   };
 
-  public get name() {
+  get name() {
     return this._name;
   }
 
-  public get value() {
+  get value() {
     return this._value;
   }
 
-  public showError = (errorText?: string) => {
+  showError = (errorText?: string) => {
     this._error = true;
     this._errorContent = errorText || 'Error input';
     this._containerEl.classList.add('error');
@@ -170,7 +132,7 @@ export class Input extends HTMLElement {
     }
   };
 
-  public clearError = () => {
+  clearError = () => {
     this._containerEl.classList.remove('error');
     this.removeAttribute('error');
     this._error = false;
@@ -178,17 +140,17 @@ export class Input extends HTMLElement {
     this._detailsEl.textContent = this._detailsContent;
   };
 
-  public showDetails = () => {
+  showDetails = () => {
     if (this._detailsEl) {
       this._detailsEl.style.opacity = '1';
     }
   };
 
-  public hideDetails = () => {
+  hideDetails = () => {
     if (this._detailsEl) {
       this._detailsEl.style.opacity = '0';
     }
   };
 }
 
-export default customElements.define('ypr-input', Input);
+export default customElements.define(tagName, Input);

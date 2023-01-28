@@ -1,8 +1,12 @@
-import tmpl from 'bundle-text:./Avatar.html';
+import html from 'bundle-text:./Avatar.html';
+import css from 'bundle-text:./Avatar.css';
+import { BaseComponent } from '../../core';
 import { StatusUser } from '../Status';
 import defaultAvatar from './default-avatar.svg';
 
-export class Avatar extends HTMLElement {
+const tagName = 'ypr-avatar';
+
+export class Avatar extends BaseComponent {
   _imgUrl: string = defaultAvatar;
   _name = 'Display Name';
   _initial = 'DN';
@@ -13,17 +17,23 @@ export class Avatar extends HTMLElement {
   _statusUserEl: StatusUser;
 
   constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
+    super({ html, css, tagName });
     if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = tmpl;
+      this._img = this.shadowRoot.querySelector('.img') as HTMLImageElement;
+      this._container = this.shadowRoot.querySelector('.container') as HTMLDivElement;
+      this._nameEl = this.shadowRoot.querySelector('.name') as HTMLElement;
+      this._statusUserEl = this.shadowRoot.querySelector('ypr-status-user') as StatusUser;
+      this._statusUserEl.setAttribute('status', 'ofline');
+      this._imgUrl = this.getAttribute('imgurl') || this._imgUrl;
+      this._img.setAttribute('src', this._imgUrl);
     }
   }
+
   static get observedAttributes() {
     return ['name', 'status', 'imgurl'];
   }
 
-  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+  attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
     if (name === 'name' && oldValue !== newValue) {
       this.updateName(newValue);
     }
@@ -38,22 +48,7 @@ export class Avatar extends HTMLElement {
     }
   }
 
-  connectedCallback() {
-    if (this.shadowRoot) {
-      // set elements
-      this._img = this.shadowRoot?.querySelector('.img') as HTMLImageElement;
-      this._container = this.shadowRoot?.querySelector('.container') as HTMLDivElement;
-      this._nameEl = this.shadowRoot?.querySelector('.name') as HTMLElement;
-      this._statusUserEl = this.shadowRoot?.querySelector('ypr-status-user') as StatusUser;
-      this._statusUserEl.setAttribute('status', 'ofline');
-      this._imgUrl = this.getAttribute('imgurl') || this._imgUrl;
-      this._img.setAttribute('src', this._imgUrl);
-    }
-    this.updateName();
-  }
-
   public updateName(name?: string) {
-    // todo: check working attribute name after eslint fix
     this._name = name || this.getAttribute('name') || this._name;
     this._img.setAttribute('alt', this._name);
 
@@ -70,10 +65,4 @@ export class Avatar extends HTMLElement {
   };
 }
 
-export default customElements.define('ypr-avatar', Avatar);
-
-declare global {
-  export interface HTMLElementTagNameMap {
-    'ypr-avatar': Avatar;
-  }
-}
+export default customElements.define(tagName, Avatar);
