@@ -48,12 +48,6 @@ nav {
   font-size: 14px;
 }
 
-.footer a {
-  font-size: inherit !important;
-  text-decoration: none;
-  color: inherit;
-}
-
 a {
   color: var(--blue-500);
   text-decoration: inherit;
@@ -61,4 +55,10 @@ a {
 
 a:hover {
   color: var(--blue-700);
+}
+
+.footer a {
+  font-size: inherit !important;
+  text-decoration: none;
+  color: inherit;
 }

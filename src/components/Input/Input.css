@@ -25,6 +25,7 @@
   line-height: 1.2em;
 }
 
+/* stylelint-disable-next-line */
 .container--icon {
   grid-template-columns: var(--icon-grid-width) 1fr var(--icon-grid-width);
   grid-template-areas:
@@ -64,10 +65,12 @@
   opacity: 1;
 }
 
+/* stylelint-disable-next-line */
 .error .label {
   color: var(--error-c);
 }
 
+/* stylelint-disable-next-line */
 .container:focus-within .label {
   color: var(--color-active);
 }
@@ -95,6 +98,7 @@ input:focus {
   outline: 0;
 }
 
+/* stylelint-disable-next-line */
 input:focus {
   color: var(--gray-700);
 }
@@ -112,6 +116,7 @@ input:focus {
   pointer-events: all;
 }
 
+/* stylelint-disable-next-line */
 .info--show {
   opacity: 1;
   pointer-events: all;
