@@ -1,13 +1,13 @@
 import html from 'bundle-text:./Search.html';
+import css from 'bundle-text:./Search.css';
+import { BaseComponent } from '../../core';
 
-export class Search extends HTMLElement {
+const tagName = 'ypr-search';
+
+export class Search extends BaseComponent {
   constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-    if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = html;
-    }
+    super({ html, css, tagName });
   }
 }
 
-export default customElements.define('ypr-search', Search);
+export default customElements.define(tagName, Search);
