@@ -1,3 +1,1 @@
-import { DevPage } from './DevPage'
-
-export default DevPage();
+export * from './DevPage';

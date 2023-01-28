@@ -1,7 +1,7 @@
 class DemoContent extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: 'open' });
     if (this.shadowRoot) {
       this.shadowRoot.innerHTML = `
         <p>Lorem ipsum dolor <a href="//ya.ru" target="__blank">sit amet</a>, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem
@@ -278,7 +278,6 @@ class DemoContent extends HTMLElement {
           ullamco ut ea consectetur et est culpa et culpa duis.</p>
 `;
     }
-
   }
 }
 
@@ -286,6 +285,6 @@ export default customElements.define('ypr-content', DemoContent);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ypr-content': DemoContent
+    'ypr-content': DemoContent;
   }
 }

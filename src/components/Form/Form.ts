@@ -1,16 +1,13 @@
-import html from "bundle-text:./Form.html";
-import css from "bundle-text:./Form.css";
+import html from 'bundle-text:./Form.html';
+import css from 'bundle-text:./Form.css';
+import { BaseComponent } from '../../core';
 
-const tmpl = `<style>${css}</style>${html}`;
+const tagName = 'ypr-form';
 
-export class Form extends HTMLElement {
+export class Form extends BaseComponent {
   constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-    if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = tmpl;
-    }
+    super({ html, css, tagName });
   }
 }
 
-export default customElements.define("ypr-form", Form);
+export default customElements.define(tagName, Form);

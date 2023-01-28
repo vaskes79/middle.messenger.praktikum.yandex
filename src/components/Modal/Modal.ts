@@ -1,69 +1,49 @@
-import { tmpl } from "./Modal.tmpl";
+import html from 'bundle-text:./Modal.html';
+import css from 'bundle-text:./Modal.css';
+import { BaseComponent } from '../../core';
+import { handlers } from './handlers';
 
-class Modal extends HTMLElement {
-  _confirmBtn: HTMLButtonElement | null;
-  _cancelBtn: HTMLButtonElement | null;
-  _bg: HTMLDivElement | null;
-  _removeEventListeners: () => void;
+export enum ModalEvents {
+  OPEN = 'modal:open',
+  CLOSE = 'modal:close'
+}
 
+const tagName = 'ypr-modal';
+
+export class Modal extends BaseComponent {
   constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-    if (this.shadowRoot) {
-      this.shadowRoot.appendChild(tmpl.content.cloneNode(true));
-      this._confirmBtn = this.shadowRoot.getElementById('confirmBtn') as HTMLButtonElement;
-      this._cancelBtn = this.shadowRoot.getElementById('cancelBtn') as HTMLButtonElement;
-      this._cancelBtn = this.shadowRoot.getElementById('cancelBtn') as HTMLButtonElement;
-      this._bg = this.shadowRoot.querySelector('.bg') as HTMLDivElement;
-    }
+    super({ html, css, tagName, handlers });
   }
 
-  _closeEventListener = () => {
-    this.close();
-  }
+  protected _mount(): void {
+    this._eventBuss.on(ModalEvents.OPEN, (id: string) => {
+      this.open();
+      console.log('open:modal', id);
+    });
 
-  _addEventListeners() {
-    this._cancelBtn?.addEventListener('click', this._closeEventListener);
-    this._confirmBtn?.addEventListener('click', this._closeEventListener);
-    this._bg?.addEventListener('click', this._closeEventListener);
-
-    return () => {
-      this._cancelBtn?.removeEventListener('click', this._closeEventListener);
-      this._confirmBtn?.removeEventListener('click', this._closeEventListener)
-      this._bg?.removeEventListener('click', this._closeEventListener);
-    }
-  }
-
-  connectedCallback() {
-    this._removeEventListeners = this._addEventListeners();
-  }
-
-  disconnectedCallback() {
-    this._removeEventListeners();
+    this._eventBuss.on(ModalEvents.CLOSE, (id: string) => {
+      this.close();
+      console.log('close:modal', id);
+    });
   }
 
   static get observedAttributes() {
-    return ['open']
+    return ['open'];
   }
-
-  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    console.log({ name, oldValue, newValue });
-  }
-
 
   public open() {
-    this.setAttribute('open', '')
+    this.setAttribute('open', '');
   }
 
   public close() {
-    this.removeAttribute('open')
+    this.removeAttribute('open');
   }
 }
 
-customElements.define('ypr-modal', Modal);
+customElements.define(tagName, Modal);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ypr-modal': Modal
+    [tagName]: Modal;
   }
 }

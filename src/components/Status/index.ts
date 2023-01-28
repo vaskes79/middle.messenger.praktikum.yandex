@@ -1,2 +1,2 @@
-export * from './StatusMessage'
-export * from './StatusUser'
+export * from './StatusMessage';
+export * from './StatusUser';

@@ -1,37 +1,3 @@
-<style>
-  .container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    border-bottom: 1px solid var(--gray-400);
-    padding: 8px 0;
-  }
-
-  .title-container {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    gap: 8px;
-  }
-
-  .actions-container {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .tabs-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  ::slotted(h2) {
-    margin: 0 !important;
-  }
-</style>
 <div class="container">
   <div class="title-container">
     <slot name="title"></slot>

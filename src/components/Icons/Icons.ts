@@ -1,42 +1,43 @@
-import html from "bundle-text:./Icons.html";
-import spriteUrl from './icons-sprite.svg'
+import html from 'bundle-text:./Icons.html';
+import css from 'bundle-text:./Icons.css';
+import { BaseComponent } from '../../core';
+import spriteUrl from './icons-sprite.svg';
 
-export class Icon extends HTMLElement {
+const tagName = 'ypr-icon';
+
+export class Icon extends BaseComponent {
   name: string;
   color: string;
   width: string;
   height: string;
-  _iconElem: HTMLElement | null;
+  _iconElem: HTMLElement;
   _iconContainer: SVGElement;
 
   constructor() {
-    super()
-    this.attachShadow({ mode: "open" });
-    this.width = "16px";
-    this.height = "16px";
-    this.name = "arrowforward"
+    super({ html, css, tagName });
 
-    if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = html;
-      this._iconElem = this.shadowRoot.getElementById('iconElem');
-      this._iconContainer = this.shadowRoot.querySelector('.icon') as SVGElement;
-    }
+    this._iconElem = this._root.getElementById('iconElem') as HTMLElement;
+    this._iconContainer = this._root.querySelector('.icon') as SVGElement;
+
+    this.width = '16px';
+    this.height = '16px';
+    this.name = 'arrowforward';
   }
 
   static get observedAttributes() {
-    return ['name', 'color', 'width', 'height']
+    return ['name', 'color', 'width', 'height'];
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    if (name === "name" && oldValue !== newValue) {
+    if (name === 'name' && oldValue !== newValue) {
       this._updateIcon(newValue);
     }
 
-    if (name === "color" && oldValue !== newValue) {
+    if (name === 'color' && oldValue !== newValue) {
       this._updateColor(newValue);
     }
 
-    if (name === "width" || name === "height" && oldValue !== newValue) {
+    if (name === 'width' || (name === 'height' && oldValue !== newValue)) {
       this.updateSize({ width: newValue, height: newValue });
     }
   }
@@ -50,9 +51,9 @@ export class Icon extends HTMLElement {
       color = color || 'var(--blue-500)';
       this._iconContainer.style.fill = color;
     }
-  }
+  };
 
-  public updateSize = (size?: { width: string, height: string }) => {
+  public updateSize = (size?: { width: string; height: string }) => {
     if (this._iconContainer && size) {
       const { width, height } = size;
 
@@ -62,15 +63,15 @@ export class Icon extends HTMLElement {
 
     this._iconContainer.style.width = this.width;
     this._iconContainer.style.height = this.height;
-  }
+  };
 
   _updateIcon = (name?: string) => {
     if (this._iconElem) {
       this.name = name || this.name;
       const newIcon = spriteUrl + '#' + this.name;
-      this._iconElem.setAttribute('href', newIcon)
+      this._iconElem.setAttribute('href', newIcon);
     }
-  }
+  };
 }
 
-export default customElements.define('ypr-icon', Icon);
+export default customElements.define(tagName, Icon);

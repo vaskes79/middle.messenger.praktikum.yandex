@@ -1,13 +1,13 @@
 import html from 'bundle-text:./MessageInput.html';
+import css from 'bundle-text:./MessageInput.css';
+import { BaseComponent } from '../../core';
 
-export class MessegaInput extends HTMLElement {
+const tagName = 'ypr-message-input';
+
+export class MessegaInput extends BaseComponent {
   constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-    if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = html;
-    }
+    super({ html, css, tagName });
   }
 }
 
-export default customElements.define('ypr-message-input', MessegaInput);
+export default customElements.define(tagName, MessegaInput);

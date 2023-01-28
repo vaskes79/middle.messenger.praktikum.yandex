@@ -1,13 +1,21 @@
-import { MessageItemData } from "./MessageItem";
-import { generateItems, randomImage, randomMessage, randomOwnerMessage, randomStatusMessage, randomTime, randomTypeMessage } from "../../utils";
+import { MessageItemData } from './MessageItem';
+import {
+  generateItems,
+  randomImage,
+  randomMessage,
+  randomOwnerMessage,
+  randomStatusMessage,
+  randomTime,
+  randomTypeMessage
+} from '../../utils';
 
 function createMessageItem(): MessageItemData {
   const type = randomTypeMessage();
-  let content: string = '';
-  if (type === "text") {
+  let content = '';
+  if (type === 'text') {
     content = randomMessage();
   }
-  if (type === "image") {
+  if (type === 'image') {
     content = randomImage();
   }
   return {
@@ -16,7 +24,7 @@ function createMessageItem(): MessageItemData {
     time: randomTime(),
     status: randomStatusMessage(),
     content
-  }
+  };
 }
 
 export const messageItemList = generateItems<MessageItemData>(createMessageItem, 10);

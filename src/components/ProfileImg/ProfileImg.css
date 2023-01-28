@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  height: 90px;
+  overflow: hidden;
+  background: var(--gray-200);
+  background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M19.392 3.55556L22.32 7.11111H28.8V28.4444H3.2V7.11111H9.68L12.608 3.55556H19.392ZM20.8 0H11.2L8.272 3.55556H3.2C1.44 3.55556 0 5.15555 0 7.11111V28.4444C0 30.4 1.44 32 3.2 32H28.8C30.56 32 32 30.4 32 28.4444V7.11111C32 5.15555 30.56 3.55556 28.8 3.55556H23.728L20.8 0ZM16 12.4444C18.64 12.4444 20.8 14.8444 20.8 17.7778C20.8 20.7111 18.64 23.1111 16 23.1111C13.36 23.1111 11.2 20.7111 11.2 17.7778C11.2 14.8444 13.36 12.4444 16 12.4444ZM16 8.88889C11.584 8.88889 8 12.8711 8 17.7778C8 22.6844 11.584 26.6667 16 26.6667C20.416 26.6667 24 22.6844 24 17.7778C24 12.8711 20.416 8.88889 16 8.88889Z' fill='%23C2CAD6'/%3E%3C/svg%3E%0A");
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  transition: var(--default-transition);
+  cursor: pointer;
+}
+
+input {
+  position: absolute;
+  left: -1000px;
+  opacity: 0;
+}
+
+input:focus {
+  outline: 0;
+}
+
+.container:focus-within {
+  border: 1px solid var(--blue-500);
+}
