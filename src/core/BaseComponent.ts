@@ -88,14 +88,14 @@ export abstract class BaseComponent<TData = {}> extends HTMLElement {
     this._handlers.forEach((handle) => {
       this._root
         ?.querySelector(handle.selector)
-        ?.addEventListener(handle.event, handle.handler);
+        ?.addEventListener(handle.event, handle.handler.bind(this));
     });
 
     return () => {
       this._handlers.forEach((handle) => {
         this._root
           ?.querySelector(handle.selector)
-          ?.removeEventListener(handle.event, handle.handler);
+          ?.removeEventListener(handle.event, handle.handler.bind(this));
       });
     };
   }
