@@ -24,6 +24,7 @@ export enum BaseComponentEvents {
 export abstract class BaseComponent extends HTMLElement {
 export abstract class BaseComponent<TData = {}> extends HTMLElement {
   protected static _attributes: string[];
+  protected _root: ShadowRoot;
   protected _removeEventListener: RemoveEventListener;
   protected _handlers: Handlers[];
   protected _eventBuss: EventBus;
@@ -46,8 +47,11 @@ export abstract class BaseComponent<TData = {}> extends HTMLElement {
     this.attachShadow({ mode: 'open' });
     if (!this.shadowRoot) {
       this.errorHandler('Error: this.shadowRoot is not exist');
+      return this.errorHandler('Error: this.shadowRoot is not exist');
     }
     (this.shadowRoot as ShadowRoot).innerHTML = css ? `<style>${css}</style>${html}` : html;
+    this._root = this.shadowRoot;
+    this._root.innerHTML = css ? `<style>${css}</style>${html}` : html;
     BaseComponent._attributes = attributes;
     BaseComponent.tagName = tagName;
     this._handlers = handlers;
