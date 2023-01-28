@@ -1,6 +1,9 @@
 import html from 'bundle-text:./MessageItem.html';
-import { Elem } from '../../types/Components';
-import { StatusMessageState } from '../Status/StatusMessage';
+import css from 'bundle-text:./MessageItem.css';
+import { StatusMessage, StatusMessageState } from '../Status/StatusMessage';
+import { BaseComponent } from '../../core';
+
+const tagName = 'ypr-message-item';
 
 export type TypeContentMessage = 'text' | 'image';
 export type OwnerMessage = 'me' | 'user';
@@ -13,65 +16,44 @@ export interface MessageItemData {
   content: string;
 }
 
-export class MessageItem extends HTMLElement {
-  _containerEl: Elem;
-  _contentEl: Elem;
-  _footerEl: Elem;
-  _timeEl: Elem;
-  _statusMessageEl: Elem;
-  data: MessageItemData;
+export class MessageItem extends BaseComponent<MessageItemData> {
+  _containerEl: HTMLElement;
+  _contentEl: HTMLElement;
+  _footerEl: HTMLElement;
+  _timeEl: HTMLElement;
+  _statusMessageEl: HTMLElement;
 
   constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-    if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = html;
-      this._containerEl = this.shadowRoot.querySelector('article');
-      this._contentEl = this.shadowRoot.querySelector('.content');
-      this._footerEl = this.shadowRoot.querySelector('footer');
-      this._timeEl = this.shadowRoot.querySelector('time');
-      this._statusMessageEl = this.shadowRoot.querySelector('ypr-status-message');
-    }
+    super({ html, css, tagName });
+    this._containerEl = this._root.querySelector('article') as HTMLElement;
+    this._contentEl = this._root.querySelector('.content') as HTMLElement;
+    this._footerEl = this._root.querySelector('footer') as HTMLElement;
+    this._timeEl = this._root.querySelector('time') as HTMLElement;
+    this._statusMessageEl = this._root.querySelector('ypr-status-message') as StatusMessage;
   }
 
-  static get observedAttributes() {
-    return ['data'];
-  }
+  protected _mount(): void {
+    const { owner, time, content, status, type } = this._data;
 
-  clear = () => {
-    this._containerEl?.classList.remove('text', 'image');
-  };
-
-  updateData = (data?: MessageItemData) => {
-    data = data || this.data;
-    this.clear();
-
-    this._containerEl?.classList.add(data.type, data.owner);
+    this._containerEl?.classList.add(type, owner);
 
     if (this._timeEl) {
-      this._timeEl.innerHTML = data.time;
+      this._timeEl.innerHTML = time;
     }
 
-    if (this._contentEl && data.type === 'text') {
-      this._contentEl.textContent = data.content;
+    if (this._contentEl && type === 'text') {
+      this._contentEl.textContent = content;
     }
 
-    if (this._contentEl && data.type === 'image') {
-      this._contentEl.innerHTML = `<img src="${data.content}" alt="name"/>`;
+    if (this._contentEl && type === 'image') {
+      this._contentEl.innerHTML = `<img src="${content}" alt="name"/>`;
     }
 
     if (this._statusMessageEl) {
-      this._statusMessageEl.setAttribute('status', data.status);
+      this._statusMessageEl.setAttribute('status', status);
       this._statusMessageEl.setAttribute('small', '');
-    }
-  };
-
-  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    if (name === 'data' && oldValue !== newValue) {
-      this.data = JSON.parse(newValue);
-      this.updateData();
     }
   }
 }
 
-export default customElements.define('ypr-message-item', MessageItem);
+export default customElements.define(tagName, MessageItem);
