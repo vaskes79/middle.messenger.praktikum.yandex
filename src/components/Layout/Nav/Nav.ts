@@ -1,19 +1,19 @@
 import html from 'bundle-text:./Nav.html';
+import css from 'bundle-text:./Nav.css';
+import { BaseComponent } from '../../../core';
 
-class Nav extends HTMLElement {
+const tagName = 'ypr-nav';
+
+class Nav extends BaseComponent {
   constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-    if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = html;
-    }
+    super({ html, css, tagName });
   }
 }
 
-export default customElements.define('ypr-nav', Nav);
+export default customElements.define(tagName, Nav);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ypr-nav': Nav;
+    [tagName]: Nav;
   }
 }
