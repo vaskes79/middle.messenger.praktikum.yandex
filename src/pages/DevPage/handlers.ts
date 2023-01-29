@@ -1,5 +1,4 @@
-import { EventBus } from '../../core';
-import { HTTPTransport } from '../../core';
+import { EventBus, Validator } from '../../core';
 import { Handlers } from '../../types';
 
 const eventBuss = EventBus.getInstance();
@@ -18,68 +17,42 @@ export const handlers: Handlers[] = [
     event: 'click',
     selector: '#btn',
     handler: () => {
-      console.log('testGetRequest');
-      // testGetRequest();
-      // testPostRequest();
-      // testPutRequest();
-      // testDeleteRequest();
-      testGetWithParams();
+      checValidator();
     }
   }
 ];
 
-async function testGetWithParams() {
-  const data = await HTTPTransport.GET<{ userId: number }>(
-    'https://jsonplaceholder.typicode.com/posts',
-    { userId: 1 }
+function checValidator() {
+  const email = 'sldf-sd@sdfhsd.com';
+  const first_name = 'Vasily';
+  const second_name = 'Гузов';
+  const login = 'shfghj_dhfhdfhgert0S';
+  const wrongLogin = 'ssesdhklfjsdkhfklsdjfklshdfsdf';
+  const pass40 = 'CfGHGj2Lj3qwUKhB79k8dYbEvWCbUb32D5nUtZYs';
+  const pass8 = 'ru8bCTfa';
+  const wrongPass = 'password';
+  const wrongPassNum = 'ily';
+  const phone = '+123456789012345';
+  const wrongPhone = '+123456789';
+  const empty = '';
+  const notEmpty = 'Some senetencise';
+  console.log('Validator: isEmail', Validator.isEmail(email));
+  console.log('Validator: isDisplayName', Validator.isDisplayName(first_name));
+  console.log('Validator: isDisplayName', Validator.isDisplayName(second_name));
+  console.log('Validator: isLogin', Validator.isLogin(login));
+  console.log('Validator: isLogin wrong', Validator.isCorrectPassword(wrongLogin));
+  console.log('Validator: isCorrectPassword length: 40', Validator.isCorrectPassword(pass40));
+  console.log('Validator: isCorrectPassword length: 8', Validator.isCorrectPassword(pass8));
+  console.log(
+    'Validator: isCorrectPassword wrong password',
+    Validator.isCorrectPassword(wrongPass)
   );
-
-  console.log(data);
+  console.log(
+    'Validator: isCorrectPassword wrong password',
+    Validator.isCorrectPassword(wrongPassNum)
+  );
+  console.log('Validator: isCorrectPhoneNumber true', Validator.isCorrectPhoneNumber(phone));
+  console.log('Validator: isCorrectPhoneNumber wrong', Validator.isCorrectPhoneNumber(wrongPhone));
+  console.log('Validator: isNotEmpty true', Validator.isNotEmpty(notEmpty));
+  console.log('Validator: isNotEmpty wrong', Validator.isNotEmpty(empty));
 }
-
-// async function testDeleteRequest() {
-//   const data = await HTTPTransport.DELETE('https://jsonplaceholder.typicode.com/posts/1');
-
-//   console.log(data);
-// }
-
-// type TodoItem = {
-//   id: number;
-//   title: string;
-//   body: string;
-//   userId: number;
-// };
-
-// type DTOTodoItem = Omit<TodoItem, 'id'>;
-// async function testGetRequest() {
-//   const data = await HTTPTransport.GET<TodoItem>('https://jsonplaceholder.typicode.com/posts/1');
-//   console.log({ data });
-// }
-
-// async function testPostRequest() {
-//   const data = await HTTPTransport.POST<DTOTodoItem, { id: number }>(
-//     'https://jsonplaceholder.typicode.com/posts',
-//     {
-//       data: {
-//         title: 'foo',
-//         body: 'bar',
-//         userId: 1
-//       }
-//     }
-//   );
-//   console.log({ data });
-// }
-
-// async function testPutRequest() {
-//   const data = await HTTPTransport.PUT<DTOTodoItem, { id: number }>(
-//     'https://jsonplaceholder.typicode.com/posts/1',
-//     {
-//       data: {
-//         title: 'foo000',
-//         body: 'bar',
-//         userId: 1
-//       }
-//     }
-//   );
-//   console.log({ data });
-// }

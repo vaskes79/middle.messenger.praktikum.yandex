@@ -11,6 +11,8 @@
         details="User email"
         type="email"
         name="emai"
+        validate="isEmail"
+        validateErrorMessage="Is not correct email. Please try again."
         info
       >
         <ypr-icon slot="icon-left" name="email" color="var(--gray-400)"></ypr-icon>
@@ -21,7 +23,9 @@
         label="Password"
         name="password"
         type="password"
-        details="Password field"
+        details="Passoword lenght 8-20, consist the number, capitalize and lowercase characters more then one"
+        validate="isCorrectPassword"
+        validateErrorMessage="Password is not correct"
         info
       >
         <ypr-icon slot="icon-left" name="lock" color="var(--gray-400)"></ypr-icon>
@@ -31,7 +35,7 @@
         <ypr-btn link>
           <a href="/signup"> Forgot password? </a>
         </ypr-btn>
-        <ypr-btn slot="footer"
+        <ypr-btn slot="footer" id="btnSubmit"
           >Sign Up<ypr-icon name="arrowforwardios" color="var(--gray-100)"></ypr-icon>
         </ypr-btn>
       </footer>
