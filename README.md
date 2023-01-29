@@ -1,7 +1,6 @@
-# YPR-MSG [PR sprint 1 ](https://github.com/vaskes79/middle.messenger.praktikum.yandex/pull/42)
+# YPR-MSG [PR sprint 2 ] (https://github.com/vaskes79/middle.messenger.praktikum.yandex/pull/74)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/56837701-b2e9-41fe-bb52-83ecc6572342/deploy-status)](https://app.netlify.com/sites/ypr-msg/deploys)
-
 
 ## Дизайн макет
 
@@ -14,7 +13,7 @@
 
 - [ypr-msg.netlify.app](https://ypr-msg.netlify.app/)
 
-## Backend server 
+## Backend server
 
 - `npm start`
 
@@ -28,7 +27,7 @@
 
 ## Environment
 
--  `PORT` - меняет порт запуска статического сервера. По умолчанию стоит `3000`
+- `PORT` - меняет порт запуска статического сервера. По умолчанию стоит `3000`
 
 ## Зависимости
 
