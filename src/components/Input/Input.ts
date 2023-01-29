@@ -1,7 +1,7 @@
 import html from 'bundle-text:./Input.html';
 import css from 'bundle-text:./Input.css';
 import { nanoid } from 'nanoid';
-import { BaseComponent } from '../../core';
+import { BaseComponent, Validator, ValidatorCheckNames } from '../../core';
 import { handlers } from './handlers';
 
 const tagName = 'ypr-input';
@@ -26,6 +26,8 @@ export class Input extends BaseComponent {
   _value: string;
 
   _label = 'Input Label';
+  _typeOfValidate: ValidatorCheckNames;
+  _validateErrorMessage: string;
 
   constructor() {
     super({ html, css, tagName, handlers });
@@ -37,9 +39,33 @@ export class Input extends BaseComponent {
     this._labelEl = this._root.querySelector('.label') as HTMLElement;
   }
 
+  validate() {
+    if (this._value && this._typeOfValidate && this._validateErrorMessage) {
+      const valueIsValid = Validator[this._typeOfValidate](this._value);
+
+      if (!valueIsValid) {
+        this.showError(this._validateErrorMessage);
+        return;
+      }
+    }
+  }
+
   _mount() {
     if (this.hasAttribute('leftIcon')) {
       this._containerEl.classList.add('container--icon');
+    }
+    if (this.hasAttribute('validate')) {
+      const typeValidate = this.getAttribute('validate');
+      if (typeValidate) {
+        this._typeOfValidate = typeValidate as ValidatorCheckNames;
+      }
+    }
+
+    if (this.hasAttribute('validateErrorMessage')) {
+      const validateErrorMessage = this.getAttribute('validateErrorMessage');
+      if (validateErrorMessage) {
+        this._validateErrorMessage = validateErrorMessage;
+      }
     }
 
     this._setupInput();
@@ -49,7 +75,7 @@ export class Input extends BaseComponent {
   }
 
   static get observedAttributes() {
-    return ['error'];
+    return ['error', 'validate', 'validateErrorMessage'];
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {

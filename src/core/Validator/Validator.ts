@@ -7,6 +7,15 @@ import {
   phoneRegExp
 } from './regExps';
 
+export enum ValidatorCheckNames {
+  IS_EMAIL = 'isEmail',
+  IS_DISPLAY_NAME = 'isDisplayName',
+  IS_LOGIN = 'isLogin',
+  IS_CORRECT_PASS = 'isCorrectPassword',
+  IS_CORRECT_PHONE = 'isCorrectPhoneNumber',
+  IS_NOT_EMPTY = 'isNotEmpty'
+}
+
 export class Validator {
   private static _instance: Validator = new Validator();
 
@@ -29,27 +38,27 @@ export class Validator {
     throw new Error(msg);
   }
 
-  static isEmail(str: string) {
+  static [ValidatorCheckNames.IS_EMAIL](str: string) {
     return this._instance._checker(emailRegExp, str);
   }
 
-  static isDisplayName(str: string) {
+  static [ValidatorCheckNames.IS_DISPLAY_NAME](str: string) {
     return this._instance._checker(displayNameRegExp, str);
   }
 
-  static isLogin(str: string) {
+  static [ValidatorCheckNames.IS_LOGIN](str: string) {
     return this._instance._checker(loginRegExp, str);
   }
 
-  static isCorrectPassword(str: string) {
+  static [ValidatorCheckNames.IS_CORRECT_PASS](str: string) {
     return this._instance._checker(passRegExp, str);
   }
 
-  static isCorrectPhoneNumber(str: string) {
+  static [ValidatorCheckNames.IS_CORRECT_PHONE](str: string) {
     return this._instance._checker(phoneRegExp, str);
   }
 
-  static isNotEmpty(str: string) {
+  static [ValidatorCheckNames.IS_NOT_EMPTY](str: string) {
     return this._instance._checker(notEmptyRegExp, str);
   }
 }

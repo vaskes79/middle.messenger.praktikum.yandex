@@ -11,10 +11,15 @@ function infoMouseleaveListener() {
 function onChangeInputListener(e: Event) {
   const { target } = e;
   this._value = (target as HTMLInputElement).value;
-  if (!this._value && this._error) {
-    this.clearError();
-  }
   this._setupLabel();
+}
+
+function validateHandler() {
+  this.validate();
+}
+
+function focusHandler() {
+  this.clearError();
 }
 
 export const handlers: Handlers[] = [
@@ -29,8 +34,18 @@ export const handlers: Handlers[] = [
     handler: infoMouseleaveListener
   },
   {
-    event: 'change',
+    event: 'keyup',
     selector: 'input',
     handler: onChangeInputListener
+  },
+  {
+    event: 'blur',
+    selector: 'input',
+    handler: validateHandler
+  },
+  {
+    event: 'focus',
+    selector: 'input',
+    handler: focusHandler
   }
 ];
