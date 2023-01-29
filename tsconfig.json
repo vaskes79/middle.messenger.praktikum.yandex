@@ -8,9 +8,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "sourceMap": true,
-    // "watch": true,
     "strictNullChecks": true,
-    // "typeRoots": "./src/types"
   },
   "include": [
     "src/**/*"
