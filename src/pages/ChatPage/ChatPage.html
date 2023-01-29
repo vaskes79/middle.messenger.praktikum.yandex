@@ -62,13 +62,17 @@
         details="User email"
         type="email"
         name="emai"
+        validate="isEmail"
+        validateErrorMessage="Is not correct email"
         info
       ></ypr-input>
       <ypr-input
         label="Username"
-        value="@username"
+        value="username"
         details="User name"
         name="login"
+        validate="isLogin"
+        validateErrorMessage="Is not correct login name"
         info
       ></ypr-input>
       <ypr-input
@@ -76,6 +80,8 @@
         value="John"
         name="first_name"
         details="First name user"
+        validate="isDisplayName"
+        validateErrorMessage="Is not correct First Name"
         info
       ></ypr-input>
       <ypr-input
@@ -83,6 +89,8 @@
         value="Doe"
         name="second_name"
         details="Last name user"
+        validate="isDisplayName"
+        validateErrorMessage="Is not correct First Name"
         info
       ></ypr-input>
       <ypr-input
@@ -90,6 +98,8 @@
         value="John Doe"
         name="display_name"
         details="Name that displayed"
+        validate="isDisplayName"
+        validateErrorMessage="Is not correct Second Name"
         info
       >
       </ypr-input>
@@ -99,6 +109,8 @@
         name="phone"
         details="Phone number user"
         type="phone"
+        validate="isCorrectPhoneNumber"
+        validateErrorMessage="Is not correct Phone number"
         info
       >
       </ypr-input>
@@ -107,6 +119,8 @@
         label="Change Password"
         name="password"
         details="Password field"
+        validate="isCorrectPassword"
+        validateErrorMessage="Password is not correct"
         info
       ></ypr-input>
       <ypr-input label="Confirm Password" name="password" details="Password field" info></ypr-input>
