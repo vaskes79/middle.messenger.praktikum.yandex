@@ -1,5 +1,5 @@
-import { submitHanler } from '../../utils';
 import { Handlers } from '../../types';
+import { submitHanler } from '../../utils';
 
 export const handlers: Handlers[] = [
   {

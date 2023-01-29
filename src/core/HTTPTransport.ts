@@ -6,14 +6,15 @@ enum METHOD {
   DELETE = 'DELETE'
 }
 
+type HeadersItem = Record<string, string>;
+
 type Options<TData = unknown> = {
   method: METHOD;
   data?: TData;
+  headers?: HeadersItem;
 };
 
 type OptionsWithoutMethod<TData> = Omit<Options<TData>, 'method'>;
-
-type Req = Document | XMLHttpRequestBodyInit | null | undefined;
 
 export class HTTPTransport {
   private static _instance: HTTPTransport = new HTTPTransport();
@@ -30,15 +31,26 @@ export class HTTPTransport {
     throw new Error(msg);
   }
 
+  private _prepareHeaders = (headers: HeadersItem, xhr: XMLHttpRequest) => {
+    Object.keys(headers).forEach((header) => {
+      const value = headers[header];
+      xhr.setRequestHeader(header, value);
+    });
+  };
+
   private _request<TRes = unknown, TReq = unknown>(
     url: string,
     options: Options<TRes> = { method: METHOD.GET }
   ): Promise<TReq> {
-    const { method, data } = options;
+    const { method, data, headers } = options;
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open(method, url);
+
+      if (headers) {
+        this._prepareHeaders(headers, xhr);
+      }
 
       xhr.onload = function () {
         const res = JSON.parse(xhr.response) as TReq;
@@ -56,7 +68,11 @@ export class HTTPTransport {
       }
     });
   }
-  static GET<TReq = unknown>(url: string): Promise<TReq> {
+  static GET<TReq = unknown>(url: string, data?: TReq): Promise<TReq> {
+    if (data) {
+      const params = new URLSearchParams(data);
+      url = `${url}?${params}`;
+    }
     return HTTPTransport._instance._request<null, TReq>(url);
   }
 
@@ -66,7 +82,29 @@ export class HTTPTransport {
   ): Promise<TRes> {
     return HTTPTransport._instance._request<TReq, TRes>(url, {
       method: METHOD.POST,
-      data: options.data
+      data: options.data,
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      }
+    });
+  }
+
+  static PUT<TReq = unknown, TRes = unknown>(
+    url: string,
+    options: OptionsWithoutMethod<TReq>
+  ): Promise<TRes> {
+    return HTTPTransport._instance._request<TReq, TRes>(url, {
+      method: METHOD.PUT,
+      data: options.data,
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      }
+    });
+  }
+
+  static DELETE<TReq = unknown, TRes = unknown>(url: string): Promise<TRes> {
+    return HTTPTransport._instance._request<TReq, TRes>(url, {
+      method: METHOD.DELETE
     });
   }
 }
