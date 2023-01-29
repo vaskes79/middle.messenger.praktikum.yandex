@@ -1,21 +1,22 @@
 import './components';
-import { routes } from './pages'
-import { Paths } from './types'
-import { checkExistPath, cretaDemoContent } from './utils'
+import './pages';
+import { Paths } from './types';
+import { routes } from './pages';
+import { checkExistPath } from './utils';
+import { setupRootEventListeners } from './initHandlers';
 
+setupRootEventListeners();
 
-const root = document.getElementById("root")
+const root = document.getElementById('root');
 const path = window.location.pathname;
 const pathExist = checkExistPath(path);
 
 if (root) {
   if (pathExist) {
-    root.insertAdjacentHTML("afterbegin", routes[path])
+    root.insertAdjacentHTML('afterbegin', routes[path as Paths]);
   }
 
   if (!pathExist) {
-    root.insertAdjacentHTML("afterbegin", routes[Paths.error404])
+    root.insertAdjacentHTML('afterbegin', routes[Paths.error404]);
   }
 }
-
-cretaDemoContent();

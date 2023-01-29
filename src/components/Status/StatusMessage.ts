@@ -1,68 +1,68 @@
-import html from 'bundle-text:./StatusMessage.html'
+import html from 'bundle-text:./StatusMessage.html';
+import css from 'bundle-text:./StatusMessage.css';
 import { Icon } from '../Icons';
+import { BaseComponent } from '../../core';
 
-export type StatusMessageState = "read" | "seen" | "sent";
-export type AttributeNames = "small" | "status";
+export type StatusMessageState = 'read' | 'seen' | 'sent';
+export type AttributeNames = 'small' | 'status';
 
-export class StatusMessage extends HTMLElement {
+const tagName = 'ypr-status-message';
+
+export class StatusMessage extends BaseComponent {
   // Elements
   _icons: NodeList | null;
   _iconContainer: HTMLElement | null;
   _container: HTMLElement | null;
-  _sizes: "12px" | "16px" = "16px";
+  _sizes: '12px' | '16px' = '16px';
   // Attributes
-  _small: Boolean = false;
+  _small = false;
   status: StatusMessageState = 'sent';
 
   constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-    if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = html;
-      this._icons = this.shadowRoot.querySelectorAll<Icon>('ypr-icon');
-      this._iconContainer = this.shadowRoot.querySelector('.icon-container');
-      this._container = this.shadowRoot.querySelector('.container');
-    }
+    super({ html, css, tagName });
+    this._icons = this._root.querySelectorAll<Icon>('ypr-icon');
+    this._iconContainer = this._root.querySelector('.icon-container');
+    this._container = this._root.querySelector('.container');
   }
 
   static get observedAttributes() {
-    return ['small', 'status']
+    return ['small', 'status'];
   }
 
   attributeChangedCallback(name: AttributeNames, oldValue: string, newValue: string) {
-    if (name === "small") {
-      this._sizes = "12px";
+    if (name === 'small') {
+      this._sizes = '12px';
       this._small = true;
     }
-    if (name === "status" && oldValue !== newValue) {
+    if (name === 'status' && oldValue !== newValue) {
       this.status = newValue as StatusMessageState;
     }
 
-    this._sizes = this._sizes;
-    this._small = this._small;
-    this.status = this.status;
+    // todo: remake logic check working afte eslint fix
+    // this._sizes = this._sizes;
+    // this._small = this._small;
+    // this.status = this.status;
     this._updateSize();
     this._updateState();
   }
 
   _changeSizeIcon = () => {
-    this._icons?.forEach(item => {
-      (item as Icon).updateSize({ width: this._sizes, height: this._sizes })
-    })
-  }
+    this._icons?.forEach((item) => {
+      (item as Icon).updateSize({ width: this._sizes, height: this._sizes });
+    });
+  };
 
   _updateSize = () => {
     if (this._small) {
-      this._container?.classList.add('small')
+      this._container?.classList.add('small');
       this._changeSizeIcon();
     }
-  }
+  };
 
   _updateState = () => {
-    this._container?.classList.remove("read", "sent", "seen");
+    this._container?.classList.remove('read', 'sent', 'seen');
     this._container?.classList.add(this.status);
-  }
-
+  };
 }
 
-export default customElements.define('ypr-status-message', StatusMessage)
+export default customElements.define(tagName, StatusMessage);

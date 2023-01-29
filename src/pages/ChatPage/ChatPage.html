@@ -4,18 +4,14 @@
     <ypr-button link slot="title" id="openChatListBtn">
       <ypr-icon name="menu"></ypr-icon>
     </ypr-button>
-    <ypr-avatar
-      slot="title"
-      name="Ralph Edwards"
-      imgurl="https://i.pravatar.cc/300"
-    ></ypr-avatar>
+    <ypr-avatar slot="title" name="Ralph Edwards" imgurl="https://i.pravatar.cc/300"></ypr-avatar>
     <h2 slot="title">Base Chat</h2>
     <ypr-btn link slot="menu" id="openChatSettings">
       <ypr-icon name="morevert"></ypr-icon>
     </ypr-btn>
   </ypr-header>
 
-  <ypr-main id="chat-main" slot="chat-main"></ypr-main>
+  <ypr-main id="chat-main" slot="chat-main"> </ypr-main>
 
   <ypr-footer slot="chat-footer">
     <ypr-message-input></ypr-message-input>
@@ -31,8 +27,7 @@
         <ypr-icon name="morevert"></ypr-icon>
       </ypr-btn>
       <li slot="menu-item" id="openSettings">
-        <ypr-icon name="personoutline" color="var(--gray-700)"></ypr-icon
-        >Profile
+        <ypr-icon name="personoutline" color="var(--gray-700)"></ypr-icon>Profile
       </li>
       <!-- <li slot="menu-item">
         <ypr-icon name="chatbuble" color="var(--gray-700)"></ypr-icon>Create Chat
@@ -45,7 +40,9 @@
     </ypr-menu>
   </ypr-header>
 
-  <ypr-main id="chatlist-main" slot="chatlist-main"></ypr-main>
+  <ypr-main id="chatlist-main" slot="chatlist-main">
+    <ypr-chat-item></ypr-chat-item>
+  </ypr-main>
 
   <!-- Profile -->
 
@@ -60,48 +57,60 @@
     <ypr-profile-input name="avatar"></ypr-profile-input>
     <ypr-form>
       <ypr-input
+        slot="content"
         label="Email"
-        value="email@mail.com"
         details="User email"
         type="email"
         name="emai"
+        validate="isEmail"
+        validateErrorMessage="Is not correct email"
         info
       ></ypr-input>
       <ypr-input
+        slot="content"
         label="Username"
-        value="@username"
         details="User name"
         name="login"
+        validate="isLogin"
+        validateErrorMessage="Is not correct login name"
         info
       ></ypr-input>
       <ypr-input
+        slot="content"
         label="First Name"
-        value="John"
         name="first_name"
         details="First name user"
+        validate="isDisplayName"
+        validateErrorMessage="Is not correct First Name"
         info
       ></ypr-input>
       <ypr-input
+        slot="content"
         label="Last Name"
-        value="Doe"
         name="second_name"
         details="Last name user"
+        validate="isDisplayName"
+        validateErrorMessage="Is not correct First Name"
         info
       ></ypr-input>
       <ypr-input
+        slot="content"
         label="Display Name"
-        value="John Doe"
         name="display_name"
         details="Name that displayed"
+        validate="isDisplayName"
+        validateErrorMessage="Is not correct Second Name"
         info
       >
       </ypr-input>
       <ypr-input
+        slot="content"
         label="Phone Number"
-        value="+7 (000) 000-00-00"
         name="phone"
         details="Phone number user"
         type="phone"
+        validate="isCorrectPhoneNumber"
+        validateErrorMessage="Is not correct Phone number"
         info
       >
       </ypr-input>
@@ -110,9 +119,12 @@
         label="Change Password"
         name="password"
         details="Password field"
+        validate="isCorrectPassword"
+        validateErrorMessage="Password is not correct"
         info
       ></ypr-input>
       <ypr-input
+        slot="content"
         label="Confirm Password"
         name="password"
         details="Password field"
@@ -122,7 +134,7 @@
   </ypr-main>
 
   <ypr-footer slot="settings-footer">
-    <ypr-btn>
+    <ypr-btn id="btnSubmit">
       Save
       <ypr-icon name="done" color="var(--gray-400)"></ypr-icon>
     </ypr-btn>

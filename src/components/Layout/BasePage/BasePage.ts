@@ -1,13 +1,13 @@
-import html from 'bundle-text:./BasePage.html'
+import html from 'bundle-text:./BasePage.html';
+import css from 'bundle-text:./BasePage.css';
+import { BaseComponent } from '../../../core';
 
-export class BasePage extends HTMLElement {
+const tagName = 'ypr-base-page';
+
+export class BasePage extends BaseComponent {
   constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-    if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = html;
-    }
+    super({ html, css, tagName });
   }
 }
 
-export default customElements.define('ypr-base-page', BasePage);
+export default customElements.define(tagName, BasePage);

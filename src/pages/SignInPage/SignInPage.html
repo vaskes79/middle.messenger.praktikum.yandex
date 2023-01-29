@@ -1,12 +1,6 @@
 <div class="container">
   <ypr-base-page>
-    <ypr-icon
-      slot="header"
-      class="logo"
-      name="logo"
-      color="var(--red-400)"
-      width="64px"
-    ></ypr-icon>
+    <ypr-icon slot="header" class="logo" name="logo" color="var(--red-400)" width="64px"></ypr-icon>
     <h1 slot="header">Sign In</h1>
 
     <ypr-form>
@@ -17,13 +11,11 @@
         details="User email"
         type="email"
         name="emai"
+        validate="isEmail"
+        validateErrorMessage="Is not correct email. Please try again."
         info
       >
-        <ypr-icon
-          slot="icon-left"
-          name="email"
-          color="var(--gray-400)"
-        ></ypr-icon>
+        <ypr-icon slot="icon-left" name="email" color="var(--gray-400)"></ypr-icon>
       </ypr-input>
       <ypr-input
         slot="content"
@@ -31,25 +23,20 @@
         label="Password"
         name="password"
         type="password"
-        details="Password field"
+        details="Passoword lenght 8-20, consist the number, capitalize and lowercase characters more then one"
+        validate="isCorrectPassword"
+        validateErrorMessage="Password is not correct"
         info
       >
-        <ypr-icon
-          slot="icon-left"
-          name="lock"
-          color="var(--gray-400)"
-        ></ypr-icon>
+        <ypr-icon slot="icon-left" name="lock" color="var(--gray-400)"></ypr-icon>
       </ypr-input>
 
       <footer slot="footer">
         <ypr-btn link>
           <a href="/signup"> Forgot password? </a>
         </ypr-btn>
-        <ypr-btn slot="footer"
-          >Sign Up<ypr-icon
-            name="arrowforwardios"
-            color="var(--gray-100)"
-          ></ypr-icon>
+        <ypr-btn slot="footer" id="btnSubmit"
+          >Sign Up<ypr-icon name="arrowforwardios" color="var(--gray-100)"></ypr-icon>
         </ypr-btn>
       </footer>
     </ypr-form>

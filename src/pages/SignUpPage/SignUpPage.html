@@ -1,12 +1,6 @@
 <div class="container">
   <ypr-base-page>
-    <ypr-icon
-      slot="header"
-      class="logo"
-      name="logo"
-      color="var(--red-400)"
-      width="64px"
-    ></ypr-icon>
+    <ypr-icon slot="header" class="logo" name="logo" color="var(--red-400)" width="64px"></ypr-icon>
     <h1 slot="header">Sign Up</h1>
 
     <ypr-form>
@@ -14,46 +8,38 @@
         slot="content"
         leftIcon
         label="Email"
-        value="email@mail.com"
         details="User email"
         type="email"
         name="emai"
+        validate="isEmail"
+        validateErrorMessage="Is not correct email"
         info
       >
-        <ypr-icon
-          slot="icon-left"
-          name="email"
-          color="var(--gray-400)"
-        ></ypr-icon>
+        <ypr-icon slot="icon-left" name="email" color="var(--gray-400)"></ypr-icon>
       </ypr-input>
       <ypr-input
         slot="content"
         leftIcon
         label="Username"
-        value="@username"
         details="User name"
         name="login"
+        validate="isLogin"
+        validateErrorMessage="Is not correct login name"
         info
       >
-        <ypr-icon
-          slot="icon-left"
-          name="personoutline"
-          color="var(--gray-400)"
-        ></ypr-icon>
+        <ypr-icon slot="icon-left" name="personoutline" color="var(--gray-400)"></ypr-icon>
       </ypr-input>
       <ypr-input
         slot="content"
         leftIcon
         label="First Name"
-        details="First name user"
+        details="Should start from capitalize character"
         name="first_name"
+        validate="isDisplayName"
+        validateErrorMessage="Is not correct First Name"
         info
       >
-        <ypr-icon
-          slot="icon-left"
-          name="personoutline"
-          color="var(--gray-400)"
-        ></ypr-icon>
+        <ypr-icon slot="icon-left" name="personoutline" color="var(--gray-400)"></ypr-icon>
       </ypr-input>
       <ypr-input
         slot="content"
@@ -61,65 +47,54 @@
         label="Second Name"
         details="Second name user"
         name="second_name"
+        validate="isDisplayName"
+        validateErrorMessage="Is not correct Second Name"
         info
       >
-        <ypr-icon
-          slot="icon-left"
-          name="personoutline"
-          color="var(--gray-400)"
-        ></ypr-icon>
+        <ypr-icon slot="icon-left" name="personoutline" color="var(--gray-400)"></ypr-icon>
       </ypr-input>
       <ypr-input
         slot="content"
         leftIcon
         label="Phon Number"
-        details="Phone number user"
+        details="Should consist 10-15 numbers"
         name="phone"
         type="phone"
+        validate="isCorrectPhoneNumber"
+        validateErrorMessage="Is not correct Phone number"
         info
       >
-        <ypr-icon
-          slot="icon-left"
-          name="phoneenabled"
-          color="var(--gray-400)"
-        ></ypr-icon>
+        <ypr-icon slot="icon-left" name="phoneenabled" color="var(--gray-400)"></ypr-icon>
       </ypr-input>
       <ypr-input
         slot="content"
-        value="password"
         leftIcon
         label="Password"
         name="password"
         type="password"
         details="Password field"
+        validate="isCorrectPassword"
+        validateErrorMessage="Password is not correct"
         info
       >
-        <ypr-icon
-          slot="icon-left"
-          name="lock"
-          color="var(--gray-400)"
-        ></ypr-icon>
+        <ypr-icon slot="icon-left" name="lock" color="var(--gray-400)"></ypr-icon>
       </ypr-input>
       <ypr-input
         slot="content"
-        value="pass"
-        error="The passwords do not match"
         leftIcon
         label="Confirm Password"
         name="password"
         type="password"
         details="The passwords do not match"
+        validate="isCorrectPassword"
+        validateErrorMessage="Password is not correct"
         info
       >
-        <ypr-icon
-          slot="icon-left"
-          name="lock"
-          color="var(--gray-400)"
-        ></ypr-icon>
+        <ypr-icon slot="icon-left" name="lock" color="var(--gray-400)"></ypr-icon>
       </ypr-input>
 
       <footer slot="footer">
-        <ypr-btn>
+        <ypr-btn type="submit" id="btnSubmit">
           Sign Up
           <ypr-icon name="arrowforwardios" color="var(--gray-100)"></ypr-icon>
         </ypr-btn>

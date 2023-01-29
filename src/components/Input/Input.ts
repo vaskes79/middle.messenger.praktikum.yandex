@@ -1,8 +1,12 @@
 import html from 'bundle-text:./Input.html';
-import { Elem } from '../../types/Components';
-import { v4 as uuidv4 } from 'uuid';
+import css from 'bundle-text:./Input.css';
+import { nanoid } from 'nanoid';
+import { BaseComponent, Validator, ValidatorCheckNames } from '../../core';
+import { handlers } from './handlers';
 
-export class Input extends HTMLElement {
+const tagName = 'ypr-input';
+
+export class Input extends BaseComponent {
   _containerEl: HTMLElement;
   _infoEl: HTMLElement;
   _detailsEl: HTMLElement;
@@ -11,41 +15,57 @@ export class Input extends HTMLElement {
   _labelEl: HTMLElement;
 
   _detailsContent: string;
-  _detailsShow: boolean = false;
+  _detailsShow = false;
 
   _errorContent: string;
-  _error: boolean = false;
+  _error = false;
 
-  _require: boolean = false;
+  _require = false;
 
   _name: string;
   _value: string;
 
-  _label: string = 'Input Label';
-
-  _removeEventListeners: () => void;
+  _label = 'Input Label';
+  _typeOfValidate: ValidatorCheckNames;
+  _validateErrorMessage: string;
 
   constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-    if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = html;
-      this._containerEl = this.shadowRoot.querySelector('.container') as HTMLElement;
-      this._infoEl = this.shadowRoot.querySelector('.info') as HTMLElement;
-      this._detailsEl = this.shadowRoot.querySelector('.details') as HTMLElement;
-      this._requireEl = this.shadowRoot.querySelector('.require') as HTMLElement;
-      this._inputEl = this.shadowRoot.querySelector('input') as HTMLInputElement;
-      this._labelEl = this.shadowRoot.querySelector('.label') as HTMLElement;
-    } else {
-      throw new Error('Input Root element not found');
+    super({ html, css, tagName, handlers });
+    this._containerEl = this._root.querySelector('.container') as HTMLElement;
+    this._infoEl = this._root.querySelector('.info') as HTMLElement;
+    this._detailsEl = this._root.querySelector('.details') as HTMLElement;
+    this._requireEl = this._root.querySelector('.require') as HTMLElement;
+    this._inputEl = this._root.querySelector('input') as HTMLInputElement;
+    this._labelEl = this._root.querySelector('.label') as HTMLElement;
+  }
+
+  validate() {
+    if (this._value && this._typeOfValidate && this._validateErrorMessage) {
+      const valueIsValid = Validator[this._typeOfValidate](this._value);
+
+      if (!valueIsValid) {
+        this.showError(this._validateErrorMessage);
+        return;
+      }
     }
   }
 
-  connectedCallback() {
-    this._removeEventListeners = this._addEventListeners();
+  _mount() {
+    if (this.hasAttribute('leftIcon')) {
+      this._containerEl.classList.add('container--icon');
+    }
+    if (this.hasAttribute('validate')) {
+      const typeValidate = this.getAttribute('validate');
+      if (typeValidate) {
+        this._typeOfValidate = typeValidate as ValidatorCheckNames;
+      }
+    }
 
-    if (this.hasAttribute("leftIcon")) {
-      this._containerEl.classList.add('container--icon')
+    if (this.hasAttribute('validateErrorMessage')) {
+      const validateErrorMessage = this.getAttribute('validateErrorMessage');
+      if (validateErrorMessage) {
+        this._validateErrorMessage = validateErrorMessage;
+      }
     }
 
     this._setupInput();
@@ -54,71 +74,38 @@ export class Input extends HTMLElement {
     this._setupInfo();
   }
 
-  disconnectedCallback() {
-    console.log("unmount input", this);
-  }
-
   static get observedAttributes() {
-    return ["error"];
+    return ['error', 'validate', 'validateErrorMessage'];
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    if (name === "error" && oldValue !== newValue) {
+    if (name === 'error' && oldValue !== newValue) {
       this.showError(newValue);
     }
   }
 
-  _infoMouseoverListener = () => {
-    this.showDetails();
-  }
-
-  _infoMouseleaveListener = () => {
-    this.hideDetails();
-  }
-
-  _onChangeInputListener = (e: Event) => {
-    const { target } = e;
-    this._value = (target as HTMLInputElement).value;
-    if (!this._value && this._error) {
-      this.clearError();
-    }
-    this._setupLabel();
-  }
-
-  _addEventListeners() {
-    this._infoEl.addEventListener('mouseover', this._infoMouseoverListener);
-    this._infoEl.addEventListener('mouseleave', this._infoMouseleaveListener);
-    this._inputEl.addEventListener('change', this._onChangeInputListener)
-
-    return () => {
-      this._infoEl.removeEventListener('mouseover', this._infoMouseoverListener);
-      this._infoEl.removeEventListener('mouseleave', this._infoMouseleaveListener);
-      this._inputEl.removeEventListener('change', this._onChangeInputListener)
-    }
-  }
-
   _setupInput = () => {
-    if (this.hasAttribute("require")) {
-      this._requireEl.style.opacity = "1";
-      this._inputEl.setAttribute('require', '')
+    if (this.hasAttribute('require')) {
+      this._requireEl.style.opacity = '1';
+      this._inputEl.setAttribute('require', '');
       this._require = true;
     }
     if (this.hasAttribute('type')) {
       const type = this.getAttribute('type') || 'text';
-      this._inputEl.setAttribute('type', type)
+      this._inputEl.setAttribute('type', type);
     }
     if (this.hasAttribute('value')) {
       const value = this.getAttribute('value') || '';
-      this._inputEl.setAttribute('value', value)
+      this._inputEl.setAttribute('value', value);
       this._value = value;
       this._setupLabel();
     }
     if (this.hasAttribute('name')) {
-      const name = this.getAttribute('name') || uuidv4();
+      const name = this.getAttribute('name') || nanoid();
       this._name = name;
-      this._inputEl.setAttribute('name', name)
+      this._inputEl.setAttribute('name', name);
     }
-  }
+  };
 
   _setupLabel = () => {
     if (this.hasAttribute('label')) {
@@ -128,68 +115,68 @@ export class Input extends HTMLElement {
         labelElText.textContent = label;
       }
       if (this._inputEl) {
-        label = this._require ? label + " *" : label;
+        label = this._require ? label + ' *' : label;
         this._inputEl.placeholder = label;
       }
     }
 
     if (this._value) {
-      this._labelEl.style.opacity = "1";
+      this._labelEl.style.opacity = '1';
     }
     if (!this.value) {
-      this._labelEl.style.opacity = "0";
+      this._labelEl.style.opacity = '0';
     }
-  }
+  };
 
   _setupInfo = () => {
     if (this.hasAttribute('info')) {
       this._infoEl.classList.add('info--show');
     }
-  }
+  };
 
   _setupDetails = () => {
     if (this.hasAttribute('details')) {
-      this._detailsContent = this.getAttribute('details') || "";
+      this._detailsContent = this.getAttribute('details') || '';
       this._detailsEl.textContent = this._detailsContent;
     }
-  }
+  };
 
-  public get name() {
+  get name() {
     return this._name;
   }
 
-  public get value() {
+  get value() {
     return this._value;
   }
 
-  public showError = (errorText?: string) => {
+  showError = (errorText?: string) => {
     this._error = true;
-    this._errorContent = errorText || "Error input";
-    this._containerEl.classList.add("error");
+    this._errorContent = errorText || 'Error input';
+    this._containerEl.classList.add('error');
     if (this._detailsEl) {
       this._detailsEl.textContent = this._errorContent;
     }
-  }
+  };
 
-  public clearError = () => {
-    this._containerEl.classList.remove("error");
-    this.removeAttribute("error");
+  clearError = () => {
+    this._containerEl.classList.remove('error');
+    this.removeAttribute('error');
     this._error = false;
     this._errorContent = '';
     this._detailsEl.textContent = this._detailsContent;
-  }
+  };
 
-  public showDetails = () => {
+  showDetails = () => {
     if (this._detailsEl) {
-      this._detailsEl.style.opacity = "1"
+      this._detailsEl.style.opacity = '1';
     }
-  }
+  };
 
-  public hideDetails = () => {
+  hideDetails = () => {
     if (this._detailsEl) {
       this._detailsEl.style.opacity = '0';
     }
-  }
+  };
 }
 
-export default customElements.define('ypr-input', Input)
+export default customElements.define(tagName, Input);

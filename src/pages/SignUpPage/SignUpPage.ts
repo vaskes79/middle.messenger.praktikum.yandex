@@ -1,12 +1,7 @@
-import html from "bundle-text:./SignUpPage.html";
-import css from "bundle-text:./SignUpPage.css";
+import html from 'bundle-text:./SignUpPage.html';
+import css from 'bundle-text:./SignUpPage.css';
+import { handlers } from './handlers';
 
-const tmpl = `<style>${css}</style>${html}`;
+import { createPage } from '../../core';
 
-function buildPage() {
-  return tmpl;
-}
-
-export function SignUpPage() {
-  return buildPage();
-}
+export default createPage({ html, css, tagName: 'ypr-signup-page', handlers });

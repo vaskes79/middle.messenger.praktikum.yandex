@@ -1,14 +1,13 @@
 import html from 'bundle-text:./ProfileImg.html';
+import css from 'bundle-text:./ProfileImg.css';
+import { BaseComponent } from '../../core';
 
-export class ProfileImg extends HTMLElement {
+const tagName = 'ypr-profile-input';
+
+export class ProfileImg extends BaseComponent {
   constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-
-    if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = html;
-    }
+    super({ html, css, tagName });
   }
 }
 
-export default customElements.define('ypr-profile-input', ProfileImg);
+export default customElements.define(tagName, ProfileImg);
