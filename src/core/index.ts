@@ -3,3 +3,4 @@ export * from './BaseComponent';
 export * from './createPage';
 export * from './HTTPTransport';
 export * from './Validator';
+export * from './Router';
