@@ -1,8 +1,8 @@
 import './components';
 import './pages';
 import { Paths } from './types';
-import { setupRootEventListeners } from './initHandlers';
 import { Router } from './core';
+import { setupRootEventListeners } from './initHandlers';
 
 setupRootEventListeners();
 

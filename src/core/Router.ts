@@ -1,10 +1,8 @@
 import { Paths } from '../types';
-// import { EventBus } from './EventBus';
 import { Route } from './Route';
 
 export class Router {
   private static _instance: Router = new Router();
-  // private _eventBuss: EventBus = EventBus.getInstance();
   private _currentRoute: Route | null;
   private _history: History = window.history;
   private _routes: Record<string, Route> = {};
@@ -16,11 +14,6 @@ export class Router {
     Router._instance = this;
     this._routes[Paths.error404] = new Route(Paths.error404);
   }
-
-  // private _error(msg?: string) {
-  //   msg = `Error:Router: ${msg}` || 'Error: Router';
-  //   throw new Error(msg);
-  // }
 
   static use(path: Paths, attrs?: Record<string, string>) {
     const route = new Route(path, attrs);
