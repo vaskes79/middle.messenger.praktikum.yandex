@@ -4,3 +4,4 @@ export * from './Components.d';
 export * from './Icons.d';
 export * from './Events.d';
 export * from './Routes.d';
+export * from './Api.d';
