@@ -1,7 +1,4 @@
-import { SignUpApi } from './SignUpApi';
-import { SignInApi } from './SignInApi';
-import { LogoutApi } from './LogoutApi';
-import { GetUserApi } from './GetUserApi';
+import { GetUserApi, LogoutApi, SignInApi, SignUpApi } from './auth';
 
 import { UserDTO, UserLoginDTO } from '../types';
 

@@ -1,5 +1,5 @@
-import { BaseAPI } from '../core';
-import type { UserLoginDTO } from '../types';
+import { BaseAPI } from '../../core';
+import type { UserLoginDTO } from '../../types';
 
 export class SignInApi extends BaseAPI {
   constructor(baseUrl?: string) {

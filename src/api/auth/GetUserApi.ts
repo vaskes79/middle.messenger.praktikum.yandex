@@ -1,4 +1,4 @@
-import { BaseAPI } from '../core';
+import { BaseAPI } from '../../core';
 
 export class GetUserApi extends BaseAPI {
   constructor(baseUrl?: string) {
