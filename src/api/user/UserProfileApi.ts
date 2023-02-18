@@ -8,7 +8,7 @@ export class UserProfileApi extends BaseAPI {
     super('/user/profile', baseUrl);
   }
 
-  async update(dataDTO: UpdateUserDTO): Promise<void> {
+  async update(dataDTO: UpdateUserDTO) {
     const data = await this._http.PUT(this._url, dataDTO);
     console.log('UserProfileApi: ', data);
   }
