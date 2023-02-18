@@ -8,7 +8,7 @@ enum METHOD {
 
 type HeadersItem = Record<string, string>;
 
-type Options<TData = unknown> = {
+export type Options<TData = unknown> = {
   method: METHOD;
   data?: TData;
   headers?: HeadersItem;
@@ -46,6 +46,7 @@ export class HTTPTransport {
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
+      xhr.withCredentials = true;
       xhr.open(method, url);
 
       if (headers) {
@@ -53,9 +54,19 @@ export class HTTPTransport {
       }
 
       xhr.onload = function () {
-        const res = JSON.parse(xhr.response) as TReq;
-        resolve(res);
-      };
+        try {
+          console.log('res: ', xhr.response);
+          let res = xhr.response;
+
+          if (typeof res === 'object') {
+            res = JSON.parse(res) as TReq;
+          }
+
+          resolve(res);
+        } catch (error) {
+          this._error('HTTPTransport incorrect response');
+        }
+      }.bind(this);
 
       xhr.onabort = reject;
       xhr.onerror = reject;
