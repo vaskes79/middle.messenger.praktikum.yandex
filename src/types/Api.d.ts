@@ -6,3 +6,5 @@ export type UserDTO = {
   password: string;
   phone: string;
 };
+
+export type UserLoginDTO = Pick<UserDTO, 'login' | 'password'>;

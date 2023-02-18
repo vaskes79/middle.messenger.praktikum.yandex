@@ -1,5 +1,5 @@
 import { EventBus } from './EventBus';
-import { HTTPTransport } from './HTTPTransport';
+import { HTTPTransport, Options } from './HTTPTransport';
 import type { EventBus as EventBusType } from './EventBus';
 
 const BASE_URL = 'https://ya-praktikum.tech/api/v2';
@@ -19,7 +19,8 @@ export abstract class BaseAPI {
     throw new Error('Not implemented');
   }
 
-  request() {
+  request<Req = undefined>(opt?: Options<Req>) {
+    console.log(opt);
     throw new Error('Not implemented');
   }
 
