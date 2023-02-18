@@ -3,7 +3,7 @@ import './pages';
 import { Paths } from './types';
 import { Router } from './core';
 import { setupRootEventListeners } from './initHandlers';
-import { API } from './api';
+// import { API } from './api';
 
 setupRootEventListeners();
 
@@ -14,11 +14,21 @@ Router.use(Paths.signIn)
   .use(Paths.dev)
   .start();
 
-API.signUp.create({
-  first_name: 'Vasily',
-  second_name: 'Perov',
-  login: 'vasily-perov',
-  email: 'vasily-perov@mail.com',
-  password: '1979dfcz',
-  phone: '+79111111111'
-});
+// API.auth.signUp({
+//   first_name: 'Vasily',
+//   second_name: 'Pterov',
+//   login: 'vasily-petrov',
+//   email: 'vasily-petrov@mail.com',
+//   password: '1979dfcz',
+//   phone: '+79111111111'
+// });
+
+// API.auth.signIn({
+//   login: 'vasily-perov',
+//   password: '1979dfcz'
+// });
+
+// API.auth.logout();
+// API.auth.getUser();
+
+// window.API = API;
