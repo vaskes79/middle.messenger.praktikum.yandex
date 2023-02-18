@@ -14,7 +14,7 @@ export type Options<TData = unknown> = {
   headers?: HeadersItem;
 };
 
-type OptionsWithoutMethod<TData> = Omit<Options<TData>, 'method'>;
+export type OptionsWithoutMethod<TData> = Omit<Options<TData>, 'method'>;
 
 export class HTTPTransport {
   private static _instance: HTTPTransport = new HTTPTransport();

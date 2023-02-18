@@ -1,34 +1,24 @@
 import { EventBus } from './EventBus';
-import { HTTPTransport, Options } from './HTTPTransport';
-import type { EventBus as EventBusType } from './EventBus';
+import { HTTPTransport, OptionsWithoutMethod } from './HTTPTransport';
 
 const BASE_URL = 'https://ya-praktikum.tech/api/v2';
 
+export interface BaseAPIInterface {
+  request?(opt?: OptionsWithoutMethod<unknown>): Promise<void>;
+  create?(data?: OptionsWithoutMethod<unknown>): Promise<void>;
+  update?(data: OptionsWithoutMethod<unknown>): Promise<void>;
+  delete?(opt?: OptionsWithoutMethod<unknown>): Promise<void>;
+}
+
 export abstract class BaseAPI {
-  protected _eventBus: EventBusType = EventBus.getInstance();
-  protected _http: typeof HTTPTransport = HTTPTransport;
-  protected _url = '';
+  protected _url: string;
+  protected _eventBus: EventBus;
+  protected _http: typeof HTTPTransport;
 
   constructor(url: string, baseURL?: string) {
     baseURL = baseURL || BASE_URL;
     this._url = `${baseURL}${url}`;
-  }
-
-  create(data: unknown) {
-    console.log(data);
-    throw new Error('Not implemented');
-  }
-
-  request<Req = undefined>(opt?: Options<Req>) {
-    console.log(opt);
-    throw new Error('Not implemented');
-  }
-
-  update() {
-    throw new Error('Not implemented');
-  }
-
-  delete() {
-    throw new Error('Not implemented');
+    this._eventBus = EventBus.getInstance();
+    this._http = HTTPTransport;
   }
 }
