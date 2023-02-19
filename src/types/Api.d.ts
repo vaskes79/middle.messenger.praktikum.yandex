@@ -7,4 +7,8 @@ export type UserDTO = {
   phone: string;
 };
 
+export type ChatDTO = {
+  title: string;
+};
+
 export type UserLoginDTO = Pick<UserDTO, 'login' | 'password'>;
