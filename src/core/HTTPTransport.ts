@@ -55,10 +55,9 @@ export class HTTPTransport {
 
       xhr.onload = function () {
         try {
-          console.log('res: ', xhr.response);
           let res = xhr.response;
-
-          if (typeof res === 'object') {
+          const checkTypeOfJson = xhr.responseType === 'json' || xhr.response !== 'OK';
+          if (xhr.status === 200 && checkTypeOfJson) {
             res = JSON.parse(res) as TReq;
           }
 
