@@ -94,7 +94,8 @@ export class HTTPTransport {
       method: METHOD.POST,
       data: options.data,
       headers: {
-        'Content-type': 'application/json; charset=UTF-8'
+        'Content-type': 'application/json; charset=UTF-8',
+        ...options.headers
       }
     });
   }
@@ -107,14 +108,23 @@ export class HTTPTransport {
       method: METHOD.PUT,
       data: options.data,
       headers: {
-        'Content-type': 'application/json; charset=UTF-8'
+        'Content-type': 'application/json; charset=UTF-8',
+        ...options.headers
       }
     });
   }
 
-  static DELETE<TReq = unknown, TRes = unknown>(url: string): Promise<TRes> {
+  static DELETE<TReq = unknown, TRes = unknown>(
+    url: string,
+    options: OptionsWithoutMethod<TReq>
+  ): Promise<TRes> {
     return HTTPTransport._instance._request<TReq, TRes>(url, {
-      method: METHOD.DELETE
+      method: METHOD.DELETE,
+      data: options.data,
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        ...options.headers
+      }
     });
   }
 }
