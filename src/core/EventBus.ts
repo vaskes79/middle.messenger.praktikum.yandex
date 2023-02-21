@@ -2,9 +2,11 @@ import { LayoutEvents } from '../components/Layout';
 import { ModalEvents } from '../components/Modal';
 import { PageEvents } from '../types/Page';
 import { BaseComponentEvents } from './BaseComponent';
+import { StoreEvents } from './Store';
 
 export type EventName =
   | keyof GlobalEventHandlersEventMap
+  | `${StoreEvents}`
   | `${PageEvents}`
   | `${BaseComponentEvents}`
   | `${LayoutEvents}`
