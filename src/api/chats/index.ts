@@ -1,7 +1,9 @@
-import { GetAllChatsApi } from './GetAllChatsApi';
+import { GetAllChatsApi, GetAllChatsApiEvents } from './GetAllChatsApi';
 import { CreateChatDTO, CreateChatApi } from './CreateChatApi';
 import { AddUserToChatApi, AddUserToChatDTO } from './AddUserToChatApi';
 import { DeleteUserFromChatDTO, DeleteUserFromChatApi } from './DeleteUserFromChatApi';
+
+export type ApiChatsEvents = `${GetAllChatsApiEvents}`;
 
 export const chats = {
   getAllChats: () => new GetAllChatsApi().request(),

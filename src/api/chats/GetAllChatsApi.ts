@@ -1,5 +1,9 @@
 import { BaseAPI } from '../../core';
 
+export enum GetAllChatsApiEvents {
+  apiGetAllChatsApiUpdate = 'api:chatlist:update'
+}
+
 export class GetAllChatsApi extends BaseAPI {
   constructor(baseUrl?: string) {
     super('/chats', baseUrl);
@@ -7,6 +11,6 @@ export class GetAllChatsApi extends BaseAPI {
 
   async request() {
     const data = await this._http.GET(this._url);
-    console.log('GetAllChats: ', data);
+    this._eventBus.emmit('api:chatlist:update', data);
   }
 }

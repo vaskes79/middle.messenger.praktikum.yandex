@@ -10,10 +10,22 @@ export type User = {
   avatar: null | string;
 };
 
+export type Chat = {
+  id: number;
+  title: string;
+  avatar: null | string;
+  created_by: Date;
+  unread_count: number;
+  last_message?: {
+    user: User;
+    time: string | Date;
+    content: string;
+    id: number;
+  };
+};
+
 export type UserDTO = Omit<User, 'display_name' | 'avatar' | 'id'>;
 
-export type ChatDTO = {
-  title: string;
-};
+export type ChatDTO = Pick<Chat, 'title'>;
 
 export type UserLoginDTO = Pick<User, 'login' | 'password'>;
