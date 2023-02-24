@@ -5,6 +5,8 @@ import { nanoid } from 'nanoid';
 import { Input } from '../Input';
 
 const tagName = 'ypr-form';
+type InputData = { name: string; value: string };
+export type FormDataYpr = InputData[];
 
 export class Form extends BaseComponent {
   private _inputs: Input[];
@@ -25,8 +27,12 @@ export class Form extends BaseComponent {
     });
   }
 
+  actions(data: unknown) {
+    console.log('actions data handler: ', data);
+  }
+
   private _submitHandler() {
-    const data: { name: string; value: string }[] = [];
+    const data: FormDataYpr = [];
     this._inputs.forEach((input) => {
       const { value = '', _typeOfValidate, name } = input;
       const isNotEmpty = Validator.isNotEmpty(value);
@@ -43,7 +49,7 @@ export class Form extends BaseComponent {
     });
     const formIsValid = this._inputs.length === data.length;
     if (formIsValid) {
-      console.log(data);
+      this.actions(data);
     }
   }
 }
