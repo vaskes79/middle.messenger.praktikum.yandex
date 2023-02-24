@@ -1,9 +1,15 @@
+import './api';
 import './components';
 import './pages';
 import { Paths } from './types';
-import { Router } from './core';
+import { Router /* ,Store */ } from './core';
 import { setupRootEventListeners } from './initHandlers';
-// import { API } from './api';
+
+// for Debug api
+import { API } from './api';
+
+// for Debug api
+window.api = API;
 
 setupRootEventListeners();
 
@@ -14,21 +20,6 @@ Router.use(Paths.signIn)
   .use(Paths.dev)
   .start();
 
-// API.auth.signUp({
-//   first_name: 'Vasily',
-//   second_name: 'Pterov',
-//   login: 'vasily-petrov',
-//   email: 'vasily-petrov@mail.com',
-//   password: '1979dfcz',
-//   phone: '+79111111111'
-// });
-
-// API.auth.signIn({
-//   login: 'vasily-perov',
-//   password: '1979dfcz'
-// });
-
-// API.auth.logout();
-// API.auth.getUser();
-
-// window.API = API;
+// window.STORE = Store;
+// fed-bed-med@mail.com
+// 1979Dfcz_
