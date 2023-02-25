@@ -5,17 +5,18 @@ import { API } from '../../api';
 
 export async function connectedCallbackMixin(root: ShadowRoot) {
   const form = root.querySelector('ypr-form') as Form;
-  form.actions = function (formData: FormDataYpr) {
+  form.actions = async function (formData: FormDataYpr) {
     const data = formData.reduce((acc, { name, value }) => {
-      if (name === 'email') {
-        name = 'login';
-        value = value.split('@')[0];
-      }
       return { ...acc, [name]: value };
     }, {} as UserLoginDTO);
 
     const signInDTO: SignInDTO = { data };
 
-    API.auth.signIn(signInDTO);
+    try {
+      await API.auth.signIn(signInDTO);
+      form.clearInputs();
+    } catch (error) {
+      console.error(error);
+    }
   };
 }
