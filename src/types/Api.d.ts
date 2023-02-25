@@ -29,3 +29,7 @@ export type UserDTO = Omit<User, 'display_name' | 'avatar' | 'id'>;
 export type ChatDTO = Pick<Chat, 'title'>;
 
 export type UserLoginDTO = Pick<User, 'login' | 'password'>;
+
+export type ErrorRes = {
+  reason: 'string';
+};
