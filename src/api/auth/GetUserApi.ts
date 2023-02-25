@@ -1,10 +1,7 @@
-import { BaseAPI } from '../../core';
+import { User } from '../../types';
+import { BaseAPI, Store } from '../../core';
 
-type Res =
-  | {
-      reasons: string;
-    }
-  | 'OK';
+type Res = User;
 
 export class GetUserApi extends BaseAPI {
   constructor(baseUrl?: string) {
@@ -12,6 +9,13 @@ export class GetUserApi extends BaseAPI {
   }
 
   async request() {
-    return this._http.GET<void, Res>(this._url);
+    try {
+      const data = await this._http.GET<void, Res>(this._url);
+      if (data.id) {
+        Store.setState('user', data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

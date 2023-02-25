@@ -1,5 +1,5 @@
 import { Paths } from '../../types';
-import { BaseAPI, Router } from '../../core';
+import { BaseAPI, Router, Store } from '../../core';
 
 export class LogoutApi extends BaseAPI {
   constructor(baseUrl?: string) {
@@ -8,9 +8,9 @@ export class LogoutApi extends BaseAPI {
 
   async create() {
     try {
-      const data = await this._http.POST(this._url, {});
+      await this._http.POST(this._url, {});
       Router.go(Paths.signIn);
-      console.log('LogoutApi: ', data);
+      Store.setState('user', null);
     } catch (error) {
       console.log('LogoutApi: error', error);
     }
