@@ -22,7 +22,6 @@ export enum BaseComponentEvents {
 }
 
 export abstract class BaseComponent<TData = unknown> extends HTMLElement {
-  protected static _attributes: string[];
   protected _root: ShadowRoot;
   protected _removeEventListener: RemoveEventListener;
   protected _handlers: Handlers[];
@@ -30,6 +29,7 @@ export abstract class BaseComponent<TData = unknown> extends HTMLElement {
   protected _connectedCallbackMixin: (root?: ShadowRoot | null) => void;
   protected _disconnectedCallbackMixin: (root?: ShadowRoot | null) => void;
   protected _data: TData;
+  static _attributes: string[];
   static tagName: string;
 
   constructor(options: BaseComponentOptions) {
