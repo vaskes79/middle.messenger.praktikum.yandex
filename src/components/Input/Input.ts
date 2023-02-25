@@ -141,6 +141,12 @@ export class Input extends BaseComponent {
     }
   };
 
+  clearValue() {
+    this._value = '';
+    this.setAttribute('value', '');
+    this._inputEl.value = '';
+  }
+
   get name() {
     return this._name;
   }

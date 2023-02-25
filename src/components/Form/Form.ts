@@ -31,6 +31,13 @@ export class Form extends BaseComponent {
     console.log('actions data handler: ', data);
   }
 
+  clearInputs() {
+    this._inputs.forEach((input) => {
+      input.clearValue();
+      input.clearError();
+    });
+  }
+
   private _submitHandler() {
     const data: FormDataYpr = [];
     this._inputs.forEach((input) => {
@@ -50,6 +57,7 @@ export class Form extends BaseComponent {
     const formIsValid = this._inputs.length === data.length;
     if (formIsValid) {
       this.actions(data);
+      this.clearInputs();
     }
   }
 }
