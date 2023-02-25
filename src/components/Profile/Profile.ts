@@ -2,6 +2,7 @@ import html from 'bundle-text:./Profile.html';
 import css from 'bundle-text:./Profile.css';
 import { BaseComponent, Store } from '../../core';
 import { Input } from '../Input';
+import { ProfileImg } from '../ProfileImg';
 
 const tagName = 'ypr-profile';
 
@@ -12,6 +13,7 @@ export class Profile extends BaseComponent {
   private _secondNameEl: Input;
   private _displayNameEl: Input;
   private _phoneEl: Input;
+  private _avatarEl: ProfileImg;
 
   constructor() {
     super({ html, css, tagName });
@@ -21,6 +23,8 @@ export class Profile extends BaseComponent {
     this._secondNameEl = this._root.querySelector('ypr-input[name=second_name]') as Input;
     this._displayNameEl = this._root.querySelector('ypr-input[name=display_name]') as Input;
     this._phoneEl = this._root.querySelector('ypr-input[name=phone]') as Input;
+    this._phoneEl = this._root.querySelector('ypr-input[name=phone]') as Input;
+    this._avatarEl = this._root.querySelector('ypr-profile-input') as ProfileImg;
   }
 
   protected _mount() {
@@ -33,6 +37,10 @@ export class Profile extends BaseComponent {
         this._secondNameEl.setAttribute('value', user.second_name);
         this._displayNameEl.setAttribute('value', user.display_name || 'Not Set');
         this._phoneEl.setAttribute('value', user.phone);
+        if (user.avatar) {
+          const avatarUrl = `https://ya-praktikum.tech/api/v2/resources${user.avatar}`;
+          this._avatarEl.setAttribute('avatar', avatarUrl);
+        }
       }
     });
   }
