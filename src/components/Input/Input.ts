@@ -75,12 +75,15 @@ export class Input extends BaseComponent {
   }
 
   static get observedAttributes() {
-    return ['error', 'validate', 'validateErrorMessage'];
+    return ['error', 'validate', 'validateErrorMessage', 'value'];
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
     if (name === 'error' && oldValue !== newValue) {
       this.showError(newValue);
+    }
+    if (name !== 'error' && oldValue !== newValue) {
+      this._setupInput();
     }
   }
 
