@@ -1,12 +1,17 @@
 import { BaseAPI } from '../../core';
 
+type Res =
+  | {
+      reasons: string;
+    }
+  | 'OK';
+
 export class GetUserApi extends BaseAPI {
   constructor(baseUrl?: string) {
     super('/auth/user', baseUrl);
   }
 
   async request() {
-    const data = await this._http.GET(this._url);
-    console.log('GetUserApi: ', data);
+    return this._http.GET<void, Res>(this._url);
   }
 }

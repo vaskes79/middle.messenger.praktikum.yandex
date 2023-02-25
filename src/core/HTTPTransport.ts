@@ -1,3 +1,6 @@
+import { Paths } from '../types';
+import { Router } from '../core';
+
 enum METHOD {
   GET = 'GET',
   POST = 'POST',
@@ -7,6 +10,8 @@ enum METHOD {
 }
 
 type HeadersItem = Record<string, string>;
+
+const unAthurisetUserStaus = [401];
 
 export type Options<TData = unknown> = {
   method: METHOD;
@@ -38,10 +43,10 @@ export class HTTPTransport {
     });
   };
 
-  private _request<TRes = unknown, TReq = unknown>(
+  private _request<TReq = unknown, TRes = void>(
     url: string,
-    options: Options<TRes> = { method: METHOD.GET }
-  ): Promise<TReq> {
+    options: Options<TReq> = { method: METHOD.GET }
+  ): Promise<TRes> {
     const { method, data, headers } = options;
 
     return new Promise((resolve, reject) => {
@@ -59,6 +64,9 @@ export class HTTPTransport {
           const checkTypeOfJson = xhr.responseType === 'json' || xhr.response !== 'OK';
           if (xhr.status === 200 && checkTypeOfJson) {
             res = JSON.parse(res) as TReq;
+          }
+          if (unAthurisetUserStaus.includes(xhr.status)) {
+            Router.go(Paths.signIn);
           }
 
           resolve(res);
@@ -78,12 +86,12 @@ export class HTTPTransport {
       }
     });
   }
-  static GET<TReq = unknown>(url: string, data?: TReq): Promise<TReq> {
+  static GET<TReq = unknown, TRes = void>(url: string, data?: TReq): Promise<TRes> {
     if (data) {
       const params = new URLSearchParams(data);
       url = `${url}?${params}`;
     }
-    return HTTPTransport._instance._request<null, TReq>(url);
+    return HTTPTransport._instance._request<TReq, TRes>(url);
   }
 
   static POST<TReq = unknown, TRes = unknown>(
