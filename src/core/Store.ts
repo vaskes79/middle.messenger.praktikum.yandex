@@ -27,11 +27,11 @@ export class Store {
     throw new Error(msg);
   }
 
-  static getState(key?: KeysOfState) {
+  static getState<K extends KeysOfState, S extends (typeof this._instance._state)[K]>(key?: K) {
     if (key) {
-      return this._instance._state[key];
+      return this._instance._state[key] as S;
     }
-    return this._instance._state;
+    return this._instance._state as S;
   }
 
   static setState<K extends KeysOfState, S extends (typeof this._instance._state)[K]>(
