@@ -1,4 +1,4 @@
-import { Paths } from '../types';
+import { ErrorRes, Paths } from '../types';
 import { Router } from '../core';
 
 enum METHOD {
@@ -59,20 +59,20 @@ export class HTTPTransport {
       }
 
       xhr.onload = function () {
-        try {
-          let res = xhr.response;
-          const checkTypeOfJson = xhr.responseType === 'json' || xhr.response !== 'OK';
-          if (xhr.status === 200 && checkTypeOfJson) {
-            res = JSON.parse(res) as TReq;
-          }
-          if (unAthurisetUserStaus.includes(xhr.status)) {
-            Router.go(Paths.signIn);
-          }
-
-          resolve(res);
-        } catch (error) {
-          this._error('HTTPTransport incorrect response');
+        let res = xhr.response;
+        const checkTypeOfJson = xhr.responseType === 'json' || xhr.response !== 'OK';
+        if (xhr.status === 200 && checkTypeOfJson) {
+          res = JSON.parse(res) as TReq;
         }
+        if (unAthurisetUserStaus.includes(xhr.status)) {
+          Router.go(Paths.signIn);
+        }
+        if (res.reasons) {
+          reject(res as ErrorRes);
+          this._error(res.reasons);
+        }
+
+        resolve(res as TRes);
       }.bind(this);
 
       xhr.onabort = reject;
