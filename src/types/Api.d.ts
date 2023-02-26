@@ -33,3 +33,28 @@ export type UserLoginDTO = Pick<User, 'login' | 'password'>;
 export type ErrorRes = {
   reason: 'string';
 };
+
+type MessageItemType = 'message' | 'file' | 'sticker';
+
+type MessageItemFile = {
+  id: number;
+  user_id: number;
+  path: string;
+  filename: string;
+  content_type: string;
+  content_size: number;
+  upload_date: string;
+};
+
+export type MessageItem = {
+  chat_id: number;
+  content: string;
+  id: number;
+  is_read: boolean;
+  time: string;
+  type: MessageItemType;
+  user_id: number;
+  file?: MessageItemFile;
+};
+
+export type MessageItemListRes = MessageItem[];

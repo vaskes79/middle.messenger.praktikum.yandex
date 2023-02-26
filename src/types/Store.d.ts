@@ -1,5 +1,5 @@
 import { MessageSocket } from '../api/messages/MessageSocket';
-import MessageItem from '../components/MessageItem';
+import { MessageItemData } from '../components/MessageItem';
 import { User, Chat } from './Api.d';
 
 export interface State {
@@ -8,7 +8,7 @@ export interface State {
   currentChatWSLink: string | null;
   currentWSconnect: MessageSocket | null;
   chatList: Chat[];
-  messageItemList: MessageItem[];
+  messageItemList: MessageItemData[];
 }
 
 export type KeysOfState = keyof State;

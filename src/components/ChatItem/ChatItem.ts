@@ -8,8 +8,8 @@ import { KeysOfState } from '../../types';
 
 export interface ChatItemData {
   name: string;
-  imgurl: string;
-  time: string;
+  imgurl: string | null;
+  time: Date;
   statusUser: StatusUserValue;
   statusMessage: StatusMessageState;
   lastMessage: string;
