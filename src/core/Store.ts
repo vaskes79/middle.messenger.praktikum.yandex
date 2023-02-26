@@ -3,7 +3,8 @@ import { EventBus } from './EventBus';
 
 const initialState: State = {
   currentChat: null,
-  user: null
+  user: null,
+  chatList: []
 };
 
 export enum StoreEvents {
