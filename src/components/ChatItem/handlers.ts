@@ -10,7 +10,7 @@ export const handlers: Handlers[] = [
       const btn = event.currentTarget as HTMLButtonElement;
       const currentWsConnect = Store.getState('currentWSconnect');
       if (currentWsConnect) {
-        (currentWsConnect as WebSocket).close();
+        currentWsConnect.close();
         Store.setState('currentWSconnect', null);
       }
 
