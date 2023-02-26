@@ -38,8 +38,10 @@ function generateContentHandler(root: ShadowRoot) {
     if (key === 'chatList') {
       chatList.innerHTML = '';
       const data = Store.getState('chatList');
-      const chatListData = mapChatApiToChatItem(data);
-      generateCotnent<ChatItem, ChatItemData>(chatList, 'ypr-chat-item', chatListData);
+      if (Array.isArray(data)) {
+        const chatListData = mapChatApiToChatItem(data);
+        generateCotnent<ChatItem, ChatItemData>(chatList, 'ypr-chat-item', chatListData);
+      }
     }
   });
 
