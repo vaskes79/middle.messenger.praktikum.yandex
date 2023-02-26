@@ -4,6 +4,7 @@ export interface State {
   user: User | null;
   currentChat: number | null;
   currentChatWSLink: string | null;
+  currentWSconnect: WebSocket | null;
   chatList: Chat[];
 }
 

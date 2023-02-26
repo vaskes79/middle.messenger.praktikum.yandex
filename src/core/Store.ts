@@ -5,7 +5,8 @@ const initialState: State = {
   currentChat: null,
   user: null,
   chatList: [],
-  currentChatWSLink: null
+  currentChatWSLink: null,
+  currentWSconnect: null
 };
 
 export enum StoreEvents {
