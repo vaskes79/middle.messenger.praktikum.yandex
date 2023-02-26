@@ -6,7 +6,8 @@ const initialState: State = {
   user: null,
   chatList: [],
   currentChatWSLink: null,
-  currentWSconnect: null
+  currentWSconnect: null,
+  messageItemList: []
 };
 
 export enum StoreEvents {
@@ -30,12 +31,14 @@ export class Store {
     throw new Error(msg);
   }
 
-  static getState<K extends KeysOfState, S extends (typeof this._instance._state)[K]>(key?: K) {
+  static getState<K extends KeysOfState, S extends K extends KeysOfState ? State[K] : State>(
+    key?: K
+  ) {
     if (key) {
       return this._instance._state[key] as S;
     }
 
-    return this._instance._state;
+    return this._instance._state as S;
   }
 
   static setState<K extends KeysOfState, S extends (typeof this._instance._state)[K]>(
