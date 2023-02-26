@@ -13,6 +13,7 @@ export class LogoutApi extends BaseAPI {
       Store.setState('user', null);
       Store.setState('chatList', []);
       Store.setState('chatToken', null);
+      Store.setState('currentChat', null);
     } catch (error) {
       console.log('LogoutApi: error', error);
     }
