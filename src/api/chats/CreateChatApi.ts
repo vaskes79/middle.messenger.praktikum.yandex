@@ -1,3 +1,4 @@
+import { API } from '../../api';
 import { BaseAPI, OptionsWithoutMethod } from '../../core';
 import type { ChatDTO } from '../../types';
 
@@ -14,6 +15,8 @@ export class CreateChatApi extends BaseAPI {
 
   async create(chatDTO: CreateChatDTO) {
     const data = await this._http.POST<ChatDTO, ChatCreateRes>(this._url, chatDTO);
-    console.log('CreateChatApi: ', data);
+    if (data.id) {
+      API.chats.getAllChats();
+    }
   }
 }

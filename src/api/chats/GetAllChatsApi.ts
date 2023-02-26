@@ -1,4 +1,5 @@
-import { BaseAPI } from '../../core';
+import { Chat, ErrorRes } from '../../types';
+import { BaseAPI, Store } from '../../core';
 
 export enum GetAllChatsApiEvents {
   apiGetAllChatsApiUpdate = 'api:chatlist:update'
@@ -10,7 +11,13 @@ export class GetAllChatsApi extends BaseAPI {
   }
 
   async request() {
-    const data = await this._http.GET(this._url);
-    this._eventBus.emmit('api:chatlist:update', data);
+    try {
+      const data = await this._http.GET<undefined, Chat[]>(this._url);
+      if (data?.length) {
+        Store.setState('chatList', data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
