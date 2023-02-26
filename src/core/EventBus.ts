@@ -1,13 +1,17 @@
+import { ApiChatsEvents } from '../api/chats';
 import { LayoutEvents } from '../components/Layout';
 import { ModalEvents } from '../components/Modal';
 import { PageEvents } from '../types/Page';
 import { BaseComponentEvents } from './BaseComponent';
+import { StoreEvents } from './Store';
 
 export type EventName =
   | keyof GlobalEventHandlersEventMap
+  | `${StoreEvents}`
   | `${PageEvents}`
   | `${BaseComponentEvents}`
   | `${LayoutEvents}`
+  | `${ApiChatsEvents}`
   | `${ModalEvents}`;
 
 export type Callback<T = unknown> = (...args: T[]) => void;
