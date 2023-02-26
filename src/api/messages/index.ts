@@ -1,6 +1,6 @@
 // import {ConnectToChatApi} from './ConnectToChatApi';
-import { GetCurrentChatTokenApi } from './GetCurrentChatTokenApi';
+import { GetWSConnectLinkApi } from './GetWSConnectLinkApi';
 
 export const messages = {
-  getChatToken: (id: number) => new GetCurrentChatTokenApi(id).request()
+  getWSConnectLink: (id: string) => new GetWSConnectLinkApi().request(id)
 };
