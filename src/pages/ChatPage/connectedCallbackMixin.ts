@@ -47,7 +47,12 @@ function generateContentHandler(root: ShadowRoot) {
 
   API.chats.getAllChats();
 
-  generateCotnent<MessageItem, MessageItemData>(chatMain, 'ypr-message-item', messageItemList);
+  eventBuss.on('store:update', (key: KeysOfState) => {
+    if (key === 'currentChatWSLink') {
+      API.messages.connectToChat();
+      generateCotnent<MessageItem, MessageItemData>(chatMain, 'ypr-message-item', messageItemList);
+    }
+  });
 }
 
 function settingsPanelHandlers(root: ShadowRoot) {

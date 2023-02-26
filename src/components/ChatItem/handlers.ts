@@ -8,6 +8,11 @@ export const handlers: Handlers[] = [
     event: 'click',
     handler: (event: Event) => {
       const btn = event.currentTarget as HTMLButtonElement;
+      const currentWsConnect = Store.getState('currentWSconnect');
+      if (currentWsConnect) {
+        (currentWsConnect as WebSocket).close();
+        Store.setState('currentWSconnect', null);
+      }
 
       if (btn.id && typeof btn.id === 'string') {
         Store.setState('currentChat', parseInt(btn.id));
