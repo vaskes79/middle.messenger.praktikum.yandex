@@ -3,7 +3,7 @@ const eventBuss = EventBus.getInstance();
 import { generateCotnent } from '../../utils';
 import { Main } from '../../components/Layout';
 import { ChatItemData, ChatItem } from '../../components/ChatItem';
-import { MessageItem, MessageItemData, messageItemList } from '../../components/MessageItem';
+import { MessageItemData, messageItemList } from '../../components/MessageItem';
 import { mapChatApiToChatItem } from './utils';
 import { KeysOfState } from '../../types';
 import { API } from '../../api';
@@ -16,16 +16,18 @@ export async function connectedCallbackMixin(root: ShadowRoot) {
   clearChatHandler(root);
 }
 
+const noMessagesComponent = `
+<ypr-empty>
+  <h2>No Messages</h2>
+</ypr-empty>`;
+
 function clearChatHandler(root: ShadowRoot) {
   const btnClearChat = root.getElementById('btnClearChat');
   const chatMain = root.getElementById('chat-main');
 
   if (btnClearChat && chatMain) {
     btnClearChat.addEventListener('click', () => {
-      chatMain.innerHTML = `
-      <ypr-empty>
-        <h2>No Messages</h2>
-      </ypr-empty>`;
+      chatMain.innerHTML = noMessagesComponent;
     });
   }
 }
@@ -33,6 +35,7 @@ function clearChatHandler(root: ShadowRoot) {
 function generateContentHandler(root: ShadowRoot) {
   const chatMain = root.getElementById('chat-main') as Main;
   const chatList = root.getElementById('chatlist-main') as Main;
+  chatMain.innerHTML = noMessagesComponent;
 
   eventBuss.on('store:update', (key: KeysOfState) => {
     if (key === 'chatList') {
@@ -50,7 +53,17 @@ function generateContentHandler(root: ShadowRoot) {
   eventBuss.on('store:update', (key: KeysOfState) => {
     if (key === 'currentChatWSLink') {
       API.messages.connectToChat();
-      generateCotnent<MessageItem, MessageItemData>(chatMain, 'ypr-message-item', messageItemList);
+    }
+  });
+
+  eventBuss.on('store:update', (key: KeysOfState) => {
+    if (key === 'messageItemList') {
+      const messageItemList = Store.getState('messageItemList');
+      if (Array.isArray(messageItemList) && messageItemList.length === 0) {
+        chatMain.innerHTML = noMessagesComponent;
+        return;
+      }
+      // generateCotnent<MessageItem, MessageItemData>(chatMain, 'ypr-message-item', messageItemList);
     }
   });
 }
