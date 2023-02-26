@@ -1,4 +1,4 @@
-import { ChatItemData } from 'components/ChatItem';
+import { ChatItemData } from '../../../components/ChatItem';
 import { Chat } from '../../../types';
 
 export function mapChatApiToChatItem(chatItemApiData: Chat[]): ChatItemData[] {
@@ -9,6 +9,7 @@ export function mapChatApiToChatItem(chatItemApiData: Chat[]): ChatItemData[] {
     statusUser: 'not-set',
     statusMessage: 'sent',
     lastMessage: chat?.last_message?.content,
-    conterMessages: chat?.unread_count
+    conterMessages: chat?.unread_count,
+    id: chat.id
   }));
 }
