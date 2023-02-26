@@ -12,6 +12,7 @@ export class LogoutApi extends BaseAPI {
       Router.go(Paths.signIn);
       Store.setState('user', null);
       Store.setState('chatList', []);
+      Store.setState('chatToken', null);
     } catch (error) {
       console.log('LogoutApi: error', error);
     }
