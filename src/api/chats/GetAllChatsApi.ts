@@ -1,4 +1,4 @@
-import { Chat, ErrorRes } from '../../types';
+import { Chat } from '../../types';
 import { BaseAPI, Store } from '../../core';
 
 export enum GetAllChatsApiEvents {
@@ -11,13 +11,9 @@ export class GetAllChatsApi extends BaseAPI {
   }
 
   async request() {
-    try {
-      const data = await this._http.GET<undefined, Chat[]>(this._url);
-      if (data?.length) {
-        Store.setState('chatList', data);
-      }
-    } catch (error) {
-      console.error(error);
+    const data = await this._http.GET<undefined, Chat[]>(this._url);
+    if (data?.length) {
+      Store.setState('chatList', data);
     }
   }
 }
