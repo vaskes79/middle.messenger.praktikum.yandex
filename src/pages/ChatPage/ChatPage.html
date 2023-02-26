@@ -35,14 +35,12 @@
       -->
       <li slot="menu-item">
         <ypr-icon name="logout" color="var(--gray-700)"></ypr-icon>
-        <a href="/signin" target="_blank"> Logout </a>
+        <button id="btnLogout">Logout</button>
       </li>
     </ypr-menu>
   </ypr-header>
 
-  <ypr-main id="chatlist-main" slot="chatlist-main">
-    <ypr-chat-item></ypr-chat-item>
-  </ypr-main>
+  <ypr-main id="chatlist-main" slot="chatlist-main"></ypr-main>
 
   <!-- Profile -->
 
@@ -53,85 +51,7 @@
     </ypr-btn>
   </ypr-header>
 
-  <ypr-main slot="settings-main">
-    <ypr-profile-input name="avatar"></ypr-profile-input>
-    <ypr-form>
-      <ypr-input
-        slot="content"
-        label="Email"
-        details="User email"
-        type="email"
-        name="emai"
-        validate="isEmail"
-        validateErrorMessage="Is not correct email"
-        info
-      ></ypr-input>
-      <ypr-input
-        slot="content"
-        label="Username"
-        details="User name"
-        name="login"
-        validate="isLogin"
-        validateErrorMessage="Is not correct login name"
-        info
-      ></ypr-input>
-      <ypr-input
-        slot="content"
-        label="First Name"
-        name="first_name"
-        details="First name user"
-        validate="isDisplayName"
-        validateErrorMessage="Is not correct First Name"
-        info
-      ></ypr-input>
-      <ypr-input
-        slot="content"
-        label="Last Name"
-        name="second_name"
-        details="Last name user"
-        validate="isDisplayName"
-        validateErrorMessage="Is not correct First Name"
-        info
-      ></ypr-input>
-      <ypr-input
-        slot="content"
-        label="Display Name"
-        name="display_name"
-        details="Name that displayed"
-        validate="isDisplayName"
-        validateErrorMessage="Is not correct Second Name"
-        info
-      >
-      </ypr-input>
-      <ypr-input
-        slot="content"
-        label="Phone Number"
-        name="phone"
-        details="Phone number user"
-        type="phone"
-        validate="isCorrectPhoneNumber"
-        validateErrorMessage="Is not correct Phone number"
-        info
-      >
-      </ypr-input>
-      <ypr-input
-        slot="content"
-        label="Change Password"
-        name="password"
-        details="Password field"
-        validate="isCorrectPassword"
-        validateErrorMessage="Password is not correct"
-        info
-      ></ypr-input>
-      <ypr-input
-        slot="content"
-        label="Confirm Password"
-        name="password"
-        details="Password field"
-        info
-      ></ypr-input>
-    </ypr-form>
-  </ypr-main>
+  <ypr-main slot="settings-main"><ypr-profile></ypr-profile></ypr-main>
 
   <ypr-footer slot="settings-footer">
     <ypr-btn id="btnSubmit">
@@ -158,7 +78,7 @@
       <li slot="item">
         <ypr-btn link id="btnClearChat">Clear chat</ypr-btn>
       </li>
-      <li slot="item"><a href="/signin">sign in</a></li>
+      <li slot="item"><a href="/">sign in</a></li>
       <li slot="item"><a href="/signup">sign up</a></li>
       <li slot="item"><a href="/error404">404</a></li>
       <li slot="item"><a href="/error500">500</a></li>

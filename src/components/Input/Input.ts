@@ -7,27 +7,27 @@ import { handlers } from './handlers';
 const tagName = 'ypr-input';
 
 export class Input extends BaseComponent {
-  _containerEl: HTMLElement;
-  _infoEl: HTMLElement;
-  _detailsEl: HTMLElement;
-  _requireEl: HTMLElement;
-  _inputEl: HTMLInputElement;
-  _labelEl: HTMLElement;
+  private _containerEl: HTMLElement;
+  private _infoEl: HTMLElement;
+  private _detailsEl: HTMLElement;
+  private _requireEl: HTMLElement;
+  private _inputEl: HTMLInputElement;
+  private _labelEl: HTMLElement;
 
-  _detailsContent: string;
-  _detailsShow = false;
+  private _detailsContent: string;
+  private _detailsShow = false;
 
-  _errorContent: string;
-  _error = false;
+  private _errorContent: string;
+  private _error = false;
 
-  _require = false;
+  private _require = false;
 
-  _name: string;
-  _value: string;
+  private _name: string;
+  private _value: string;
 
-  _label = 'Input Label';
-  _typeOfValidate: ValidatorCheckNames;
-  _validateErrorMessage: string;
+  private _label = 'Input Label';
+  private _typeOfValidate: ValidatorCheckNames;
+  private _validateErrorMessage: string;
 
   constructor() {
     super({ html, css, tagName, handlers });
@@ -75,12 +75,15 @@ export class Input extends BaseComponent {
   }
 
   static get observedAttributes() {
-    return ['error', 'validate', 'validateErrorMessage'];
+    return ['error', 'validate', 'validateErrorMessage', 'value'];
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
     if (name === 'error' && oldValue !== newValue) {
       this.showError(newValue);
+    }
+    if (name !== 'error' && oldValue !== newValue) {
+      this._setupInput();
     }
   }
 
@@ -140,6 +143,12 @@ export class Input extends BaseComponent {
       this._detailsEl.textContent = this._detailsContent;
     }
   };
+
+  clearValue() {
+    this._value = '';
+    this.setAttribute('value', '');
+    this._inputEl.value = '';
+  }
 
   get name() {
     return this._name;

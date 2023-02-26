@@ -2,15 +2,15 @@ import html from 'bundle-text:./MessageItem.html';
 import css from 'bundle-text:./MessageItem.css';
 import { StatusMessage, StatusMessageState } from '../Status/StatusMessage';
 import { BaseComponent } from '../../core';
+import { MessageItemType } from '../../types';
 
 const tagName = 'ypr-message-item';
 
-export type TypeContentMessage = 'text' | 'image';
 export type OwnerMessage = 'me' | 'user';
 
 export interface MessageItemData {
   owner: OwnerMessage;
-  type: TypeContentMessage;
+  type: MessageItemType;
   time: string;
   status: StatusMessageState;
   content: string;
@@ -41,11 +41,11 @@ export class MessageItem extends BaseComponent<MessageItemData> {
       this._timeEl.innerHTML = time;
     }
 
-    if (this._contentEl && type === 'text') {
+    if (this._contentEl && type === 'message') {
       this._contentEl.textContent = content;
     }
 
-    if (this._contentEl && type === 'image') {
+    if (this._contentEl && type === 'file') {
       this._contentEl.innerHTML = `<img src="${content}" alt="name"/>`;
     }
 
