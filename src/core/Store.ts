@@ -4,7 +4,8 @@ import { EventBus } from './EventBus';
 const initialState: State = {
   currentChat: null,
   user: null,
-  chatList: []
+  chatList: [],
+  chatToken: null
 };
 
 export enum StoreEvents {
@@ -32,7 +33,8 @@ export class Store {
     if (key) {
       return this._instance._state[key] as S;
     }
-    return this._instance._state as S;
+
+    return this._instance._state;
   }
 
   static setState<K extends KeysOfState, S extends (typeof this._instance._state)[K]>(
