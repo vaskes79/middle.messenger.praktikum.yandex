@@ -1,4 +1,3 @@
-import { API } from '../api';
 import { BaseComponent, BaseComponentOptions } from './BaseComponent';
 
 export function createPage(options: BaseComponentOptions) {
@@ -15,13 +14,6 @@ export function createPage(options: BaseComponentOptions) {
 
     static get observedAttributes() {
       return options.attributes || [];
-    }
-
-    protected async _mount(): Promise<void> {
-      const isProtectedRoute = this.hasAttribute('private');
-      if (isProtectedRoute) {
-        await API.auth.getUser();
-      }
     }
   }
 

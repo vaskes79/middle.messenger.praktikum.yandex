@@ -1,5 +1,6 @@
 import { Paths } from '../types';
 import { Route } from './Route';
+import { Store } from './Store';
 
 export class Router {
   private static _instance: Router = new Router();
@@ -28,7 +29,15 @@ export class Router {
   };
 
   private _navigate(path: string) {
-    const activeRoute = this._routes[path] || this._routes[Paths.error404];
+    let activeRoute = this._routes[path] || this._routes[Paths.error404];
+    const isPrivateRoute = activeRoute.pageElement.hasAttribute('private');
+    const user = Store.getState('user');
+
+    if (isPrivateRoute && !user) {
+      activeRoute = this._routes[Paths.signIn];
+      const pathname = activeRoute.pathName;
+      this._history.pushState({}, pathname, pathname);
+    }
 
     if (!this._currentRoute) {
       activeRoute.mountRout();
