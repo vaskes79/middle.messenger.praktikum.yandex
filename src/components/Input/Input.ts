@@ -15,7 +15,6 @@ export class Input extends BaseComponent {
   private _labelEl: HTMLElement;
 
   private _detailsContent: string;
-  private _detailsShow = false;
 
   private _errorContent: string;
   private _error = false;
@@ -26,8 +25,8 @@ export class Input extends BaseComponent {
   private _value: string;
 
   private _label = 'Input Label';
-  private _typeOfValidate: ValidatorCheckNames;
-  private _validateErrorMessage: string;
+  typeOfValidate: ValidatorCheckNames;
+  validateErrorMessage: string;
 
   constructor() {
     super({ html, css, tagName, handlers });
@@ -40,11 +39,11 @@ export class Input extends BaseComponent {
   }
 
   validate() {
-    if (this._value && this._typeOfValidate && this._validateErrorMessage) {
-      const valueIsValid = Validator[this._typeOfValidate](this._value);
+    if (this._value && this.typeOfValidate && this.validateErrorMessage) {
+      const valueIsValid = Validator[this.typeOfValidate](this._value);
 
       if (!valueIsValid) {
-        this.showError(this._validateErrorMessage);
+        this.showError(this.validateErrorMessage);
         return;
       }
     }
@@ -57,14 +56,14 @@ export class Input extends BaseComponent {
     if (this.hasAttribute('validate')) {
       const typeValidate = this.getAttribute('validate');
       if (typeValidate) {
-        this._typeOfValidate = typeValidate as ValidatorCheckNames;
+        this.typeOfValidate = typeValidate as ValidatorCheckNames;
       }
     }
 
     if (this.hasAttribute('validateErrorMessage')) {
       const validateErrorMessage = this.getAttribute('validateErrorMessage');
       if (validateErrorMessage) {
-        this._validateErrorMessage = validateErrorMessage;
+        this.validateErrorMessage = validateErrorMessage;
       }
     }
 
