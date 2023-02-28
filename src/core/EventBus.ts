@@ -7,6 +7,7 @@ import { StoreEvents } from './Store';
 
 export type EventName =
   | keyof GlobalEventHandlersEventMap
+  | 'logout'
   | `${StoreEvents}`
   | `${PageEvents}`
   | `${BaseComponentEvents}`
