@@ -19,6 +19,7 @@ form {
 }
 
 input {
+  font-family: inherit;
   width: 100%;
   display: inline-block;
   box-sizing: border-box;
@@ -26,6 +27,7 @@ input {
   background: transparent;
   border: 1px solid var(--gray-400);
   padding: 11px 14px;
+  color: var(--fograound);
 }
 
 input:focus {
