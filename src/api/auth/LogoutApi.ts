@@ -7,7 +7,7 @@ export class LogoutApi extends BaseAPI {
 
   async create() {
     try {
-      await this._http.POST(this._url, {});
+      return this._http.POST(this._url, {});
     } catch (error) {
       console.log('LogoutApi: error', error);
     }

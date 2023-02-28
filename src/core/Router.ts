@@ -28,7 +28,7 @@ export class Router {
     Router.go(pathname);
   };
 
-  private _navigate(path: string) {
+  private async _navigate(path: string) {
     let activeRoute = this._routes[path] || this._routes[Paths.error404];
     const isPrivateRoute = activeRoute.pageElement.hasAttribute('private');
     const user = Store.getState('user');

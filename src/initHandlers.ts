@@ -49,11 +49,4 @@ export async function setupRootEventListeners() {
   eventBus.on('component:unmount', (name: string) => {
     console.log(`Component ${name} UNMOUNT`);
   });
-
-  const user = await API.auth.getUser();
-
-  if (user) {
-    Store.setState('user', user);
-    Router.go(Paths.chat);
-  }
 }

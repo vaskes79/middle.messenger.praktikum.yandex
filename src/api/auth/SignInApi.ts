@@ -1,3 +1,4 @@
+import { API } from '../../api';
 import { BaseAPI, OptionsWithoutMethod } from '../../core';
 import { UserLoginDTO } from '../../types';
 
@@ -16,6 +17,9 @@ export class SignInApi extends BaseAPI {
     try {
       return await this._http.POST<UserLoginDTO, UserSignInRes | 'OK'>(this._url, userData);
     } catch (error) {
+      if (error.status === 400) {
+        await API.auth.logout();
+      }
       console.error('SignInApi error: ', error);
     }
   }
