@@ -1,6 +1,8 @@
 import { EventBus, Router, Store } from './core';
 import { API } from './api';
 import { Paths } from './types';
+import type { MessageSocket } from './api/messages/MessageSocket';
+import type { MessageItemData } from './components/MessageItem';
 
 const eventBus = EventBus.getInstance();
 
@@ -11,6 +13,19 @@ export async function setupRootEventListeners() {
     Store.setState('chatList', []);
     Store.setState('currentChat', null);
     Router.go(Paths.signIn);
+  });
+
+  eventBus.on('ws:open', (ws: MessageSocket) => {
+    Store.setState('currentWSconnect', ws);
+  });
+
+  eventBus.on('ws:close', () => {
+    Store.setState('currentWSconnect', null);
+  });
+
+  eventBus.on('ws:message:list', (msgItemData: MessageItemData) => {
+    const msg = Store.getState('messageItemList');
+    Store.setState('messageItemList', msg.concat(msgItemData));
   });
 
   eventBus.on('store:update', (key) => {

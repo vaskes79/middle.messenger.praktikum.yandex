@@ -1,15 +1,7 @@
 import { mapMessageResToMessageItemData } from '../../pages/ChatPage/utils';
-import { BaseError, Store } from '../../core';
+import { BaseError, EventBus, Store } from '../../core';
 import { MessageItemListRes } from '../../types';
-
-type MessageSocketDataType = 'user connected' | 'ping' | 'get old' | 'message' | 'file' | 'sticker';
-
-export type MessageSocketData = {
-  type: MessageSocketDataType;
-  content?: string;
-};
-
-type MessageItemsData = { id: number }[];
+import { MessageItemsData, MessageSocketData } from './types';
 
 export class MessageSocket {
   private _soket: WebSocket;
@@ -17,10 +9,12 @@ export class MessageSocket {
   private _intervalId: number;
   private _delay = 30000;
   private _ofsetMessages = 0;
+  private _eventBuss: EventBus;
 
   constructor() {
     const wsUrl = Store.getState('currentChatWSLink');
     this._handleError = new BaseError('ConnectToChatApi');
+    this._eventBuss = EventBus.getInstance();
 
     if (typeof wsUrl === 'string') {
       this._soket = new WebSocket(wsUrl);
@@ -29,7 +23,6 @@ export class MessageSocket {
       this._setupErrorHandling();
       this._setupMessageListener();
       this._pingConnection();
-      Store.setState('currentWSconnect', this);
     } else {
       console.error(wsUrl);
       this._handleError.error('incorrect url connection WebSocket');
@@ -39,6 +32,17 @@ export class MessageSocket {
   private _setupOpenListener() {
     this._soket.addEventListener('open', () => {
       this.getNextMessages();
+      this._eventBuss.emmit('ws:open', this);
+    });
+  }
+
+  private _setupCloseListener() {
+    this._soket.addEventListener('close', (event) => {
+      if (event.wasClean) {
+        this._eventBuss.emmit('ws:close');
+      } else {
+        this._eventBuss.emmit('ws:close');
+      }
     });
   }
 
@@ -47,9 +51,8 @@ export class MessageSocket {
 
     if (lastId) {
       this._ofsetMessages = lastId;
-      const msg = Store.getState('messageItemList');
       const msgItemData = mapMessageResToMessageItemData(newMsg as MessageItemListRes);
-      Store.setState('messageItemList', msg.concat(msgItemData));
+      this._eventBuss.emmit('ws:message:list', msgItemData);
     }
   }
 
@@ -59,18 +62,6 @@ export class MessageSocket {
       if (Array.isArray(data)) {
         this._updateMessageHandler(data);
       }
-    });
-  }
-
-  private _setupCloseListener() {
-    this._soket.addEventListener('close', (event) => {
-      if (event.wasClean) {
-        console.log('connection is close');
-      } else {
-        console.log('lost connection');
-      }
-
-      console.log(`code: ${event.code} | reason: ${event.reason}`);
     });
   }
 

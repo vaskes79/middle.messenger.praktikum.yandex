@@ -1,3 +1,4 @@
+import { MessageSocktEvents } from '../api/messages';
 import { ApiChatsEvents } from '../api/chats';
 import { LayoutEvents } from '../components/Layout';
 import { ModalEvents } from '../components/Modal';
@@ -13,6 +14,7 @@ export type EventName =
   | `${BaseComponentEvents}`
   | `${LayoutEvents}`
   | `${ApiChatsEvents}`
+  | `${MessageSocktEvents}`
   | `${ModalEvents}`;
 
 export type Callback<T = unknown> = (...args: T[]) => void;

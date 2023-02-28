@@ -5,3 +5,5 @@ export const messages = {
   getWSConnectLink: (id: string) => new GetWSConnectLinkApi().request(id),
   connectToChat: () => new MessageSocket()
 };
+
+export * from './types';
