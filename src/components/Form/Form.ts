@@ -25,11 +25,24 @@ export class Form extends BaseComponent {
         this._submitHandler();
       }
     });
+
+    this._root.addEventListener('keyup', this._keyboardEventHandler);
+  }
+
+  protected _unmount(): void {
+    this._root.removeEventListener('keyup', this._keyboardEventHandler);
   }
 
   actions(data: unknown) {
     console.log('actions data handler: ', data);
   }
+
+  private _keyboardEventHandler = (event: KeyboardEvent) => {
+    console.log('form', this);
+    if (event.key === 'Enter' && this.id) {
+      this._submitHandler();
+    }
+  };
 
   clearInputs() {
     this._inputs.forEach((input) => {
@@ -41,11 +54,11 @@ export class Form extends BaseComponent {
   private _submitHandler() {
     const data: FormDataYpr = [];
     this._inputs.forEach((input) => {
-      const { value = '', _typeOfValidate, name } = input;
+      const { value = '', typeOfValidate, name } = input;
       const isNotEmpty = Validator.isNotEmpty(value);
-      const valid = Validator[_typeOfValidate](value);
+      const valid = Validator[typeOfValidate](value);
       if (!valid) {
-        input.showError(input._validateErrorMessage);
+        input.showError(input.validateErrorMessage);
       }
       if (!isNotEmpty) {
         input.showError('Inupt should field');

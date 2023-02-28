@@ -1,6 +1,3 @@
-import { ErrorRes, Paths } from '../types';
-import { Router } from '../core';
-
 enum METHOD {
   GET = 'GET',
   POST = 'POST',
@@ -20,6 +17,10 @@ export type Options<TData = unknown> = {
 };
 
 export type OptionsWithoutMethod<TData> = Omit<Options<TData>, 'method'>;
+
+const defaultHeaders = {
+  'Content-type': 'application/json; charset=UTF-8'
+};
 
 export class HTTPTransport {
   private static _instance: HTTPTransport = new HTTPTransport();
@@ -43,11 +44,11 @@ export class HTTPTransport {
     });
   };
 
-  private _request<TReq = unknown, TRes = void>(
+  private _request<TReq = unknown, TRes = unknown>(
     url: string,
     options: Options<TReq> = { method: METHOD.GET }
   ): Promise<TRes> {
-    const { method, data, headers } = options;
+    const { method, data, headers = defaultHeaders } = options;
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -61,18 +62,15 @@ export class HTTPTransport {
       xhr.onload = function () {
         let res = xhr.response;
         const checkTypeOfJson = xhr.responseType === 'json' || xhr.response !== 'OK';
-        if (xhr.status === 200 && checkTypeOfJson) {
+        if (checkTypeOfJson) {
           res = JSON.parse(res) as TReq;
         }
-        if (unAthurisetUserStaus.includes(xhr.status)) {
-          Router.go(Paths.signIn);
-        }
-        if (res.reasons) {
-          reject(res as ErrorRes);
-          this._error(res.reasons);
+
+        if (xhr.status === 200) {
+          resolve(res as TRes);
         }
 
-        resolve(res as TRes);
+        reject({ status: xhr.status, reasons: String(res.reason) });
       }.bind(this);
 
       xhr.onabort = reject;
@@ -86,7 +84,8 @@ export class HTTPTransport {
       }
     });
   }
-  static GET<TReq = unknown, TRes = void>(url: string, data?: TReq): Promise<TRes> {
+
+  static GET<TReq = unknown, TRes = unknown>(url: string, data?: TReq): Promise<TRes> {
     if (data) {
       const params = new URLSearchParams(data);
       url = `${url}?${params}`;
@@ -101,10 +100,7 @@ export class HTTPTransport {
     return HTTPTransport._instance._request<TReq, TRes>(url, {
       method: METHOD.POST,
       data: options.data,
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-        ...options.headers
-      }
+      headers: options.headers
     });
   }
 
@@ -115,10 +111,7 @@ export class HTTPTransport {
     return HTTPTransport._instance._request<TReq, TRes>(url, {
       method: METHOD.PUT,
       data: options.data,
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-        ...options.headers
-      }
+      headers: options.headers
     });
   }
 
@@ -129,10 +122,7 @@ export class HTTPTransport {
     return HTTPTransport._instance._request<TReq, TRes>(url, {
       method: METHOD.DELETE,
       data: options.data,
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-        ...options.headers
-      }
+      headers: options.headers
     });
   }
 }

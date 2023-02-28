@@ -31,7 +31,8 @@ export type ChatDTO = Pick<Chat, 'title'>;
 export type UserLoginDTO = Pick<User, 'login' | 'password'>;
 
 export type ErrorRes = {
-  reason: 'string';
+  status: number;
+  reasons: 'string';
 };
 
 type MessageItemType = 'message' | 'file' | 'sticker';

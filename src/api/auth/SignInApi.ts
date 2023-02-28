@@ -1,5 +1,6 @@
-import { BaseAPI, OptionsWithoutMethod, Router } from '../../core';
-import { Paths, UserLoginDTO } from '../../types';
+import { API } from '../../api';
+import { BaseAPI, OptionsWithoutMethod } from '../../core';
+import { UserLoginDTO } from '../../types';
 
 export type UserSignInRes = {
   reasons?: string;
@@ -14,14 +15,12 @@ export class SignInApi extends BaseAPI {
 
   async create(userData: SignInDTO) {
     try {
-      const data = await this._http.POST<UserLoginDTO, UserSignInRes | 'OK'>(this._url, userData);
-      console.log('SignInApi: ', data);
-      if (data === 'OK') {
-        Router.go(Paths.chat);
-      }
+      return await this._http.POST<UserLoginDTO, UserSignInRes | 'OK'>(this._url, userData);
     } catch (error) {
+      if (error.status === 400) {
+        await API.auth.logout();
+      }
       console.error('SignInApi error: ', error);
-      // Router.go(Paths.signIn);
     }
   }
 }

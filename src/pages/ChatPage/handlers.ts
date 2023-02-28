@@ -1,6 +1,7 @@
 import { submitHanler } from '../../utils';
 import { Handlers } from '../../types';
-import { API } from '../../api';
+import { EventBus } from '../../core';
+const eventBuss = EventBus.getInstance();
 
 export const handlers: Handlers[] = [
   {
@@ -12,7 +13,7 @@ export const handlers: Handlers[] = [
     event: 'click',
     selector: '#btnLogout',
     handler: () => {
-      API.auth.logout();
+      eventBuss.emmit('logout');
     }
   }
 ];

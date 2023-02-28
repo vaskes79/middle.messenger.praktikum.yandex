@@ -1,8 +1,8 @@
 import type { SignUpDTO } from '../../api/auth/SignUpApi';
-import type { UserDTO } from '../../types';
+import { Paths, UserDTO } from '../../types';
 import { Form, FormDataYpr } from '../../components/Form';
 import { API } from '../../api';
-import { BaseError } from '../../core';
+import { Store, Router, BaseError } from '../../core';
 
 export async function connectedCallbackMixin(root: ShadowRoot) {
   const form = root.querySelector('ypr-form') as Form;
@@ -16,6 +16,13 @@ export async function connectedCallbackMixin(root: ShadowRoot) {
 
     try {
       await API.auth.signUp(signUpDTO);
+      const user = await API.auth.getUser();
+
+      if (user) {
+        Store.setState('user', user);
+        Router.go(Paths.chat);
+        form.clearInputs();
+      }
     } catch (error) {
       console.error(error);
       errorHandler.error('connectedCallbackMixin');

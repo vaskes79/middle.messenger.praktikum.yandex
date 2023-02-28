@@ -49,11 +49,16 @@
   --red-200: rgb(245 199 214 / 100%);
 
   color-scheme: light dark;
-  color: var(--gray-400);
-  background-color: var(--gray-900);
+
+  --backround: var(--gray-900);
+  --fograound: var(--gray-400);
+
+  color: var(--fograound);
+  background-color: var(--backround);
 
   /* Typography styles */
-  --system-f: system-ui, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --system-f: system-ui, 'Segoe UI', roboto, helvetica, arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol';
   --header-f: 'Roboto', sans-serif;
   --base-lh: 1.75;
   --header-lh: 1.3;
@@ -79,21 +84,24 @@
   text-size-adjust: 100%;
 
   /* Animation */
-  --default-transition: all .3s ease;
+  --default-transition: all 0.3s ease;
 
   /* Breakpoints */
   --tab: 700px;
 }
 
 /* Reset styles */
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   height: 100%;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
@@ -103,11 +111,15 @@ html, body {
   height: inherit;
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   margin: var(--header-mr);
   font-family: var(--header-f);
   font-weight: var(--base-fw);
-  line-height: var(--header-lh)
+  line-height: var(--header-lh);
 }
 
 h1 {
@@ -115,15 +127,26 @@ h1 {
   font-size: var(--h1-fs);
 }
 
-h2 {font-size: var(--h2-fs);}
+h2 {
+  font-size: var(--h2-fs);
+}
 
-h3 {font-size: var(--h3-fs);}
+h3 {
+  font-size: var(--h3-fs);
+}
 
-h4 {font-size: var(--h4-fs);}
+h4 {
+  font-size: var(--h4-fs);
+}
 
-h5 {font-size: var(--h5-fs);}
+h5 {
+  font-size: var(--h5-fs);
+}
 
-small, .text-small {font-size: var(--small-fs);}
+small,
+.text-small {
+  font-size: var(--small-fs);
+}
 
 p {
   margin-bottom: var(--p-mr);
@@ -147,7 +170,7 @@ a:hover {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: var(--gray-700);
-    background-color: var(--gray-100);
+    --backround: var(--gray-100);
+    --fograound: var(--gray-700);
   }
 }
