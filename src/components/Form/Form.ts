@@ -26,11 +26,11 @@ export class Form extends BaseComponent {
       }
     });
 
-    window.addEventListener('keyup', this._keyboardEventHandler);
+    this._root.addEventListener('keyup', this._keyboardEventHandler);
   }
 
   protected _unmount(): void {
-    window.removeEventListener('keyup', this._keyboardEventHandler);
+    this._root.removeEventListener('keyup', this._keyboardEventHandler);
   }
 
   actions(data: unknown) {
@@ -38,7 +38,8 @@ export class Form extends BaseComponent {
   }
 
   private _keyboardEventHandler = (event: KeyboardEvent) => {
-    if (event.key === 'Enter') {
+    console.log('form', this);
+    if (event.key === 'Enter' && this.id) {
       this._submitHandler();
     }
   };
