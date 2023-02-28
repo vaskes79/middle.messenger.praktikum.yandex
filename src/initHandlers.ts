@@ -32,6 +32,16 @@ export async function setupRootEventListeners() {
     console.log('store:update', key);
   });
 
+  eventBus.on('messageinput:send:text', (content: string) => {
+    const ws = Store.getState('currentWSconnect');
+    if (ws) {
+      ws.send({
+        type: 'message',
+        content
+      });
+    }
+  });
+
   eventBus.on('component:mount', (name: string) => {
     console.log(`Component ${name} MOUNT`);
   });

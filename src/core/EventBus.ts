@@ -5,6 +5,7 @@ import { ModalEvents } from '../components/Modal';
 import { PageEvents } from '../types/Page';
 import { BaseComponentEvents } from './BaseComponent';
 import { StoreEvents } from './Store';
+import { MessageInputEvents } from '../components/MessageInput';
 
 export type EventName =
   | keyof GlobalEventHandlersEventMap
@@ -15,6 +16,7 @@ export type EventName =
   | `${LayoutEvents}`
   | `${ApiChatsEvents}`
   | `${MessageSocktEvents}`
+  | `${MessageInputEvents}`
   | `${ModalEvents}`;
 
 export type Callback<T = unknown> = (...args: T[]) => void;
