@@ -38,7 +38,6 @@ export class Form extends BaseComponent {
   }
 
   private _keyboardEventHandler = (event: KeyboardEvent) => {
-    console.log('form', this);
     if (event.key === 'Enter' && this.id) {
       this._submitHandler();
     }
