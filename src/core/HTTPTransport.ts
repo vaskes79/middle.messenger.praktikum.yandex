@@ -8,8 +8,6 @@ enum METHOD {
 
 type HeadersItem = Record<string, string>;
 
-const unAthurisetUserStaus = [401];
-
 export type Options<TData = unknown> = {
   method: METHOD;
   data?: TData;

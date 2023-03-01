@@ -3,7 +3,6 @@ const eventBuss = EventBus.getInstance();
 import { generateCotnent } from '../../utils';
 import { Main } from '../../components/Layout';
 import { ChatItemData, ChatItem } from '../../components/ChatItem';
-import { MessageItemData } from '../../components/MessageItem';
 import { mapChatApiToChatItem } from './utils';
 import { KeysOfState } from '../../types';
 import { API } from '../../api';
