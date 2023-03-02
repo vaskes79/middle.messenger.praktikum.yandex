@@ -151,10 +151,6 @@ input:focus {
   opacity: 1;
 }
 
-/* .container:focus-within .details {
-    opacity: 1;
-  } */
-
 .require {
   font-weight: 800;
   color: var(--red-700);

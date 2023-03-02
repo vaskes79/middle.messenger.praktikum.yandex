@@ -15,10 +15,8 @@ slot[name='footer']::slotted(footer) {
   box-sizing: border-box;
 }
 
-slot[name='error']::slotted(.error) {
-  width: 100%;
-  box-sizing: border-box;
-  border: 10px solid red;
+.error {
+  color: var(--red-500);
 }
 
 form {
@@ -30,6 +28,6 @@ form {
 }
 
 .content {
-  flex-basis: 100%;
+  max-height: 100%;
   overflow-y: auto;
 }
