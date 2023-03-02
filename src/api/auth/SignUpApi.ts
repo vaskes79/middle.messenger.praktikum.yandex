@@ -1,4 +1,4 @@
-import { BaseAPI, BaseError, OptionsWithoutMethod } from '../../core';
+import { BaseAPI, OptionsWithoutMethod } from '../../core';
 import { ErrorRes, UserDTO } from '../../types';
 
 export type UserCreateRes = {
@@ -9,7 +9,6 @@ export type UserCreateRes = {
 export type SignUpDTO = OptionsWithoutMethod<UserDTO>;
 
 export class SignUpApi extends BaseAPI {
-  _errorHandler: BaseError;
   constructor(baseUrl?: string) {
     super('/auth/signup', baseUrl);
   }
