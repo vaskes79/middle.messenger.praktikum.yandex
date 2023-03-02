@@ -1,6 +1,6 @@
 import { API } from '../../api';
 import { BaseAPI, OptionsWithoutMethod } from '../../core';
-import { UserLoginDTO } from '../../types';
+import { ErrorRes, UserLoginDTO } from '../../types';
 
 export type UserSignInRes = {
   reasons?: string;
@@ -16,11 +16,15 @@ export class SignInApi extends BaseAPI {
   async create(userData: SignInDTO) {
     try {
       return await this._http.POST<UserLoginDTO, UserSignInRes | 'OK'>(this._url, userData);
-    } catch (error) {
-      if (error.status === 400) {
+    } catch (error: unknown) {
+      const { status, reasons } = error as ErrorRes;
+      if (status === 400) {
         await API.auth.logout();
       }
-      console.error('SignInApi error: ', error);
+
+      if (status === 401 && reasons) {
+        this._eventBus.emmit('form:error', reasons);
+      }
     }
   }
 }

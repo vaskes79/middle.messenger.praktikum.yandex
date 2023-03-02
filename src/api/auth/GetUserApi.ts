@@ -1,4 +1,4 @@
-import { User } from '../../types';
+import { ErrorRes, User } from '../../types';
 import { BaseAPI } from '../../core';
 
 export class GetUserApi extends BaseAPI {
@@ -9,8 +9,12 @@ export class GetUserApi extends BaseAPI {
   async request() {
     try {
       return this._http.GET<null, User>(this._url);
-    } catch (error) {
-      console.error(error);
+    } catch (error: unknown) {
+      const { status, reasons } = error as ErrorRes;
+      if (status === 401 && reasons) {
+        this._eventBus.emmit('form:error', reasons);
+      }
+      this._error.error('GetUserApi respoce error');
     }
   }
 }

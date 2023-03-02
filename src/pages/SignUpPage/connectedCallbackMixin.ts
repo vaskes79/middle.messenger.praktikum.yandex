@@ -18,7 +18,7 @@ export async function connectedCallbackMixin(root: ShadowRoot) {
       await API.auth.signUp(signUpDTO);
       const user = await API.auth.getUser();
 
-      if (user) {
+      if (user && user.id) {
         Store.setState('user', user);
         Router.go(Paths.chat);
         form.clearInputs();
