@@ -21,6 +21,7 @@ export async function setupRootEventListeners() {
 
   eventBus.on('ws:close', () => {
     Store.setState('currentWSconnect', null);
+    Store.setState('messageItemList', []);
   });
 
   eventBus.on('ws:message:list', (msgItemData: MessageItemData) => {

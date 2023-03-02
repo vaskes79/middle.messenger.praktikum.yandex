@@ -45,13 +45,22 @@ function generateMessageList(root: ShadowRoot) {
 
   eventBuss.on('store:update', (key: KeysOfState) => {
     if (key === 'messageItemList') {
-      const messageItemList = Store.getState('messageItemList');
-      if (Array.isArray(messageItemList) && messageItemList.length === 0) {
-        chatMain.innerHTML = noMessagesComponent;
-        return;
-      }
       chatMain.innerHTML = '';
-      generateCotnent<MessageItem, MessageItemData>(chatMain, 'ypr-message-item', messageItemList);
+
+      const messageItemList = Store.getState('messageItemList');
+      const currentChatId = Store.getState('currentChat');
+      const currentChat = Store.getState('chatList').find((chat) => chat.id === currentChatId);
+      const hasLastMessages = Boolean(currentChat?.last_message);
+      if (hasLastMessages) {
+        return generateCotnent<MessageItem, MessageItemData>(
+          chatMain,
+          'ypr-message-item',
+          messageItemList
+        );
+      }
+
+      chatMain.innerHTML = noMessagesComponent;
+      return;
     }
   });
 }
