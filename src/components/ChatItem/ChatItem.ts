@@ -2,14 +2,14 @@ import html from 'bundle-text:./ChatItem.html';
 import css from 'bundle-text:./ChatItem.css';
 import { Avatar } from '../Avatar';
 import type { StatusUserValue, StatusMessageState, StatusMessage } from '../Status';
-import { BaseComponent, Store } from '../../core';
+import { BaseComponent, DateTimeService, Store } from '../../core';
 import { handlers } from './handlers';
 import { KeysOfState } from '../../types';
 
 export interface ChatItemData {
   name: string;
   imgurl: string | null;
-  time: Date;
+  time: string;
   statusUser: StatusUserValue;
   statusMessage: StatusMessageState;
   lastMessage: string;
@@ -49,7 +49,7 @@ export class ChatItem extends BaseComponent<ChatItemData> {
     try {
       this._lastMessageEl.textContent = this._data.lastMessage;
       this._titleEl.textContent = this._data.name;
-      this._timeEl.textContent = this._data.time;
+      this._timeEl.textContent = DateTimeService.getRelativeDate(this._data.time);
       this._counterMessageEl.textContent = `${this._data.conterMessages}`;
       this._messageStatusEl.setAttribute('status', 'sent');
       this._avatarEl.setAttribute('imgurl', this._data.imgurl);

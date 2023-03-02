@@ -2,13 +2,15 @@ import { EventBus, Store } from '../../core';
 const eventBuss = EventBus.getInstance();
 import { generateCotnent } from '../../utils';
 import { Main } from '../../components/Layout';
+import { MessageItem, MessageItemData } from '../../components/MessageItem';
 import { ChatItemData, ChatItem } from '../../components/ChatItem';
 import { mapChatApiToChatItem } from './utils';
 import { KeysOfState } from '../../types';
 import { API } from '../../api';
 
 export async function connectedCallbackMixin(root: ShadowRoot) {
-  generateContentHandler(root);
+  generateChatList(root);
+  generateMessageList(root);
   settingsPanelHandlers(root);
   chatListHandlers(root);
   chatSettingsHandlers(root);
@@ -31,7 +33,30 @@ function clearChatHandler(root: ShadowRoot) {
   }
 }
 
-function generateContentHandler(root: ShadowRoot) {
+function generateMessageList(root: ShadowRoot) {
+  const chatMain = root.getElementById('chat-main') as Main;
+  chatMain.innerHTML = noMessagesComponent;
+
+  eventBuss.on('store:update', (key: KeysOfState) => {
+    if (key === 'currentChatWSLink') {
+      API.messages.connectToChat();
+    }
+  });
+
+  eventBuss.on('store:update', (key: KeysOfState) => {
+    if (key === 'messageItemList') {
+      const messageItemList = Store.getState('messageItemList');
+      if (Array.isArray(messageItemList) && messageItemList.length === 0) {
+        chatMain.innerHTML = noMessagesComponent;
+        return;
+      }
+      chatMain.innerHTML = '';
+      generateCotnent<MessageItem, MessageItemData>(chatMain, 'ypr-message-item', messageItemList);
+    }
+  });
+}
+
+function generateChatList(root: ShadowRoot) {
   const chatMain = root.getElementById('chat-main') as Main;
   const chatList = root.getElementById('chatlist-main') as Main;
   chatMain.innerHTML = noMessagesComponent;
@@ -48,23 +73,6 @@ function generateContentHandler(root: ShadowRoot) {
   });
 
   API.chats.getAllChats();
-
-  eventBuss.on('store:update', (key: KeysOfState) => {
-    if (key === 'currentChatWSLink') {
-      API.messages.connectToChat();
-    }
-  });
-
-  eventBuss.on('store:update', (key: KeysOfState) => {
-    if (key === 'messageItemList') {
-      const messageItemList = Store.getState('messageItemList');
-      if (Array.isArray(messageItemList) && messageItemList.length === 0) {
-        chatMain.innerHTML = noMessagesComponent;
-        return;
-      }
-      // generateCotnent<MessageItem, MessageItemData>(chatMain, 'ypr-message-item', messageItemList);
-    }
-  });
 }
 
 function settingsPanelHandlers(root: ShadowRoot) {
