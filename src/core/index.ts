@@ -7,3 +7,4 @@ export * from './Router';
 export * from './BaseApi';
 export * from './Store';
 export * from './BaseError';
+export * from './DateTimeService';
