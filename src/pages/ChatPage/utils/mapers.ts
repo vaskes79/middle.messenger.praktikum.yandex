@@ -8,10 +8,10 @@ export function mapChatApiToChatItem(chatItemApiData: Chat[]): ChatItemData[] {
   return chatItemApiData.map((chat) => ({
     name: chat.title,
     imgurl: chat.avatar,
-    time: chat.last_message?.time || '',
+    time: chat.last_message?.time || null,
     statusUser: 'not-set',
     statusMessage: 'sent',
-    lastMessage: chat?.last_message?.content || '',
+    lastMessage: chat?.last_message?.content || null,
     conterMessages: chat?.unread_count,
     id: chat.id
   }));

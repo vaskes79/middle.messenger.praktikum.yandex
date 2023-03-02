@@ -14,11 +14,11 @@ export type Chat = {
   id: number;
   title: string;
   avatar: null | string;
-  created_by: Date;
+  created_by: number;
   unread_count: number;
   last_message?: {
     user: User;
-    time: string | Date;
+    time: string;
     content: string;
     id: number;
   };

@@ -9,10 +9,10 @@ import { KeysOfState } from '../../types';
 export interface ChatItemData {
   name: string;
   imgurl: string | null;
-  time: string;
+  time: string | null;
   statusUser: StatusUserValue;
   statusMessage: StatusMessageState;
-  lastMessage: string;
+  lastMessage: string | null;
   conterMessages: string | number;
   id: number;
 }
@@ -47,12 +47,18 @@ export class ChatItem extends BaseComponent<ChatItemData> {
 
   _mount(): void {
     try {
-      this._lastMessageEl.textContent = this._data.lastMessage;
+      if (this._data.lastMessage) {
+        this._lastMessageEl.textContent = this._data.lastMessage;
+      }
       this._titleEl.textContent = this._data.name;
-      this._timeEl.textContent = DateTimeService.getRelativeDate(this._data.time);
+      if (this._data.time) {
+        this._timeEl.textContent = DateTimeService.getRelativeDate(this._data.time);
+      }
       this._counterMessageEl.textContent = `${this._data.conterMessages}`;
       this._messageStatusEl.setAttribute('status', 'sent');
-      this._avatarEl.setAttribute('imgurl', this._data.imgurl);
+      if (this._data.imgurl) {
+        this._avatarEl.setAttribute('imgurl', this._data.imgurl);
+      }
       this._btnEl.setAttribute('id', `${this._data.id}`);
       this._eventBuss.on('store:update', (key: KeysOfState) => {
         if (key === 'currentChat') {
