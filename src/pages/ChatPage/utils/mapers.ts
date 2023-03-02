@@ -3,13 +3,15 @@ import type { MessageItemData } from '../../../components/MessageItem';
 import type { Chat, MessageItemListRes } from '../../../types';
 
 export function mapChatApiToChatItem(chatItemApiData: Chat[]): ChatItemData[] {
+  console.log('chatItemApiData', chatItemApiData);
+
   return chatItemApiData.map((chat) => ({
     name: chat.title,
     imgurl: chat.avatar,
-    time: chat.created_by,
+    time: chat.last_message?.time || '',
     statusUser: 'not-set',
     statusMessage: 'sent',
-    lastMessage: chat?.last_message?.content,
+    lastMessage: chat?.last_message?.content || '',
     conterMessages: chat?.unread_count,
     id: chat.id
   }));
