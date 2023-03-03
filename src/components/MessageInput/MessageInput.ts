@@ -31,7 +31,7 @@ export class MessegaInput extends BaseComponent {
 
   private _handleSubmitEvent = (event: FormDataEvent) => {
     event.preventDefault();
-    this._eventBuss.emmit('messageinput:send:text', this._textValue);
+    this._eventBus.emmit('messageinput:send:text', this._textValue);
     this._clearInput();
   };
 

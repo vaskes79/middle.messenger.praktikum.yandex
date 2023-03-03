@@ -33,14 +33,14 @@ export class Layout extends BaseComponent {
   }
 
   protected _mount(): void {
-    this._eventBuss.on('panel:toggle', (name?: PanelNames) => {
+    this._eventBus.on('panel:toggle', (name?: PanelNames) => {
       this._closePanel();
       if (name) {
         this._switchPanel(name);
       }
     });
 
-    this._eventBuss.on('store:update', (key: KeysOfState) => {
+    this._eventBus.on('store:update', (key: KeysOfState) => {
       if (key === 'messageItemList') {
         this._messageArea.scrollBy(0, this._messageArea.scrollHeight);
       }

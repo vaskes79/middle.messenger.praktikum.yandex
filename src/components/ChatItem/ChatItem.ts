@@ -60,7 +60,7 @@ export class ChatItem extends BaseComponent<ChatItemData> {
         this._avatarEl.setAttribute('imgurl', this._data.imgurl);
       }
       this._btnEl.setAttribute('id', `${this._data.id}`);
-      this._eventBuss.on('store:update', (key: KeysOfState) => {
+      this._eventBus.on('store:update', (key: KeysOfState) => {
         if (key === 'currentChat') {
           this._active = this._store.getState('currentChat') === this._data.id;
           this._active

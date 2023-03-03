@@ -28,7 +28,7 @@ export class Profile extends BaseComponent {
   }
 
   protected _mount() {
-    this._eventBuss.on('store:update', () => {
+    this._eventBus.on('store:update', () => {
       const user = Store.getState('user');
       if (user) {
         this._emailEl.setAttribute('value', user.email);

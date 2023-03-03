@@ -21,13 +21,13 @@ export class Form extends BaseComponent {
 
   protected _mount(): void {
     this.setAttribute('id', this.id);
-    this._eventBuss.on('submit', (id: string) => {
+    this._eventBus.on('submit', (id: string) => {
       if (id === this.id) {
         this._submitHandler();
       }
     });
 
-    this._eventBuss.on('form:error', (errorMsg: string) => {
+    this._eventBus.on('form:error', (errorMsg: string) => {
       this._setError(errorMsg);
     });
 
