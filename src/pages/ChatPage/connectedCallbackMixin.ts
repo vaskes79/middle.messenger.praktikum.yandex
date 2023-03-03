@@ -50,13 +50,15 @@ function generateMessageList(root: ShadowRoot) {
       const currentChatId = Store.getState('currentChat');
       const currentChat = Store.getState('chatList').find((chat) => chat.id === currentChatId);
       const hasLastMessages = Boolean(currentChat?.last_message);
+      const hasMessages = messageItemList.length !== 0;
 
-      if (messageItemList.length !== 0) {
-        return generateCotnent<MessageItem, MessageItemData>(
+      if (hasMessages) {
+        generateCotnent<MessageItem, MessageItemData>(
           chatMain,
           'ypr-message-item',
           messageItemList
         );
+        return;
       }
 
       if (!hasLastMessages) {
