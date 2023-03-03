@@ -11,7 +11,6 @@ type OptionsFormatRelative = {
 
 export class DateTimeService {
   protected static _instance: DateTimeService = new DateTimeService();
-  protected _dateTimeSettings: any;
   protected _defaultOpt: OptionsFormatRelative;
 
   constructor() {
@@ -38,8 +37,8 @@ export class DateTimeService {
     return formatRelative(relativeDate, baseDate, options);
   }
 
-  static format(date: string, formatStr: string, opt?: OptionsFormatRelative) {
-    date = new Date(date);
+  static format(dateStr: string, formatStr: string, opt?: OptionsFormatRelative) {
+    const date = new Date(dateStr);
     const options: OptionsFormatRelative = opt || this._instance._defaultOpt;
     return format(date, formatStr, options);
   }
