@@ -1,4 +1,4 @@
-import { EventBus, Store } from '../../core';
+import { EventBus, Store, Validator } from '../../core';
 const eventBuss = EventBus.getInstance();
 import { generateCotnent } from '../../utils';
 import { Main } from '../../components/Layout';
@@ -7,6 +7,8 @@ import { ChatItemData, ChatItem } from '../../components/ChatItem';
 import { mapChatApiToChatItem } from './utils';
 import { KeysOfState } from '../../types';
 import { API } from '../../api';
+import { Modal } from '../../components/Modal';
+import type { Input } from '../../components/Input';
 
 export async function connectedCallbackMixin(root: ShadowRoot) {
   generateChatList(root);
@@ -15,6 +17,7 @@ export async function connectedCallbackMixin(root: ShadowRoot) {
   chatListHandlers(root);
   chatSettingsHandlers(root);
   clearChatHandler(root);
+  callbackForConfirmCreateChatModal(root);
 }
 
 const noMessagesComponent = `
@@ -31,6 +34,19 @@ function clearChatHandler(root: ShadowRoot) {
       chatMain.innerHTML = noMessagesComponent;
     });
   }
+}
+
+function callbackForConfirmCreateChatModal(root: ShadowRoot) {
+  const createChatModal = root.getElementById('createChatModal') as Modal;
+  createChatModal.confirmRules = async () => {
+    const input = createChatModal.querySelector('ypr-input') as Input;
+    let isConfirmValue = Validator.isNotEmpty(input.value.trim());
+    if (isConfirmValue) {
+      isConfirmValue = await API.chats.createChat({ data: { title: input.value } });
+    }
+    if (isConfirmValue) input.clearValue();
+    return isConfirmValue;
+  };
 }
 
 function generateMessageList(root: ShadowRoot) {

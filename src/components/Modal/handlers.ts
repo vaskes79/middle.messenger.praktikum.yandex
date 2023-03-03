@@ -1,7 +1,12 @@
 import { Handlers } from '../../types';
+import { Modal } from './Modal';
 
 function closeHandler() {
-  this.close();
+  Modal.close(this.id);
+}
+
+function confirmHandler() {
+  Modal.confirm(this.id);
 }
 
 export const handlers: Handlers[] = [
@@ -13,7 +18,7 @@ export const handlers: Handlers[] = [
   {
     event: 'click',
     selector: '#confirmBtn',
-    handler: closeHandler
+    handler: confirmHandler
   },
   {
     event: 'click',
