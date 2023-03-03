@@ -1,11 +1,24 @@
+:host {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+}
+
 .container {
   width: 100%;
-  height: 100%;
+  flex-basis: 100%;
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding: 8px 0;
   box-sizing: border-box;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
 }
 
 :host(#chat-main) .container {
