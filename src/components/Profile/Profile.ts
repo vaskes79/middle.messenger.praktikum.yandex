@@ -3,6 +3,7 @@ import css from 'bundle-text:./Profile.css';
 import { BaseComponent, Store } from '../../core';
 import { Input } from '../Input';
 import { ProfileImg } from '../ProfileImg';
+import { StoreProps } from 'types';
 
 const tagName = 'ypr-profile';
 
@@ -28,9 +29,12 @@ export class Profile extends BaseComponent {
   }
 
   protected _mount() {
-    this._eventBus.on('store:update', () => {
-      const user = Store.getState('user');
-      if (user) {
+    this._eventBus.on('store:update', (props: StoreProps) => {
+      const {
+        key,
+        newState: { user }
+      } = props;
+      if (key === 'user' && user) {
         this._emailEl.setAttribute('value', user.email);
         this._loginEl.setAttribute('value', user.login);
         this._firstNameEl.setAttribute('value', user.first_name);

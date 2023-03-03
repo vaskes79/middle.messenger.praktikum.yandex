@@ -2,9 +2,9 @@ import html from 'bundle-text:./ChatItem.html';
 import css from 'bundle-text:./ChatItem.css';
 import { Avatar } from '../Avatar';
 import type { StatusUserValue, StatusMessageState, StatusMessage } from '../Status';
-import { BaseComponent, DateTimeService, Store } from '../../core';
+import { BaseComponent, DateTimeService } from '../../core';
 import { handlers } from './handlers';
-import { KeysOfState } from '../../types';
+import { StoreProps } from '../../types';
 
 export interface ChatItemData {
   name: string;
@@ -27,7 +27,6 @@ export class ChatItem extends BaseComponent<ChatItemData> {
   private _avatarEl: Avatar;
   private _messageStatusEl: StatusMessage;
   private _btnEl: HTMLButtonElement;
-  private _store: typeof Store = Store;
   private _active = false;
 
   constructor() {
@@ -60,9 +59,13 @@ export class ChatItem extends BaseComponent<ChatItemData> {
         this._avatarEl.setAttribute('imgurl', this._data.imgurl);
       }
       this._btnEl.setAttribute('id', `${this._data.id}`);
-      this._eventBus.on('store:update', (key: KeysOfState) => {
+      this._eventBus.on('store:update', (props: StoreProps) => {
+        const {
+          key,
+          newState: { currentChat }
+        } = props;
         if (key === 'currentChat') {
-          this._active = this._store.getState('currentChat') === this._data.id;
+          this._active = currentChat === this._data.id;
           this._active
             ? this._btnEl.classList.add('active')
             : this._btnEl.classList.remove('active');

@@ -1,7 +1,7 @@
 import html from 'bundle-text:./Layout.html';
 import css from 'bundle-text:./Layout.css';
 import { BaseComponent } from '../../core';
-import { KeysOfState } from '../../types';
+import { StoreProps } from '../../types';
 
 const tagName = 'ypr-layout';
 
@@ -40,7 +40,8 @@ export class Layout extends BaseComponent {
       }
     });
 
-    this._eventBus.on('store:update', (key: KeysOfState) => {
+    this._eventBus.on('store:update', (props: StoreProps) => {
+      const { key } = props;
       if (key === 'messageItemList') {
         this._messageArea.scrollBy(0, this._messageArea.scrollHeight);
       }

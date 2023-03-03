@@ -1,14 +1,15 @@
-import { EventBus, Store, Validator } from '../../core';
-const eventBuss = EventBus.getInstance();
+import { EventBus, Validator } from '../../core';
 import { generateCotnent } from '../../utils';
 import { Main } from '../../components/Layout';
 import { MessageItem, MessageItemData } from '../../components/MessageItem';
 import { ChatItemData, ChatItem } from '../../components/ChatItem';
 import { mapChatApiToChatItem } from './utils';
-import { KeysOfState } from '../../types';
+import { StoreProps } from '../../types';
 import { API } from '../../api';
 import { Modal } from '../../components/Modal';
 import type { Input } from '../../components/Input';
+
+const eventBuss = EventBus.getInstance();
 
 export async function connectedCallbackMixin(root: ShadowRoot) {
   generateChatList(root);
@@ -52,20 +53,21 @@ function callbackForConfirmCreateChatModal(root: ShadowRoot) {
 function generateMessageList(root: ShadowRoot) {
   const chatMain = root.getElementById('chat-main') as Main;
 
-  eventBuss.on('store:update', (key: KeysOfState) => {
+  eventBuss.on('store:update', (props: StoreProps) => {
+    const { key } = props;
     if (key === 'currentChatWSLink') {
       API.messages.connectToChat();
     }
   });
 
-  eventBuss.on('store:update', (key: KeysOfState) => {
+  eventBuss.on('store:update', (props: StoreProps) => {
+    const { key, newState } = props;
     if (key === 'messageItemList') {
       chatMain.innerHTML = '';
+      const { currentChat, chatList, messageItemList } = newState;
 
-      const messageItemList = Store.getState('messageItemList');
-      const currentChatId = Store.getState('currentChat');
-      const currentChat = Store.getState('chatList').find((chat) => chat.id === currentChatId);
-      const hasLastMessages = Boolean(currentChat?.last_message);
+      const currentChatData = chatList.find((chat) => chat.id === currentChat);
+      const hasLastMessages = Boolean(currentChatData?.last_message);
       const hasMessages = messageItemList.length !== 0;
 
       if (hasMessages) {
@@ -86,17 +88,18 @@ function generateMessageList(root: ShadowRoot) {
 
 function generateChatList(root: ShadowRoot) {
   const chatMain = root.getElementById('chat-main') as Main;
-  const chatList = root.getElementById('chatlist-main') as Main;
+  const chatListEl = root.getElementById('chatlist-main') as Main;
   chatMain.innerHTML = noMessagesComponent;
 
-  eventBuss.on('store:update', (key: KeysOfState) => {
+  eventBuss.on('store:update', (props: StoreProps) => {
+    const {
+      key,
+      newState: { chatList }
+    } = props;
     if (key === 'chatList') {
-      chatList.innerHTML = '';
-      const data = Store.getState('chatList');
-      if (Array.isArray(data)) {
-        const chatListData = mapChatApiToChatItem(data);
-        generateCotnent<ChatItem, ChatItemData>(chatList, 'ypr-chat-item', chatListData);
-      }
+      chatListEl.innerHTML = '';
+      const chatListData = mapChatApiToChatItem(chatList);
+      generateCotnent<ChatItem, ChatItemData>(chatListEl, 'ypr-chat-item', chatListData);
     }
   });
 

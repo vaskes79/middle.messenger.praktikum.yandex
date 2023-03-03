@@ -30,8 +30,8 @@ export async function setupRootEventListeners() {
     Store.setState('messageItemList', newMessageList);
   });
 
-  eventBus.on('store:update', (key) => {
-    console.log('store:update', key);
+  eventBus.on('store:update', (props) => {
+    console.log('store:update', props);
   });
 
   eventBus.on('messageinput:send:text', (content: string) => {

@@ -11,4 +11,13 @@ export interface State {
   messageItemList: MessageItemData[];
 }
 
+export type StoreProps = {
+  key: KeysOfState;
+  newState: State;
+};
+
+export enum StoreEvents {
+  updateStore = 'store:update'
+}
+
 export type KeysOfState = keyof State;
