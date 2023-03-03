@@ -26,7 +26,8 @@ export async function setupRootEventListeners() {
 
   eventBus.on('ws:message:list', (msgItemData: MessageItemData[]) => {
     const msg = Store.getState('messageItemList');
-    Store.setState('messageItemList', msgItemData.concat(msg).reverse());
+    const newMessageList = msgItemData.concat(msg);
+    Store.setState('messageItemList', newMessageList);
   });
 
   eventBus.on('store:update', (key) => {

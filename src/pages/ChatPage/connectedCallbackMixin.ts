@@ -35,7 +35,6 @@ function clearChatHandler(root: ShadowRoot) {
 
 function generateMessageList(root: ShadowRoot) {
   const chatMain = root.getElementById('chat-main') as Main;
-  chatMain.innerHTML = noMessagesComponent;
 
   eventBuss.on('store:update', (key: KeysOfState) => {
     if (key === 'currentChatWSLink') {
@@ -51,7 +50,8 @@ function generateMessageList(root: ShadowRoot) {
       const currentChatId = Store.getState('currentChat');
       const currentChat = Store.getState('chatList').find((chat) => chat.id === currentChatId);
       const hasLastMessages = Boolean(currentChat?.last_message);
-      if (hasLastMessages) {
+
+      if (messageItemList.length !== 0) {
         return generateCotnent<MessageItem, MessageItemData>(
           chatMain,
           'ypr-message-item',
@@ -59,8 +59,9 @@ function generateMessageList(root: ShadowRoot) {
         );
       }
 
-      chatMain.innerHTML = noMessagesComponent;
-      return;
+      if (!hasLastMessages) {
+        chatMain.innerHTML = noMessagesComponent;
+      }
     }
   });
 }
