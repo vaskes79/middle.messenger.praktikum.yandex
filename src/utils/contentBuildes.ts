@@ -1,6 +1,5 @@
 type ItemT = HTMLElement & { data: unknown };
 
-// todo: check ItemDataType after eslint fix
 export function generateCotnent<ItemType extends ItemT, ItemDataType = unknown>(
   target: HTMLElement,
   elemName: string,
