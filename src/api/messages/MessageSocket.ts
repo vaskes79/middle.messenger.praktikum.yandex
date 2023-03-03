@@ -9,12 +9,12 @@ export class MessageSocket {
   private _intervalId: number;
   private _delay = 30000;
   private _ofsetMessages = 0;
-  private _eventBuss: EventBus;
+  private _eventBus: EventBus;
 
   constructor() {
     const wsUrl = Store.getState('currentChatWSLink');
     this._handleError = new BaseError('ConnectToChatApi');
-    this._eventBuss = EventBus.getInstance();
+    this._eventBus = EventBus.getInstance();
 
     if (typeof wsUrl === 'string') {
       this._soket = new WebSocket(wsUrl);
@@ -32,16 +32,16 @@ export class MessageSocket {
   private _setupOpenListener() {
     this._soket.addEventListener('open', () => {
       this.getNextMessages();
-      this._eventBuss.emmit('ws:open', this);
+      this._eventBus.emmit('ws:open', this);
     });
   }
 
   private _setupCloseListener() {
     this._soket.addEventListener('close', (event) => {
       if (event.wasClean) {
-        this._eventBuss.emmit('ws:close');
+        this._eventBus.emmit('ws:close');
       } else {
-        this._eventBuss.emmit('ws:close');
+        this._eventBus.emmit('ws:close');
       }
     });
   }
@@ -52,7 +52,7 @@ export class MessageSocket {
     if (lastId) {
       this._ofsetMessages = lastId;
       const msgItemData = mapMessageResToMessageItemData(newMsg as MessageItemListRes);
-      this._eventBuss.emmit('ws:message:list', msgItemData);
+      this._eventBus.emmit('ws:message:list', msgItemData);
     }
   }
 
@@ -61,6 +61,9 @@ export class MessageSocket {
       const data = JSON.parse(rawData.data);
       if (Array.isArray(data)) {
         this._updateMessageHandler(data);
+      }
+      if (data.type === 'message') {
+        this._updateMessageHandler([data]);
       }
     });
   }
