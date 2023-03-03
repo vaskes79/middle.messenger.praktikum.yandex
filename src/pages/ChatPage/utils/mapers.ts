@@ -1,10 +1,9 @@
+import { Store } from '../../../core';
 import type { ChatItemData } from '../../../components/ChatItem';
 import type { MessageItemData } from '../../../components/MessageItem';
-import type { Chat, MessageItemListRes } from '../../../types';
+import type { Chat, MessageItemListRes, User } from '../../../types';
 
 export function mapChatApiToChatItem(chatItemApiData: Chat[]): ChatItemData[] {
-  console.log('chatItemApiData', chatItemApiData);
-
   return chatItemApiData.map((chat) => ({
     name: chat.title,
     imgurl: chat.avatar,
@@ -18,8 +17,10 @@ export function mapChatApiToChatItem(chatItemApiData: Chat[]): ChatItemData[] {
 }
 
 export function mapMessageResToMessageItemData(data: MessageItemListRes): MessageItemData[] {
+  const user = Store.getState('user') as User;
+
   return data.map((item) => ({
-    owner: 'me',
+    owner: user.id === item.user_id ? 'me' : 'user',
     type: item.type,
     time: item.time,
     status: item.is_read ? 'read' : 'sent',
