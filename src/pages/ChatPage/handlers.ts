@@ -48,5 +48,12 @@ export const handlers: Handlers[] = [
         API.user.updateProfile(updateUserDTO);
       }
     }
+  },
+  {
+    event: 'click',
+    selector: '#btnCancelProfile',
+    handler: () => {
+      eventBuss.emmit('profile:edit:cancel');
+    }
   }
 ];

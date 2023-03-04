@@ -80,12 +80,10 @@ export class Input extends BaseComponent {
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    console.log({ name, oldValue, newValue });
-
     if (name === 'error' && oldValue !== newValue) {
       this.showError(newValue);
     }
-    if (name !== 'error' && oldValue !== newValue) {
+    if (name !== 'error') {
       this._setupInput();
     }
   }
@@ -103,6 +101,7 @@ export class Input extends BaseComponent {
     if (this.hasAttribute('value')) {
       const value = this.getAttribute('value') || '';
       this._inputEl.setAttribute('value', value);
+      this._inputEl.value = value;
       this._value = value;
       this._setupLabel();
     }

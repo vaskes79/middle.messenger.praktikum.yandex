@@ -39,6 +39,7 @@ export class Profile extends BaseComponent<ProfileData> {
     this._eventBus.on('profile:edit', this._handleEditProfile);
     this._eventBus.on('profile:save:error', this._errorSaveProfileCallaback);
     this._eventBus.on('profile:save:success', this._saveProfileSuccessCallback);
+    this._eventBus.on('profile:edit:cancel', this._cancelEditCallback);
   }
 
   protected _unmount(): void {
@@ -47,6 +48,7 @@ export class Profile extends BaseComponent<ProfileData> {
     this._eventBus.off('profile:edit', this._handleEditProfile);
     this._eventBus.off('profile:save:error', this._errorSaveProfileCallaback);
     this._eventBus.off('profile:save:success', this._saveProfileSuccessCallback);
+    this._eventBus.off('profile:edit:cancel', this._cancelEditCallback);
   }
 
   private _storeUpdateCallback = (props: StoreProps) => {
@@ -67,6 +69,15 @@ export class Profile extends BaseComponent<ProfileData> {
   private _saveProfileSuccessCallback = (updatedUser: User) => {
     Store.setState('user', updatedUser);
     Store.setState('editProfileData', null);
+  };
+
+  private _cancelEditCallback = () => {
+    Store.setState('editProfileData', null);
+    const user = Store.getState('user');
+    if (user) {
+      this.data = user;
+      this._updateData();
+    }
   };
 
   private _handleEditProfile = (props: { name: KeysOfUserDTO; value: string }) => {
