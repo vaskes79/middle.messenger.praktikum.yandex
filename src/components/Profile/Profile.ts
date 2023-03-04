@@ -3,11 +3,12 @@ import css from 'bundle-text:./Profile.css';
 import { BaseComponent, Store } from '../../core';
 import { Input } from '../Input';
 import { ProfileImg } from '../ProfileImg';
-import { StoreProps, User } from '../../types';
+import { handlers } from './handlers';
+import type { StoreProps, KeysOfUserDTO } from '../../types';
+import type { ProfileData } from './types';
+import { isEmpty } from '../../utils';
 
 const tagName = 'ypr-profile';
-
-type ProfileData = User | null;
 
 export class Profile extends BaseComponent<ProfileData> {
   private _emailEl: Input;
@@ -19,7 +20,7 @@ export class Profile extends BaseComponent<ProfileData> {
   private _avatarEl: ProfileImg;
 
   constructor() {
-    super({ html, css, tagName });
+    super({ html, css, tagName, handlers });
     this._emailEl = this._root.querySelector('ypr-input[name=email]') as Input;
     this._loginEl = this._root.querySelector('ypr-input[name=login]') as Input;
     this._firstNameEl = this._root.querySelector('ypr-input[name=first_name]') as Input;
@@ -35,11 +36,13 @@ export class Profile extends BaseComponent<ProfileData> {
     this.data = Store.getState('user');
     this._updateData();
     this._eventBus.on('store:update', this._storeUpdateCallback);
+    this._eventBus.on('profile:edit', this._handleEditProfile);
   }
 
   protected _unmount(): void {
     this.data = null;
     this._eventBus.off('store:update', this._storeUpdateCallback);
+    this._eventBus.off('profile:edit', this._handleEditProfile);
   }
 
   private _storeUpdateCallback = (props: StoreProps) => {
@@ -50,6 +53,29 @@ export class Profile extends BaseComponent<ProfileData> {
     if (key === 'user' && user) {
       this.data = user;
       this._updateData();
+    }
+  };
+
+  private _handleEditProfile = (props: { name: KeysOfUserDTO; value: string }) => {
+    const { name, value } = props;
+
+    if (this.data) {
+      const isEdited = this.data[name] !== value;
+      const editProfileData = Store.getState('editProfileData') || {};
+
+      if (isEdited) {
+        Store.setState('editProfileData', { ...editProfileData, [name]: value });
+      }
+
+      if (!isEdited) {
+        delete editProfileData[name];
+        if (isEmpty(editProfileData)) {
+          Store.setState('editProfileData', null);
+          return;
+        }
+
+        Store.setState('editProfileData', { ...editProfileData, [name]: value });
+      }
     }
   };
 
