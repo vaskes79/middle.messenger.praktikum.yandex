@@ -17,7 +17,7 @@ export class Input extends BaseComponent {
   private _detailsContent: string;
 
   private _errorContent: string;
-  private _error = false;
+  error = false;
 
   private _require = false;
 
@@ -158,7 +158,7 @@ export class Input extends BaseComponent {
   }
 
   showError = (errorText?: string) => {
-    this._error = true;
+    this.error = true;
     this._errorContent = errorText || 'Error input';
     this._containerEl.classList.add('error');
     if (this._detailsEl) {
@@ -169,7 +169,7 @@ export class Input extends BaseComponent {
   clearError = () => {
     this._containerEl.classList.remove('error');
     this.removeAttribute('error');
-    this._error = false;
+    this.error = false;
     this._errorContent = '';
     this._detailsEl.textContent = this._detailsContent;
   };

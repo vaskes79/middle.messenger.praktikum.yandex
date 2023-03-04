@@ -1,6 +1,6 @@
 import { EventBus, Router, Store } from './core';
 import { API } from './api';
-import { Paths } from './types';
+import { Paths, StoreProps } from './types';
 import type { MessageSocket } from './api/messages/MessageSocket';
 import type { MessageItemData } from './components/MessageItem';
 
@@ -30,8 +30,9 @@ export async function setupRootEventListeners() {
     Store.setState('messageItemList', newMessageList);
   });
 
-  eventBus.on('store:update', (props) => {
-    console.log('store:update', props);
+  eventBus.on('store:update', (props: StoreProps) => {
+    const { key, newState } = props;
+    console.log(`store:update:${key}: `, newState);
   });
 
   eventBus.on('messageinput:send:text', (content: string) => {
@@ -44,12 +45,14 @@ export async function setupRootEventListeners() {
     }
   });
 
-  eventBus.on('component:mount', (name: string) => {
-    console.log(`Component ${name} MOUNT`);
+  eventBus.on('component:mount', (props: { name: string; data: unknown }) => {
+    const { name, data } = props;
+    console.log(`Component ${name} MOUNT: `, data);
   });
 
-  eventBus.on('component:unmount', (name: string) => {
-    console.log(`Component ${name} UNMOUNT`);
+  eventBus.on('component:unmount', (props: { name: string; data: unknown }) => {
+    const { name, data } = props;
+    console.log(`Component ${name} MOUNT: `, data);
   });
 
   const user = await API.auth.getUser();

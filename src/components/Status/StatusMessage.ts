@@ -11,17 +11,14 @@ const tagName = 'ypr-status-message';
 export class StatusMessage extends BaseComponent {
   // Elements
   private _icons: NodeList | null;
-  private _iconContainer: HTMLElement | null;
   private _container: HTMLElement | null;
   private _sizes: '12px' | '16px' = '16px';
-  // Attributes
   private _small = false;
-  private _status: StatusMessageState = 'sent';
+  _status: StatusMessageState = 'sent';
 
   constructor() {
     super({ html, css, tagName });
     this._icons = this._root.querySelectorAll<Icon>('ypr-icon');
-    this._iconContainer = this._root.querySelector('.icon-container');
     this._container = this._root.querySelector('.container');
   }
 
@@ -38,10 +35,6 @@ export class StatusMessage extends BaseComponent {
       this._status = newValue as StatusMessageState;
     }
 
-    // todo: remake logic check working afte eslint fix
-    // this._sizes = this._sizes;
-    // this._small = this._small;
-    // this.status = this.status;
     this._updateSize();
     this._updateState();
   }
@@ -61,7 +54,7 @@ export class StatusMessage extends BaseComponent {
 
   private _updateState = () => {
     this._container?.classList.remove('read', 'sent', 'seen');
-    this._container?.classList.add(this.status);
+    this._container?.classList.add(this._status);
   };
 }
 

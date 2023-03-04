@@ -1,6 +1,6 @@
 import html from 'bundle-text:./Profile.html';
 import css from 'bundle-text:./Profile.css';
-import { BaseComponent, Store } from '../../core';
+import { BaseComponent } from '../../core';
 import { Input } from '../Input';
 import { ProfileImg } from '../ProfileImg';
 import { StoreProps } from 'types';

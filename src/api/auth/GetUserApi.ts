@@ -14,7 +14,6 @@ export class GetUserApi extends BaseAPI {
       if (status === 401 && reasons) {
         this._eventBus.emmit('form:error', reasons);
       }
-      this._error.error('GetUserApi respoce error');
     }
   }
 }
