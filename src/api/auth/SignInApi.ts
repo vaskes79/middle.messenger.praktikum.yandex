@@ -1,5 +1,5 @@
 import { API } from '../../api';
-import { BaseAPI, OptionsWithoutMethod } from '../../core';
+import { BaseAPI, OptionsWithoutMethod, HEADERS } from '../../core';
 import { ErrorRes, UserLoginDTO } from '../../types';
 
 export type UserSignInRes = {
@@ -14,6 +14,8 @@ export class SignInApi extends BaseAPI {
   }
 
   async create(userData: SignInDTO) {
+    userData.headers = { [HEADERS.CONTENT_TYPE]: HEADERS.JSON };
+
     try {
       return await this._http.POST<UserLoginDTO, UserSignInRes | 'OK'>(this._url, userData);
     } catch (error: unknown) {

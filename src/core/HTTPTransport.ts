@@ -6,6 +6,11 @@ enum METHOD {
   DELETE = 'DELETE'
 }
 
+export enum HEADERS {
+  JSON = 'application/json; charset=UTF-8',
+  CONTENT_TYPE = 'Content-Type'
+}
+
 type HeadersItem = Record<string, string>;
 
 export type Options<TData = unknown> = {
@@ -15,10 +20,6 @@ export type Options<TData = unknown> = {
 };
 
 export type OptionsWithoutMethod<TData> = Omit<Options<TData>, 'method'>;
-
-const defaultHeaders = {
-  'Content-type': 'application/json; charset=UTF-8'
-};
 
 export class HTTPTransport {
   private static _instance: HTTPTransport = new HTTPTransport();
@@ -46,7 +47,7 @@ export class HTTPTransport {
     url: string,
     options: Options<TReq> = { method: METHOD.GET }
   ): Promise<TRes> {
-    const { method, data, headers = defaultHeaders } = options;
+    const { method, data, headers } = options;
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -61,7 +62,7 @@ export class HTTPTransport {
         let res = xhr.response;
         const checkTypeOfJson = xhr.responseType === 'json' || xhr.response !== 'OK';
         if (checkTypeOfJson) {
-          res = JSON.parse(res) as TReq;
+          res = JSON.parse(res) as TRes;
         }
 
         if (xhr.status === 200) {
@@ -77,9 +78,15 @@ export class HTTPTransport {
 
       if (method === METHOD.GET || !data) {
         xhr.send();
-      } else {
-        xhr.send(JSON.stringify(data));
+        return;
       }
+
+      if (headers && headers[HEADERS.CONTENT_TYPE] === HEADERS.JSON) {
+        xhr.send(JSON.stringify(data));
+        return;
+      }
+
+      xhr.send(data as any);
     });
   }
 
