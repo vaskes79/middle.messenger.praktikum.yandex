@@ -1,7 +1,7 @@
 import html from 'bundle-text:./MessageItem.html';
 import css from 'bundle-text:./MessageItem.css';
 import { StatusMessage, StatusMessageState } from '../Status/StatusMessage';
-import { BaseComponent } from '../../core';
+import { BaseComponent, DateTimeService } from '../../core';
 import { MessageItemType } from '../../types';
 
 const tagName = 'ypr-message-item';
@@ -17,17 +17,15 @@ export interface MessageItemData {
 }
 
 export class MessageItem extends BaseComponent<MessageItemData> {
-  _containerEl: HTMLElement;
-  _contentEl: HTMLElement;
-  _footerEl: HTMLElement;
-  _timeEl: HTMLElement;
-  _statusMessageEl: HTMLElement;
+  private _containerEl: HTMLElement;
+  private _contentEl: HTMLElement;
+  private _timeEl: HTMLElement;
+  private _statusMessageEl: HTMLElement;
 
   constructor() {
     super({ html, css, tagName });
     this._containerEl = this._root.querySelector('article') as HTMLElement;
     this._contentEl = this._root.querySelector('.content') as HTMLElement;
-    this._footerEl = this._root.querySelector('footer') as HTMLElement;
     this._timeEl = this._root.querySelector('time') as HTMLElement;
     this._statusMessageEl = this._root.querySelector('ypr-status-message') as StatusMessage;
   }
@@ -38,7 +36,7 @@ export class MessageItem extends BaseComponent<MessageItemData> {
     this._containerEl?.classList.add(type, owner);
 
     if (this._timeEl) {
-      this._timeEl.innerHTML = time;
+      this._timeEl.innerHTML = DateTimeService.getRelativeDate(time);
     }
 
     if (this._contentEl && type === 'message') {

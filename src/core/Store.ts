@@ -10,10 +10,6 @@ const initialState: State = {
   messageItemList: []
 };
 
-export enum StoreEvents {
-  updateStore = 'store:update'
-}
-
 export class Store {
   private static _instance: Store = new Store();
   private _state: State = initialState;
@@ -46,7 +42,12 @@ export class Store {
     value: S
   ) {
     const currentState = this._instance._state;
-    this._instance._state = { ...currentState, [key]: value };
-    this._instance._eventBus.emmit(StoreEvents.updateStore, key);
+    const newState = { ...currentState, [key]: value };
+    const isChanged = JSON.stringify(currentState) !== JSON.stringify(newState);
+
+    if (isChanged) {
+      this._instance._state = newState;
+      this._instance._eventBus.emmit('store:update', { key, newState });
+    }
   }
 }

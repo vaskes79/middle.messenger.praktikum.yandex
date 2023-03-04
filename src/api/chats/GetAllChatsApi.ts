@@ -7,7 +7,7 @@ export enum GetAllChatsApiEvents {
 
 export class GetAllChatsApi extends BaseAPI {
   constructor(baseUrl?: string) {
-    super('/chats', baseUrl);
+    super('/chats?limit=100', baseUrl);
   }
 
   async request() {

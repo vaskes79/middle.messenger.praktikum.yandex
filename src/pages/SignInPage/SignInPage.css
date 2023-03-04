@@ -24,7 +24,14 @@ h1 {
 ypr-form {
   width: 100%;
   max-width: 480;
+  max-height: 60%;
   box-sizing: border-box;
+}
+
+@media (min-width: 700px) {
+  .ypr-form {
+    max-height: 40%;
+  }
 }
 
 footer {

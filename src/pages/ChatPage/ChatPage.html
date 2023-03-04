@@ -29,10 +29,9 @@
       <li slot="menu-item" id="openSettings">
         <ypr-icon name="personoutline" color="var(--gray-700)"></ypr-icon>Profile
       </li>
-      <!-- <li slot="menu-item">
+      <li slot="menu-item" id="createChatBtn">
         <ypr-icon name="chatbuble" color="var(--gray-700)"></ypr-icon>Create Chat
       </li>
-      -->
       <li slot="menu-item">
         <ypr-icon name="logout" color="var(--gray-700)"></ypr-icon>
         <button id="btnLogout">Logout</button>
@@ -79,10 +78,6 @@
         <ypr-btn link id="btnClearChat">Clear chat</ypr-btn>
       </li>
       <li slot="item"><a href="/">sign in</a></li>
-      <li slot="item"><a href="/signup">sign up</a></li>
-      <li slot="item"><a href="/error404">404</a></li>
-      <li slot="item"><a href="/error500">500</a></li>
-      <li slot="item"><a href="/dev">dev page</a></li>
     </ypr-nav>
   </ypr-main>
 
@@ -97,3 +92,8 @@
     </ypr-btn>
   </ypr-footer>
 </ypr-layout>
+
+<ypr-modal id="createChatModal">
+  <h2 slot="header">Create Chat</h2>
+  <ypr-input slot="content"></ypr-input>
+</ypr-modal>

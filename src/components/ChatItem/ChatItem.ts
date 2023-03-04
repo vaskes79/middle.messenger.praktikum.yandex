@@ -2,17 +2,17 @@ import html from 'bundle-text:./ChatItem.html';
 import css from 'bundle-text:./ChatItem.css';
 import { Avatar } from '../Avatar';
 import type { StatusUserValue, StatusMessageState, StatusMessage } from '../Status';
-import { BaseComponent, Store } from '../../core';
+import { BaseComponent, DateTimeService } from '../../core';
 import { handlers } from './handlers';
-import { KeysOfState } from '../../types';
+import { StoreProps } from '../../types';
 
 export interface ChatItemData {
   name: string;
   imgurl: string | null;
-  time: Date;
+  time: string | null;
   statusUser: StatusUserValue;
   statusMessage: StatusMessageState;
-  lastMessage: string;
+  lastMessage: string | null;
   conterMessages: string | number;
   id: number;
 }
@@ -27,7 +27,6 @@ export class ChatItem extends BaseComponent<ChatItemData> {
   private _avatarEl: Avatar;
   private _messageStatusEl: StatusMessage;
   private _btnEl: HTMLButtonElement;
-  private _store: typeof Store = Store;
   private _active = false;
 
   constructor() {
@@ -47,16 +46,26 @@ export class ChatItem extends BaseComponent<ChatItemData> {
 
   _mount(): void {
     try {
-      this._lastMessageEl.textContent = this._data.lastMessage;
+      if (this._data.lastMessage) {
+        this._lastMessageEl.textContent = this._data.lastMessage;
+      }
       this._titleEl.textContent = this._data.name;
-      this._timeEl.textContent = this._data.time;
+      if (this._data.time) {
+        this._timeEl.textContent = DateTimeService.getRelativeDate(this._data.time);
+      }
       this._counterMessageEl.textContent = `${this._data.conterMessages}`;
       this._messageStatusEl.setAttribute('status', 'sent');
-      this._avatarEl.setAttribute('imgurl', this._data.imgurl);
+      if (this._data.imgurl) {
+        this._avatarEl.setAttribute('imgurl', this._data.imgurl);
+      }
       this._btnEl.setAttribute('id', `${this._data.id}`);
-      this._eventBuss.on('store:update', (key: KeysOfState) => {
+      this._eventBus.on('store:update', (props: StoreProps) => {
+        const {
+          key,
+          newState: { currentChat }
+        } = props;
         if (key === 'currentChat') {
-          this._active = this._store.getState('currentChat') === this._data.id;
+          this._active = currentChat === this._data.id;
           this._active
             ? this._btnEl.classList.add('active')
             : this._btnEl.classList.remove('active');

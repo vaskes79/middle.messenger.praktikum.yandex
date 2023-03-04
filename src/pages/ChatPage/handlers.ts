@@ -15,5 +15,12 @@ export const handlers: Handlers[] = [
     handler: () => {
       eventBuss.emmit('logout');
     }
+  },
+  {
+    event: 'click',
+    selector: '#createChatBtn',
+    handler: () => {
+      eventBuss.emmit('modal:open', 'createChatModal');
+    }
   }
 ];

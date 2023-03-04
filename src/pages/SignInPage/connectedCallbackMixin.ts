@@ -18,12 +18,11 @@ export async function connectedCallbackMixin(root: ShadowRoot) {
       const data = await API.auth.signIn(signInDTO);
       const user = await API.auth.getUser();
 
-      if (data === 'OK' && user) {
+      if (data === 'OK' && user && user.id) {
         Store.setState('user', user);
         Router.go(Paths.chat);
+        form.clearInputs();
       }
-
-      form.clearInputs();
     } catch (error) {
       console.error(error);
       errorHandler.error('connectedCallbackMixin');

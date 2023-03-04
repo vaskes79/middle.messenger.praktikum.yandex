@@ -21,15 +21,17 @@ export async function setupRootEventListeners() {
 
   eventBus.on('ws:close', () => {
     Store.setState('currentWSconnect', null);
+    Store.setState('messageItemList', []);
   });
 
-  eventBus.on('ws:message:list', (msgItemData: MessageItemData) => {
+  eventBus.on('ws:message:list', (msgItemData: MessageItemData[]) => {
     const msg = Store.getState('messageItemList');
-    Store.setState('messageItemList', msg.concat(msgItemData));
+    const newMessageList = msgItemData.concat(msg);
+    Store.setState('messageItemList', newMessageList);
   });
 
-  eventBus.on('store:update', (key) => {
-    console.log('store:update', key);
+  eventBus.on('store:update', (props) => {
+    console.log('store:update', props);
   });
 
   eventBus.on('messageinput:send:text', (content: string) => {
@@ -49,4 +51,11 @@ export async function setupRootEventListeners() {
   eventBus.on('component:unmount', (name: string) => {
     console.log(`Component ${name} UNMOUNT`);
   });
+
+  const user = await API.auth.getUser();
+
+  if (user && user.id) {
+    Store.setState('user', user);
+    Router.go(Paths.chat);
+  }
 }

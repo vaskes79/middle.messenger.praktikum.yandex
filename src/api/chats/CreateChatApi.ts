@@ -1,6 +1,6 @@
 import { API } from '../../api';
 import { BaseAPI, OptionsWithoutMethod } from '../../core';
-import type { ChatDTO } from '../../types';
+import type { ChatDTO, ErrorRes } from '../../types';
 
 export type ChatCreateRes = {
   id: string;
@@ -14,9 +14,16 @@ export class CreateChatApi extends BaseAPI {
   }
 
   async create(chatDTO: CreateChatDTO) {
-    const data = await this._http.POST<ChatDTO, ChatCreateRes>(this._url, chatDTO);
-    if (data.id) {
-      API.chats.getAllChats();
+    try {
+      const data = await this._http.POST<ChatDTO, ChatCreateRes>(this._url, chatDTO);
+      if (data.id) {
+        await API.chats.getAllChats();
+      }
+      return true;
+    } catch (error) {
+      const chatCreationError = error as ErrorRes;
+      this._eventBus.emmit('form:error', chatCreationError);
+      return false;
     }
   }
 }

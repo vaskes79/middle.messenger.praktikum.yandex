@@ -1,19 +1,24 @@
-import { EventBus, Store } from '../../core';
-const eventBuss = EventBus.getInstance();
+import { EventBus, Validator } from '../../core';
 import { generateCotnent } from '../../utils';
 import { Main } from '../../components/Layout';
+import { MessageItem, MessageItemData } from '../../components/MessageItem';
 import { ChatItemData, ChatItem } from '../../components/ChatItem';
-import { MessageItemData } from '../../components/MessageItem';
 import { mapChatApiToChatItem } from './utils';
-import { KeysOfState } from '../../types';
+import { StoreProps } from '../../types';
 import { API } from '../../api';
+import { Modal } from '../../components/Modal';
+import type { Input } from '../../components/Input';
+
+const eventBuss = EventBus.getInstance();
 
 export async function connectedCallbackMixin(root: ShadowRoot) {
-  generateContentHandler(root);
+  generateChatList(root);
+  generateMessageList(root);
   settingsPanelHandlers(root);
   chatListHandlers(root);
   chatSettingsHandlers(root);
   clearChatHandler(root);
+  callbackForConfirmCreateChatModal(root);
 }
 
 const noMessagesComponent = `
@@ -32,40 +37,73 @@ function clearChatHandler(root: ShadowRoot) {
   }
 }
 
-function generateContentHandler(root: ShadowRoot) {
-  const chatMain = root.getElementById('chat-main') as Main;
-  const chatList = root.getElementById('chatlist-main') as Main;
-  chatMain.innerHTML = noMessagesComponent;
-
-  eventBuss.on('store:update', (key: KeysOfState) => {
-    if (key === 'chatList') {
-      chatList.innerHTML = '';
-      const data = Store.getState('chatList');
-      if (Array.isArray(data)) {
-        const chatListData = mapChatApiToChatItem(data);
-        generateCotnent<ChatItem, ChatItemData>(chatList, 'ypr-chat-item', chatListData);
-      }
+function callbackForConfirmCreateChatModal(root: ShadowRoot) {
+  const createChatModal = root.getElementById('createChatModal') as Modal;
+  createChatModal.confirmRules = async () => {
+    const input = createChatModal.querySelector('ypr-input') as Input;
+    let isConfirmValue = Validator.isNotEmpty(input.value.trim());
+    if (isConfirmValue) {
+      isConfirmValue = await API.chats.createChat({ data: { title: input.value } });
     }
-  });
+    if (isConfirmValue) input.clearValue();
+    return isConfirmValue;
+  };
+}
 
-  API.chats.getAllChats();
+function generateMessageList(root: ShadowRoot) {
+  const chatMain = root.getElementById('chat-main') as Main;
 
-  eventBuss.on('store:update', (key: KeysOfState) => {
+  eventBuss.on('store:update', (props: StoreProps) => {
+    const { key } = props;
     if (key === 'currentChatWSLink') {
       API.messages.connectToChat();
     }
   });
 
-  eventBuss.on('store:update', (key: KeysOfState) => {
+  eventBuss.on('store:update', (props: StoreProps) => {
+    const { key, newState } = props;
     if (key === 'messageItemList') {
-      const messageItemList = Store.getState('messageItemList');
-      if (Array.isArray(messageItemList) && messageItemList.length === 0) {
-        chatMain.innerHTML = noMessagesComponent;
+      chatMain.innerHTML = '';
+      const { currentChat, chatList, messageItemList } = newState;
+
+      const currentChatData = chatList.find((chat) => chat.id === currentChat);
+      const hasLastMessages = Boolean(currentChatData?.last_message);
+      const hasMessages = messageItemList.length !== 0;
+
+      if (hasMessages) {
+        generateCotnent<MessageItem, MessageItemData>(
+          chatMain,
+          'ypr-message-item',
+          messageItemList
+        );
         return;
       }
-      // generateCotnent<MessageItem, MessageItemData>(chatMain, 'ypr-message-item', messageItemList);
+
+      if (!hasLastMessages) {
+        chatMain.innerHTML = noMessagesComponent;
+      }
     }
   });
+}
+
+function generateChatList(root: ShadowRoot) {
+  const chatMain = root.getElementById('chat-main') as Main;
+  const chatListEl = root.getElementById('chatlist-main') as Main;
+  chatMain.innerHTML = noMessagesComponent;
+
+  eventBuss.on('store:update', (props: StoreProps) => {
+    const {
+      key,
+      newState: { chatList }
+    } = props;
+    if (key === 'chatList') {
+      chatListEl.innerHTML = '';
+      const chatListData = mapChatApiToChatItem(chatList);
+      generateCotnent<ChatItem, ChatItemData>(chatListEl, 'ypr-chat-item', chatListData);
+    }
+  });
+
+  API.chats.getAllChats();
 }
 
 function settingsPanelHandlers(root: ShadowRoot) {

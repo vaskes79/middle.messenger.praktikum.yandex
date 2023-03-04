@@ -18,6 +18,8 @@ export const handlers: Handlers[] = [
         Store.setState('currentChat', parseInt(btn.id));
         API.messages.getWSConnectLink(btn.id);
       }
+
+      API.chats.getAllChats();
     }
   }
 ];
