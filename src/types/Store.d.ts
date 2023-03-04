@@ -1,6 +1,6 @@
 import { MessageSocket } from '../api/messages/MessageSocket';
 import { MessageItemData } from '../components/MessageItem';
-import { User, Chat } from './Api.d';
+import { User, Chat, UserDTO } from './Api.d';
 
 export interface State {
   user: User | null;
@@ -9,6 +9,7 @@ export interface State {
   currentWSconnect: MessageSocket | null;
   chatList: Chat[];
   messageItemList: MessageItemData[];
+  editProfileData: Partial<UserDTO> | null;
 }
 
 export type StoreProps = {
