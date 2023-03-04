@@ -17,7 +17,7 @@ export class Input extends BaseComponent {
   private _detailsContent: string;
 
   private _errorContent: string;
-  private _error = false;
+  error = false;
 
   private _require = false;
 
@@ -44,9 +44,11 @@ export class Input extends BaseComponent {
 
       if (!valueIsValid) {
         this.showError(this.validateErrorMessage);
-        return;
       }
+
+      return valueIsValid;
     }
+    return true;
   }
 
   _mount() {
@@ -81,7 +83,7 @@ export class Input extends BaseComponent {
     if (name === 'error' && oldValue !== newValue) {
       this.showError(newValue);
     }
-    if (name !== 'error' && oldValue !== newValue) {
+    if (name !== 'error') {
       this._setupInput();
     }
   }
@@ -99,6 +101,7 @@ export class Input extends BaseComponent {
     if (this.hasAttribute('value')) {
       const value = this.getAttribute('value') || '';
       this._inputEl.setAttribute('value', value);
+      this._inputEl.value = value;
       this._value = value;
       this._setupLabel();
     }
@@ -157,8 +160,12 @@ export class Input extends BaseComponent {
     return this._value;
   }
 
+  set value(value: string) {
+    this._value = value;
+  }
+
   showError = (errorText?: string) => {
-    this._error = true;
+    this.error = true;
     this._errorContent = errorText || 'Error input';
     this._containerEl.classList.add('error');
     if (this._detailsEl) {
@@ -169,7 +176,7 @@ export class Input extends BaseComponent {
   clearError = () => {
     this._containerEl.classList.remove('error');
     this.removeAttribute('error');
-    this._error = false;
+    this.error = false;
     this._errorContent = '';
     this._detailsEl.textContent = this._detailsContent;
   };

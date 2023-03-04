@@ -7,7 +7,8 @@ const initialState: State = {
   chatList: [],
   currentChatWSLink: null,
   currentWSconnect: null,
-  messageItemList: []
+  messageItemList: [],
+  editProfileData: null
 };
 
 export class Store {

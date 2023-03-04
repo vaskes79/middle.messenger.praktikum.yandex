@@ -24,7 +24,9 @@ export type Chat = {
   };
 };
 
-export type UserDTO = Omit<User, 'display_name' | 'avatar' | 'id'>;
+export type UserDTO = Omit<User, 'avatar' | 'id'>;
+
+export type KeysOfUserDTO = keyof UserDTO;
 
 export type ChatDTO = Pick<Chat, 'title'>;
 

@@ -1,4 +1,4 @@
-import { UserDTO } from '../../types';
+import { UserDTO, ErrorRes } from '../../types';
 import { BaseAPI, OptionsWithoutMethod } from '../../core';
 
 export type UpdateUserDTO = OptionsWithoutMethod<Partial<UserDTO>>;
@@ -9,7 +9,12 @@ export class UserProfileApi extends BaseAPI {
   }
 
   async update(dataDTO: UpdateUserDTO) {
-    const data = await this._http.PUT(this._url, dataDTO);
-    console.log('UserProfileApi: ', data);
+    try {
+      const data = await this._http.PUT(this._url, dataDTO);
+      this._eventBus.emmit('profile:save:success', data);
+    } catch (error: unknown) {
+      const userUpdateError = error as ErrorRes;
+      this._eventBus.emmit('profile:save:error', userUpdateError);
+    }
   }
 }

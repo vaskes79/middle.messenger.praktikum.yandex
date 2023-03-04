@@ -2,17 +2,13 @@ import './api';
 import './components';
 import './pages';
 import { Paths } from './types';
-import { Router, Store } from './core';
+import { Router } from './core';
 import { setupRootEventListeners } from './initHandlers';
-
-// for Debug api
-import { API } from './api';
-
-// for Debug api
-//
-window.api = API;
-
-window.store = Store;
+// for Debug
+// import { Store } from './core';
+// import { API } from './api';
+// window.api = API;
+// window.store = Store;
 
 setupRootEventListeners();
 

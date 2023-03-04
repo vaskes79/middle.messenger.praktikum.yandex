@@ -8,3 +8,5 @@ export const user = {
   updateUserPassword: (passData: UserPasswordUpdateDTO) =>
     new UserPasswordUpdateApi().update(passData)
 };
+
+export * from './UserProfileApi';

@@ -10,9 +10,15 @@ export class Button extends BaseComponent {
 
   constructor() {
     super({ html, css, tagName, connectedCallbackMixin });
-    if (this.shadowRoot) {
-      this._btn = this.shadowRoot.querySelector('button') as HTMLButtonElement;
-    }
+    this._btn = this._root.querySelector('button') as HTMLButtonElement;
+  }
+
+  hide() {
+    this._btn.classList.add('hide');
+  }
+
+  show() {
+    this._btn.classList.remove('hide');
   }
 }
 
