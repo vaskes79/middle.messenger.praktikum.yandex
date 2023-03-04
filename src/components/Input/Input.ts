@@ -44,9 +44,11 @@ export class Input extends BaseComponent {
 
       if (!valueIsValid) {
         this.showError(this.validateErrorMessage);
-        return;
       }
+
+      return valueIsValid;
     }
+    return true;
   }
 
   _mount() {
@@ -78,6 +80,8 @@ export class Input extends BaseComponent {
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    console.log({ name, oldValue, newValue });
+
     if (name === 'error' && oldValue !== newValue) {
       this.showError(newValue);
     }
@@ -155,6 +159,10 @@ export class Input extends BaseComponent {
 
   get value() {
     return this._value;
+  }
+
+  set value(value: string) {
+    this._value = value;
   }
 
   showError = (errorText?: string) => {
