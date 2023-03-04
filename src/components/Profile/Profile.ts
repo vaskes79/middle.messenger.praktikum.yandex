@@ -1,13 +1,15 @@
 import html from 'bundle-text:./Profile.html';
 import css from 'bundle-text:./Profile.css';
-import { BaseComponent } from '../../core';
+import { BaseComponent, Store } from '../../core';
 import { Input } from '../Input';
 import { ProfileImg } from '../ProfileImg';
-import { StoreProps } from 'types';
+import { StoreProps, User } from '../../types';
 
 const tagName = 'ypr-profile';
 
-export class Profile extends BaseComponent {
+type ProfileData = User | null;
+
+export class Profile extends BaseComponent<ProfileData> {
   private _emailEl: Input;
   private _loginEl: Input;
   private _firstNameEl: Input;
@@ -26,27 +28,44 @@ export class Profile extends BaseComponent {
     this._phoneEl = this._root.querySelector('ypr-input[name=phone]') as Input;
     this._phoneEl = this._root.querySelector('ypr-input[name=phone]') as Input;
     this._avatarEl = this._root.querySelector('ypr-profile-input') as ProfileImg;
+    this.data = Store.getState('user');
   }
 
   protected _mount() {
-    this._eventBus.on('store:update', (props: StoreProps) => {
-      const {
-        key,
-        newState: { user }
-      } = props;
-      if (key === 'user' && user) {
-        this._emailEl.setAttribute('value', user.email);
-        this._loginEl.setAttribute('value', user.login);
-        this._firstNameEl.setAttribute('value', user.first_name);
-        this._secondNameEl.setAttribute('value', user.second_name);
-        this._displayNameEl.setAttribute('value', user.display_name || 'Not Set');
-        this._phoneEl.setAttribute('value', user.phone);
-        if (user.avatar) {
-          const avatarUrl = `https://ya-praktikum.tech/api/v2/resources${user.avatar}`;
-          this._avatarEl.setAttribute('avatar', avatarUrl);
-        }
+    this.data = Store.getState('user');
+    this._updateData();
+    this._eventBus.on('store:update', this._storeUpdateCallback);
+  }
+
+  protected _unmount(): void {
+    this.data = null;
+    this._eventBus.off('store:update', this._storeUpdateCallback);
+  }
+
+  private _storeUpdateCallback = (props: StoreProps) => {
+    const {
+      key,
+      newState: { user }
+    } = props;
+    if (key === 'user' && user) {
+      this.data = user;
+      this._updateData();
+    }
+  };
+
+  private _updateData() {
+    if (this._data) {
+      this._emailEl.setAttribute('value', this._data.email);
+      this._loginEl.setAttribute('value', this._data.login);
+      this._firstNameEl.setAttribute('value', this._data.first_name);
+      this._secondNameEl.setAttribute('value', this._data.second_name);
+      this._displayNameEl.setAttribute('value', this._data.display_name || 'Not Set');
+      this._phoneEl.setAttribute('value', this._data.phone);
+      if (this._data.avatar) {
+        const avatarUrl = `https://ya-praktikum.tech/api/v2/resources${this._data.avatar}`;
+        this._avatarEl.setAttribute('avatar', avatarUrl);
       }
-    });
+    }
   }
 }
 
