@@ -41,6 +41,7 @@ button {
   font-size: 1rem;
   display: flex;
   align-items: center;
+  pointer-events: auto;
   gap: 4px;
 }
 
@@ -126,4 +127,9 @@ button.distructive:hover {
 button.distructive:disabled {
   background: var(--distructive-disabled-bg);
   border: transparent;
+}
+
+button.hide {
+  opacity: 0;
+  pointer-events: none;
 }
