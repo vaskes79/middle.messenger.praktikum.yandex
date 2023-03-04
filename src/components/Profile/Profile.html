@@ -59,17 +59,24 @@
 </ypr-input>
 <ypr-input
   slot="content"
-  label="Change Password"
-  name="password"
-  details="Password field"
+  label="Old Password"
+  name="oldPassword"
+  details="For change password need input current password"
   validate="isCorrectPassword"
   validateErrorMessage="Password is not correct"
   info
 ></ypr-input>
 <ypr-input
   slot="content"
-  label="Confirm Password"
-  name="password"
-  details="Password field"
+  label="New Password"
+  name="newPassword"
+  details="Input new password and confirm it in field bellow"
+  info
+></ypr-input>
+<ypr-input
+  slot="content"
+  label="New Password Confirm"
+  name="newPasswordConfirm"
+  details="Repeat new password"
   info
 ></ypr-input>

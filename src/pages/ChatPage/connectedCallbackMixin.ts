@@ -21,6 +21,7 @@ export async function connectedCallbackMixin(root: ShadowRoot) {
   clearChatHandler(root);
   callbackForConfirmCreateChatModal(root);
   profileEditButtonsHandlers(root);
+  settingsButtonsHandlers(root);
 }
 
 const noMessagesComponent = `
@@ -165,5 +166,15 @@ function profileEditButtonsHandlers(root: ShadowRoot) {
       btnUpdateProfile.hide();
       btnCancelUpdate.hide();
     });
+  }
+}
+
+function settingsButtonsHandlers(root: ShadowRoot) {
+  const btnSettingsConfirm = root.getElementById('settingsConfirm') as Button;
+  const btnSettingsCancel = root.getElementById('settingsCancel') as Button;
+
+  if (btnSettingsConfirm && btnSettingsCancel) {
+    btnSettingsConfirm.hide();
+    btnSettingsCancel.hide();
   }
 }
