@@ -6,5 +6,7 @@ export enum ProfileEvents {
   EDIT_PROFILE = 'profile:edit',
   SAVE_ERROR_PROFILE = 'profile:save:error',
   SAVE_SUCCESS_PROFILE = 'profile:save:success',
-  CANCEL_PROFILE = 'profile:edit:cancel'
+  CANCEL_PROFILE = 'profile:edit:cancel',
+  SAVE_SUCCESS_AVATAR = 'profile:save:avatar',
+  SAVE_ERROR_AVATAR = 'profile:save:avatar:error'
 }
