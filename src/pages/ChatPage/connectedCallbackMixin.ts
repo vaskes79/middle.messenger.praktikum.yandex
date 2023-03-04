@@ -8,6 +8,7 @@ import { StoreProps } from '../../types';
 import { API } from '../../api';
 import { Modal } from '../../components/Modal';
 import type { Input } from '../../components/Input';
+import { Button } from '../../components/Button';
 
 const eventBuss = EventBus.getInstance();
 
@@ -19,6 +20,7 @@ export async function connectedCallbackMixin(root: ShadowRoot) {
   chatSettingsHandlers(root);
   clearChatHandler(root);
   callbackForConfirmCreateChatModal(root);
+  profileEditButtonsHandlers(root);
 }
 
 const noMessagesComponent = `
@@ -143,4 +145,24 @@ function chatSettingsHandlers(root: ShadowRoot) {
   btnCloseChatSettings.addEventListener('click', () => {
     eventBuss.emmit('panel:toggle');
   });
+}
+
+function profileEditButtonsHandlers(root: ShadowRoot) {
+  const btnUpdateProfile = root.getElementById('btnSubmitProfile') as Button;
+  const btnCancelUpdate = root.getElementById('btnCancelProfile') as Button;
+  if (btnUpdateProfile && btnCancelUpdate) {
+    btnUpdateProfile.hide();
+    btnCancelUpdate.hide();
+
+    eventBuss.on('store:update', (props: StoreProps) => {
+      const { key, newState } = props;
+      if (key === 'editProfileData' && newState.editProfileData) {
+        btnUpdateProfile.show();
+        btnCancelUpdate.show();
+        return;
+      }
+      btnUpdateProfile.hide();
+      btnCancelUpdate.hide();
+    });
+  }
 }
