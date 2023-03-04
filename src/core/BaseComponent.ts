@@ -87,16 +87,39 @@ export abstract class BaseComponent<TData = unknown> extends HTMLElement {
   protected _addEventListeners() {
     if (this._handlers.length > 0) {
       this._handlers.forEach((handle) => {
-        this._root
-          ?.querySelector(handle.selector)
-          ?.addEventListener(handle.event, handle.handler.bind(this));
+        const { multi, selector, event, handler } = handle;
+        if (multi) {
+          const elems = [...this._root.querySelectorAll(selector)];
+
+          if (elems.length > 0) {
+            elems.forEach((elem) => elem.addEventListener(event, handler.bind(this)));
+          }
+          return;
+        }
+        const elem = this._root.querySelector(selector);
+
+        if (elem) {
+          elem.addEventListener(event, handler.bind(this));
+        }
       });
 
       return () => {
         this._handlers.forEach((handle) => {
-          this._root
-            ?.querySelector(handle.selector)
-            ?.removeEventListener(handle.event, handle.handler.bind(this));
+          const { multi, selector, event, handler } = handle;
+          if (multi) {
+            const elems = [...this._root.querySelectorAll(selector)];
+
+            if (elems.length > 0) {
+              elems.forEach((elem) => elem.removeEventListener(event, handler.bind(this)));
+            }
+            return;
+          }
+
+          const elem = this._root.querySelector(selector);
+
+          if (elem) {
+            elem.removeEventListener(event, handler.bind(this));
+          }
         });
       };
     }

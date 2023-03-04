@@ -4,4 +4,5 @@ export type Handlers = {
   event: EventName;
   selector: string;
   handler: (event?: Event) => void;
+  multi?: boolean;
 };
