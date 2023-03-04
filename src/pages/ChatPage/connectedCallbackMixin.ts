@@ -150,6 +150,7 @@ function chatSettingsHandlers(root: ShadowRoot) {
 function profileEditButtonsHandlers(root: ShadowRoot) {
   const btnUpdateProfile = root.getElementById('btnSubmitProfile') as Button;
   const btnCancelUpdate = root.getElementById('btnCancelProfile') as Button;
+
   if (btnUpdateProfile && btnCancelUpdate) {
     btnUpdateProfile.hide();
     btnCancelUpdate.hide();

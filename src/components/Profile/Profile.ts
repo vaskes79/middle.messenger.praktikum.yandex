@@ -4,7 +4,7 @@ import { BaseComponent, Store } from '../../core';
 import { Input } from '../Input';
 import { ProfileImg } from '../ProfileImg';
 import { handlers } from './handlers';
-import type { StoreProps, KeysOfUserDTO } from '../../types';
+import type { StoreProps, KeysOfUserDTO, User } from '../../types';
 import type { ProfileData } from './types';
 import { isEmpty } from '../../utils';
 
@@ -37,12 +37,16 @@ export class Profile extends BaseComponent<ProfileData> {
     this._updateData();
     this._eventBus.on('store:update', this._storeUpdateCallback);
     this._eventBus.on('profile:edit', this._handleEditProfile);
+    this._eventBus.on('profile:save:error', this._errorSaveProfileCallaback);
+    this._eventBus.on('profile:save:success', this._saveProfileSuccessCallback);
   }
 
   protected _unmount(): void {
     this.data = null;
     this._eventBus.off('store:update', this._storeUpdateCallback);
     this._eventBus.off('profile:edit', this._handleEditProfile);
+    this._eventBus.off('profile:save:error', this._errorSaveProfileCallaback);
+    this._eventBus.off('profile:save:success', this._saveProfileSuccessCallback);
   }
 
   private _storeUpdateCallback = (props: StoreProps) => {
@@ -54,6 +58,15 @@ export class Profile extends BaseComponent<ProfileData> {
       this.data = user;
       this._updateData();
     }
+  };
+
+  private _errorSaveProfileCallaback = (error: unknown) => {
+    console.log(error);
+  };
+
+  private _saveProfileSuccessCallback = (updatedUser: User) => {
+    Store.setState('user', updatedUser);
+    Store.setState('editProfileData', null);
   };
 
   private _handleEditProfile = (props: { name: KeysOfUserDTO; value: string }) => {
