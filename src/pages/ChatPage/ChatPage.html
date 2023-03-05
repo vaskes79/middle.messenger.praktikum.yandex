@@ -75,18 +75,23 @@
   <ypr-main slot="chatsettings-main">
     <ypr-nav>
       <li slot="item">
-        <ypr-btn link id="btnClearChat">Clear chat</ypr-btn>
+        <ypr-btn link id="btnClearChat">Add user by id</ypr-btn>
       </li>
-      <li slot="item"><a href="/">sign in</a></li>
+      <li slot="item">
+        <ypr-btn link id="btnClearChat">Remove user by id</ypr-btn>
+      </li>
+      <li slot="item">
+        <ypr-btn link id="btnClearChat">Remove chat</ypr-btn>
+      </li>
     </ypr-nav>
   </ypr-main>
 
   <ypr-footer slot="chatsettings-footer">
-    <ypr-btn>
+    <ypr-btn id="settingsConfirm">
       Save
       <ypr-icon name="done" color="var(--gray-400)"></ypr-icon>
     </ypr-btn>
-    <ypr-btn distructive>
+    <ypr-btn id="settingsCancel" distructive>
       Cancel
       <ypr-icon name="close" color="var(--gray-400)"></ypr-icon>
     </ypr-btn>

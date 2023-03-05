@@ -1,14 +1,7 @@
-import type { UserDTO } from '../../types';
+import type { User, ErrorRes } from '../../types';
 import { BaseAPI, OptionsWithoutMethod } from '../../core';
 
-type UserAvatarRes = UserDTO & {
-  id: number;
-  avatar: string;
-};
-
-type Data = {
-  formData: FormData;
-};
+type Data = FormData;
 
 export type UserAvatarUpdateDTO = OptionsWithoutMethod<Data>;
 
@@ -18,7 +11,12 @@ export class UserAvatarUpdateApi extends BaseAPI {
   }
 
   async update(dataDTO: UserAvatarUpdateDTO) {
-    const data = await this._http.PUT<Data, UserAvatarRes>(this._url, dataDTO);
-    console.log('UserAvatarUpdate: ', data);
+    try {
+      const data = await this._http.PUT<Data, User>(this._url, dataDTO);
+      this._eventBus.emmit('profile:save:avatar', data);
+    } catch (error) {
+      const userUpdateError = error as ErrorRes;
+      this._eventBus.emmit('profile:save:avatar:error', userUpdateError);
+    }
   }
 }

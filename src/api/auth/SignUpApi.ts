@@ -1,4 +1,4 @@
-import { BaseAPI, OptionsWithoutMethod } from '../../core';
+import { BaseAPI, HEADERS, OptionsWithoutMethod } from '../../core';
 import { ErrorRes, UserDTO } from '../../types';
 
 export type UserCreateRes = {
@@ -14,6 +14,8 @@ export class SignUpApi extends BaseAPI {
   }
 
   async create(userData: SignUpDTO) {
+    userData.headers = { [HEADERS.CONTENT_TYPE]: HEADERS.JSON };
+
     try {
       return await this._http.POST<UserDTO, UserCreateRes>(this._url, userData);
     } catch (error: unknown) {

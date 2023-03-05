@@ -1,11 +1,12 @@
-import { BaseAPI, OptionsWithoutMethod } from '../../core';
+import { BaseAPI, OptionsWithoutMethod, HEADERS } from '../../core';
+import { ErrorRes } from '../../types';
 
-type Data = {
+export type UserPasswordChangeData = {
   oldPassword: string;
   newPassword: string;
 };
 
-export type UserPasswordUpdateDTO = OptionsWithoutMethod<Data>;
+export type UserPasswordUpdateDTO = OptionsWithoutMethod<UserPasswordChangeData>;
 
 export class UserPasswordUpdateApi extends BaseAPI {
   constructor(baseUrl?: string) {
@@ -13,7 +14,17 @@ export class UserPasswordUpdateApi extends BaseAPI {
   }
 
   async update(dataDTO: UserPasswordUpdateDTO) {
-    const data = await this._http.PUT(this._url, dataDTO);
-    console.log('UserPasswordUpdateDTO: ', data);
+    dataDTO.headers = {
+      [HEADERS.CONTENT_TYPE]: HEADERS.JSON
+    };
+    try {
+      const data = await this._http.PUT(this._url, dataDTO);
+      if (data === 'OK') {
+        this._eventBus.emmit('profile:password:update:success');
+      }
+    } catch (error) {
+      const errorUpdatePassword = error as ErrorRes;
+      this._eventBus.emmit('profile:password:update:error', errorUpdatePassword);
+    }
   }
 }

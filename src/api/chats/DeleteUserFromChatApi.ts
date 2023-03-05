@@ -1,4 +1,4 @@
-import { BaseAPI, OptionsWithoutMethod } from '../../core';
+import { BaseAPI, OptionsWithoutMethod, HEADERS } from '../../core';
 
 type Data = {
   users: number[];
@@ -13,6 +13,9 @@ export class DeleteUserFromChatApi extends BaseAPI {
   }
 
   async delete(dataDTO: DeleteUserFromChatDTO) {
+    dataDTO.headers = {
+      [HEADERS.CONTENT_TYPE]: HEADERS.JSON
+    };
     const data = await this._http.DELETE<Data>(this._url, dataDTO);
     console.log('DeleteUserFromChatApi: ', data);
   }

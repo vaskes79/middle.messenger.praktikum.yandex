@@ -1,8 +1,6 @@
 import { submitHanler } from '../../utils';
-import { UpdateUserDTO } from '../../api/user';
 import { Handlers } from '../../types';
-import { EventBus, Store } from '../../core';
-import { API } from '../../api';
+import { EventBus } from '../../core';
 const eventBuss = EventBus.getInstance();
 
 export const handlers: Handlers[] = [
@@ -29,24 +27,7 @@ export const handlers: Handlers[] = [
     event: 'click',
     selector: '#btnSubmitProfile',
     handler: () => {
-      const editProfileData = Store.getState('editProfileData');
-      const user = Store.getState('user');
-      if (editProfileData && user) {
-        const { first_name, second_name, display_name, login, email, phone } = user;
-        const updateUserDTO: UpdateUserDTO = {
-          data: {
-            first_name,
-            second_name,
-            display_name,
-            login,
-            email,
-            phone,
-            ...editProfileData
-          }
-        };
-
-        API.user.updateProfile(updateUserDTO);
-      }
+      eventBuss.emmit('profile:update:request');
     }
   },
   {

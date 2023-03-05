@@ -1,4 +1,4 @@
-import { EventBus, Validator } from '../../core';
+import { EventBus, Store, Validator } from '../../core';
 import { generateCotnent } from '../../utils';
 import { Main } from '../../components/Layout';
 import { MessageItem, MessageItemData } from '../../components/MessageItem';
@@ -10,7 +10,7 @@ import { Modal } from '../../components/Modal';
 import type { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 
-const eventBuss = EventBus.getInstance();
+const eventBus = EventBus.getInstance();
 
 export async function connectedCallbackMixin(root: ShadowRoot) {
   generateChatList(root);
@@ -21,6 +21,8 @@ export async function connectedCallbackMixin(root: ShadowRoot) {
   clearChatHandler(root);
   callbackForConfirmCreateChatModal(root);
   profileEditButtonsHandlers(root);
+  settingsButtonsHandlers(root);
+  filteringChatList(root);
 }
 
 const noMessagesComponent = `
@@ -55,14 +57,14 @@ function callbackForConfirmCreateChatModal(root: ShadowRoot) {
 function generateMessageList(root: ShadowRoot) {
   const chatMain = root.getElementById('chat-main') as Main;
 
-  eventBuss.on('store:update', (props: StoreProps) => {
+  eventBus.on('store:update', (props: StoreProps) => {
     const { key } = props;
     if (key === 'currentChatWSLink') {
       API.messages.connectToChat();
     }
   });
 
-  eventBuss.on('store:update', (props: StoreProps) => {
+  eventBus.on('store:update', (props: StoreProps) => {
     const { key, newState } = props;
     if (key === 'messageItemList') {
       chatMain.innerHTML = '';
@@ -93,7 +95,7 @@ function generateChatList(root: ShadowRoot) {
   const chatListEl = root.getElementById('chatlist-main') as Main;
   chatMain.innerHTML = noMessagesComponent;
 
-  eventBuss.on('store:update', (props: StoreProps) => {
+  eventBus.on('store:update', (props: StoreProps) => {
     const {
       key,
       newState: { chatList }
@@ -108,16 +110,34 @@ function generateChatList(root: ShadowRoot) {
   API.chats.getAllChats();
 }
 
+function filteringChatList(root: ShadowRoot) {
+  const chatListEl = root.getElementById('chatlist-main') as Main;
+
+  eventBus.on('search:chat', (props: { value: string }) => {
+    const chatList = Store.getState('chatList');
+    const { value } = props;
+    let chatListData = mapChatApiToChatItem(chatList);
+    if (value !== '' && value.length > 3) {
+      chatListEl.innerHTML = '';
+      chatListData = chatListData.filter((item) => {
+        const regExp = new RegExp(value, 'g');
+        return regExp.test(item.name);
+      });
+    }
+    generateCotnent<ChatItem, ChatItemData>(chatListEl, 'ypr-chat-item', chatListData);
+  });
+}
+
 function settingsPanelHandlers(root: ShadowRoot) {
   const btnOpenSettings = root.getElementById('openSettings') as HTMLButtonElement;
   const btnCloseSettings = root.getElementById('settingsBtn') as HTMLButtonElement;
 
   btnOpenSettings.addEventListener('click', () => {
-    eventBuss.emmit('panel:toggle', 'settings');
+    eventBus.emmit('panel:toggle', 'settings');
   });
 
   btnCloseSettings.addEventListener('click', () => {
-    eventBuss.emmit('panel:toggle');
+    eventBus.emmit('panel:toggle');
   });
 }
 
@@ -126,11 +146,11 @@ function chatListHandlers(root: ShadowRoot) {
   const btnCloseChatList = root.getElementById('chatlist-main') as HTMLButtonElement;
 
   btnOpenChatList.addEventListener('click', () => {
-    eventBuss.emmit('panel:toggle', 'chatlist');
+    eventBus.emmit('panel:toggle', 'chatlist');
   });
 
   btnCloseChatList.addEventListener('click', () => {
-    eventBuss.emmit('panel:toggle');
+    eventBus.emmit('panel:toggle');
   });
 }
 
@@ -139,31 +159,54 @@ function chatSettingsHandlers(root: ShadowRoot) {
   const btnCloseChatSettings = root.getElementById('closeChatSettingsBtn') as HTMLButtonElement;
 
   btnOpenChatSettings.addEventListener('click', () => {
-    eventBuss.emmit('panel:toggle', 'chatsettings');
+    eventBus.emmit('panel:toggle', 'chatsettings');
   });
 
   btnCloseChatSettings.addEventListener('click', () => {
-    eventBuss.emmit('panel:toggle');
+    eventBus.emmit('panel:toggle');
   });
 }
 
 function profileEditButtonsHandlers(root: ShadowRoot) {
   const btnUpdateProfile = root.getElementById('btnSubmitProfile') as Button;
   const btnCancelUpdate = root.getElementById('btnCancelProfile') as Button;
+  btnUpdateProfile.hide();
+  btnCancelUpdate.hide();
 
-  if (btnUpdateProfile && btnCancelUpdate) {
+  eventBus.on('store:update', (props: StoreProps) => {
+    const { key, newState } = props;
+
+    if (key === 'editProfileData' && newState.editProfileData !== null) {
+      btnUpdateProfile.show();
+      btnCancelUpdate.show();
+      return;
+    }
     btnUpdateProfile.hide();
     btnCancelUpdate.hide();
+  });
 
-    eventBuss.on('store:update', (props: StoreProps) => {
-      const { key, newState } = props;
-      if (key === 'editProfileData' && newState.editProfileData) {
-        btnUpdateProfile.show();
-        btnCancelUpdate.show();
-        return;
-      }
-      btnUpdateProfile.hide();
-      btnCancelUpdate.hide();
-    });
+  eventBus.on('profile:password:update:is_posible', () => {
+    btnUpdateProfile.show();
+    btnCancelUpdate.show();
+  });
+
+  eventBus.on('profile:password:update:is_not_posible', () => {
+    btnUpdateProfile.hide();
+    btnCancelUpdate.hide();
+  });
+
+  eventBus.on('profile:password:update:success', () => {
+    btnUpdateProfile.hide();
+    btnCancelUpdate.hide();
+  });
+}
+
+function settingsButtonsHandlers(root: ShadowRoot) {
+  const btnSettingsConfirm = root.getElementById('settingsConfirm') as Button;
+  const btnSettingsCancel = root.getElementById('settingsCancel') as Button;
+
+  if (btnSettingsConfirm && btnSettingsCancel) {
+    btnSettingsConfirm.hide();
+    btnSettingsCancel.hide();
   }
 }
