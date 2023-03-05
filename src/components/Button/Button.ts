@@ -13,6 +13,10 @@ export class Button extends BaseComponent {
     this._btn = this._root.querySelector('button') as HTMLButtonElement;
   }
 
+  action() {
+    return;
+  }
+
   hide() {
     this._btn.classList.add('hide');
   }

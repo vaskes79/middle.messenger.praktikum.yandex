@@ -31,7 +31,8 @@ export const handlers: Handlers[] = [
     handler: () => {
       const editProfileData = Store.getState('editProfileData');
       const user = Store.getState('user');
-      if (editProfileData && user) {
+
+      if (editProfileData !== null && user) {
         const { first_name, second_name, display_name, login, email, phone } = user;
         const updateUserDTO: UpdateUserDTO = {
           data: {

@@ -1,3 +1,4 @@
+import { UserPasswordChangeData } from '../api/user/UserPasswordUpdateApi';
 import { MessageSocket } from '../api/messages/MessageSocket';
 import { MessageItemData } from '../components/MessageItem';
 import { User, Chat, UserDTO } from './Api.d';
@@ -10,6 +11,7 @@ export interface State {
   chatList: Chat[];
   messageItemList: MessageItemData[];
   editProfileData: Partial<UserDTO> | null;
+  changePasswordData: UserPasswordChangeData;
 }
 
 export type StoreProps = {

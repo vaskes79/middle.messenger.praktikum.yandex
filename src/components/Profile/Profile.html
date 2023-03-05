@@ -71,6 +71,8 @@
   label="New Password"
   name="newPassword"
   details="Input new password and confirm it in field bellow"
+  validate="isCorrectPassword"
+  validateErrorMessage="Password is not correct"
   info
 ></ypr-input>
 <ypr-input
@@ -78,5 +80,7 @@
   label="New Password Confirm"
   name="newPasswordConfirm"
   details="Repeat new password"
+  validate="isCorrectPassword"
+  validateErrorMessage="Password is not correct"
   info
 ></ypr-input>

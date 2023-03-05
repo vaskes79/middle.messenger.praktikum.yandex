@@ -1,11 +1,11 @@
 import { BaseAPI, OptionsWithoutMethod } from '../../core';
 
-type Data = {
+export type UserPasswordChangeData = {
   oldPassword: string;
   newPassword: string;
 };
 
-export type UserPasswordUpdateDTO = OptionsWithoutMethod<Data>;
+export type UserPasswordUpdateDTO = OptionsWithoutMethod<UserPasswordChangeData>;
 
 export class UserPasswordUpdateApi extends BaseAPI {
   constructor(baseUrl?: string) {

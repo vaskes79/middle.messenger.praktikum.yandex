@@ -8,7 +8,11 @@ const initialState: State = {
   currentChatWSLink: null,
   currentWSconnect: null,
   messageItemList: [],
-  editProfileData: null
+  editProfileData: null,
+  changePasswordData: {
+    oldPassword: '',
+    newPassword: ''
+  }
 };
 
 export class Store {

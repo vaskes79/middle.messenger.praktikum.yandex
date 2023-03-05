@@ -17,6 +17,9 @@ export class Profile extends BaseComponent<ProfileData> {
   private _secondNameEl: Input;
   private _displayNameEl: Input;
   private _phoneEl: Input;
+  private _oldPasswdEl: Input;
+  private _newPasswdEl: Input;
+  private _newConfirmPasswdEl: Input;
   private _avatarEl: ProfileImg;
 
   constructor() {
@@ -28,6 +31,11 @@ export class Profile extends BaseComponent<ProfileData> {
     this._displayNameEl = this._root.querySelector('ypr-input[name=display_name]') as Input;
     this._phoneEl = this._root.querySelector('ypr-input[name=phone]') as Input;
     this._phoneEl = this._root.querySelector('ypr-input[name=phone]') as Input;
+    this._oldPasswdEl = this._root.querySelector('ypr-input[name=oldPassword]') as Input;
+    this._newPasswdEl = this._root.querySelector('ypr-input[name=newPassword]') as Input;
+    this._newConfirmPasswdEl = this._root.querySelector(
+      'ypr-input[name=newPasswordConfirm]'
+    ) as Input;
     this._avatarEl = this._root.querySelector('ypr-profile-input') as ProfileImg;
     this.data = Store.getState('user');
   }
@@ -73,7 +81,13 @@ export class Profile extends BaseComponent<ProfileData> {
 
   private _cancelEditCallback = () => {
     Store.setState('editProfileData', null);
+    Store.setState('changePasswordData', {
+      oldPassword: '',
+      newPassword: ''
+    });
+
     const user = Store.getState('user');
+
     if (user) {
       this.data = user;
       this._updateData();
@@ -105,12 +119,16 @@ export class Profile extends BaseComponent<ProfileData> {
 
   private _updateData() {
     if (this._data) {
+      const { oldPassword, newPassword } = Store.getState('changePasswordData');
       this._emailEl.setAttribute('value', this._data.email);
       this._loginEl.setAttribute('value', this._data.login);
       this._firstNameEl.setAttribute('value', this._data.first_name);
       this._secondNameEl.setAttribute('value', this._data.second_name);
       this._displayNameEl.setAttribute('value', this._data.display_name || 'Not Set');
       this._phoneEl.setAttribute('value', this._data.phone);
+      this._oldPasswdEl.setAttribute('value', oldPassword);
+      this._newPasswdEl.setAttribute('value', newPassword);
+      this._newConfirmPasswdEl.setAttribute('value', '');
       if (this._data.avatar) {
         const avatarUrl = `https://ya-praktikum.tech/api/v2/resources${this._data.avatar}`;
         this._avatarEl.setAttribute('avatar', avatarUrl);
