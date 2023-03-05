@@ -1,5 +1,5 @@
 import { API } from '../../api';
-import { BaseAPI, OptionsWithoutMethod } from '../../core';
+import { BaseAPI, OptionsWithoutMethod, HEADERS } from '../../core';
 import type { ChatDTO, ErrorRes } from '../../types';
 
 export type ChatCreateRes = {
@@ -14,6 +14,9 @@ export class CreateChatApi extends BaseAPI {
   }
 
   async create(chatDTO: CreateChatDTO) {
+    chatDTO.headers = {
+      [HEADERS.CONTENT_TYPE]: HEADERS.JSON
+    };
     try {
       const data = await this._http.POST<ChatDTO, ChatCreateRes>(this._url, chatDTO);
       if (data.id) {

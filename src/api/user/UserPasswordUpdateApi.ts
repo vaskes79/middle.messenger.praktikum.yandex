@@ -1,4 +1,4 @@
-import { BaseAPI, OptionsWithoutMethod } from '../../core';
+import { BaseAPI, OptionsWithoutMethod, HEADERS } from '../../core';
 
 export type UserPasswordChangeData = {
   oldPassword: string;
@@ -13,6 +13,9 @@ export class UserPasswordUpdateApi extends BaseAPI {
   }
 
   async update(dataDTO: UserPasswordUpdateDTO) {
+    dataDTO.headers = {
+      [HEADERS.CONTENT_TYPE]: HEADERS.JSON
+    };
     const data = await this._http.PUT(this._url, dataDTO);
     console.log('UserPasswordUpdateDTO: ', data);
   }

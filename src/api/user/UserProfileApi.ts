@@ -1,5 +1,5 @@
 import { UserDTO, ErrorRes } from '../../types';
-import { BaseAPI, OptionsWithoutMethod } from '../../core';
+import { BaseAPI, HEADERS, OptionsWithoutMethod } from '../../core';
 
 export type UpdateUserDTO = OptionsWithoutMethod<Partial<UserDTO>>;
 
@@ -9,6 +9,9 @@ export class UserProfileApi extends BaseAPI {
   }
 
   async update(dataDTO: UpdateUserDTO) {
+    dataDTO.headers = {
+      [HEADERS.CONTENT_TYPE]: HEADERS.JSON
+    };
     try {
       const data = await this._http.PUT(this._url, dataDTO);
       this._eventBus.emmit('profile:save:success', data);

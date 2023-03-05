@@ -1,4 +1,4 @@
-import { BaseAPI, OptionsWithoutMethod } from '../../core';
+import { BaseAPI, OptionsWithoutMethod, HEADERS } from '../../core';
 
 type Data = {
   users: number[];
@@ -13,6 +13,9 @@ export class AddUserToChatApi extends BaseAPI {
   }
 
   async update(chatDTO: AddUserToChatDTO) {
+    chatDTO.headers = {
+      [HEADERS.CONTENT_TYPE]: HEADERS.JSON
+    };
     const data = await this._http.PUT<Data>(this._url, chatDTO);
     console.log('AddUserToChatDTO: ', data);
   }
