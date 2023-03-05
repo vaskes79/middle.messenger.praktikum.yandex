@@ -1,4 +1,4 @@
-import { EventBus, Store, Validator } from '../../core';
+import { EventBus, Validator } from '../../core';
 import { generateCotnent } from '../../utils';
 import { Main } from '../../components/Layout';
 import { MessageItem, MessageItemData } from '../../components/MessageItem';
@@ -151,44 +151,35 @@ function chatSettingsHandlers(root: ShadowRoot) {
 function profileEditButtonsHandlers(root: ShadowRoot) {
   const btnUpdateProfile = root.getElementById('btnSubmitProfile') as Button;
   const btnCancelUpdate = root.getElementById('btnCancelProfile') as Button;
-  const changePasswordData = Store.getState('changePasswordData');
+  btnUpdateProfile.hide();
+  btnCancelUpdate.hide();
 
-  btnUpdateProfile.action = () => {
-    console.log('changePasswordData', changePasswordData);
-  };
+  eventBus.on('store:update', (props: StoreProps) => {
+    const { key, newState } = props;
 
-  btnCancelUpdate.action = () => {
-    changePasswordData.newPassword = '';
-    changePasswordData.oldPassword = '';
-    console.log('changePasswordDataCancelUpdate: ', changePasswordData);
-    eventBus.emmit('profile:password:update:is_not_posible');
-  };
-
-  if (btnUpdateProfile && btnCancelUpdate) {
-    btnUpdateProfile.hide();
-    btnCancelUpdate.hide();
-
-    eventBus.on('store:update', (props: StoreProps) => {
-      const { key, newState } = props;
-
-      if (key === 'editProfileData' && newState.editProfileData !== null) {
-        btnUpdateProfile.show();
-        btnCancelUpdate.show();
-        return;
-      }
-      btnUpdateProfile.hide();
-      btnCancelUpdate.hide();
-    });
-
-    eventBus.on('profile:password:update:is_posible', () => {
+    if (key === 'editProfileData' && newState.editProfileData !== null) {
       btnUpdateProfile.show();
       btnCancelUpdate.show();
-    });
-    eventBus.on('profile:password:update:is_not_posible', () => {
-      btnUpdateProfile.hide();
-      btnCancelUpdate.hide();
-    });
-  }
+      return;
+    }
+    btnUpdateProfile.hide();
+    btnCancelUpdate.hide();
+  });
+
+  eventBus.on('profile:password:update:is_posible', () => {
+    btnUpdateProfile.show();
+    btnCancelUpdate.show();
+  });
+
+  eventBus.on('profile:password:update:is_not_posible', () => {
+    btnUpdateProfile.hide();
+    btnCancelUpdate.hide();
+  });
+
+  eventBus.on('profile:password:update:success', () => {
+    btnUpdateProfile.hide();
+    btnCancelUpdate.hide();
+  });
 }
 
 function settingsButtonsHandlers(root: ShadowRoot) {

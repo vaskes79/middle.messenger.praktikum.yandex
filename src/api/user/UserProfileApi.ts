@@ -14,10 +14,10 @@ export class UserProfileApi extends BaseAPI {
     };
     try {
       const data = await this._http.PUT(this._url, dataDTO);
-      this._eventBus.emmit('profile:save:success', data);
+      this._eventBus.emmit('profile:update:success', data);
     } catch (error: unknown) {
       const userUpdateError = error as ErrorRes;
-      this._eventBus.emmit('profile:save:error', userUpdateError);
+      this._eventBus.emmit('profile:update:error', userUpdateError);
     }
   }
 }

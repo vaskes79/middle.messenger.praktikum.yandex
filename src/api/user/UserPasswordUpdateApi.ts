@@ -1,4 +1,5 @@
 import { BaseAPI, OptionsWithoutMethod, HEADERS } from '../../core';
+import { ErrorRes } from '../../types';
 
 export type UserPasswordChangeData = {
   oldPassword: string;
@@ -16,7 +17,14 @@ export class UserPasswordUpdateApi extends BaseAPI {
     dataDTO.headers = {
       [HEADERS.CONTENT_TYPE]: HEADERS.JSON
     };
-    const data = await this._http.PUT(this._url, dataDTO);
-    console.log('UserPasswordUpdateDTO: ', data);
+    try {
+      const data = await this._http.PUT(this._url, dataDTO);
+      if (data === 'OK') {
+        this._eventBus.emmit('profile:password:update:success');
+      }
+    } catch (error) {
+      const errorUpdatePassword = error as ErrorRes;
+      this._eventBus.emmit('profile:password:update:error', errorUpdatePassword);
+    }
   }
 }
