@@ -8,6 +8,7 @@ import { StoreEvents } from '../types';
 import { MessageInputEvents } from '../components/MessageInput';
 import { FormEvents } from '../components/Form';
 import { ProfileEvents } from '../components/Profile';
+import { SearchEvents } from '../components/Search';
 
 export type EventName =
   | keyof GlobalEventHandlersEventMap
@@ -21,6 +22,8 @@ export type EventName =
   | `${MessageInputEvents}`
   | `${FormEvents}`
   | `${ProfileEvents}`
+  | `${ProfileEvents}`
+  | `${SearchEvents}`
   | `${ModalEvents}`;
 
 export type Callback<T = unknown> = (...args: T[]) => void;

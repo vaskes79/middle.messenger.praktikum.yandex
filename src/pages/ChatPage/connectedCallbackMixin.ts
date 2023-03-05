@@ -1,4 +1,4 @@
-import { EventBus, Validator } from '../../core';
+import { EventBus, Store, Validator } from '../../core';
 import { generateCotnent } from '../../utils';
 import { Main } from '../../components/Layout';
 import { MessageItem, MessageItemData } from '../../components/MessageItem';
@@ -22,6 +22,7 @@ export async function connectedCallbackMixin(root: ShadowRoot) {
   callbackForConfirmCreateChatModal(root);
   profileEditButtonsHandlers(root);
   settingsButtonsHandlers(root);
+  filteringChatList(root);
 }
 
 const noMessagesComponent = `
@@ -107,6 +108,24 @@ function generateChatList(root: ShadowRoot) {
   });
 
   API.chats.getAllChats();
+}
+
+function filteringChatList(root: ShadowRoot) {
+  const chatListEl = root.getElementById('chatlist-main') as Main;
+
+  eventBus.on('search:chat', (props: { value: string }) => {
+    const chatList = Store.getState('chatList');
+    const { value } = props;
+    let chatListData = mapChatApiToChatItem(chatList);
+    if (value !== '' && value.length > 3) {
+      chatListEl.innerHTML = '';
+      chatListData = chatListData.filter((item) => {
+        const regExp = new RegExp(value, 'g');
+        return regExp.test(item.name);
+      });
+    }
+    generateCotnent<ChatItem, ChatItemData>(chatListEl, 'ypr-chat-item', chatListData);
+  });
 }
 
 function settingsPanelHandlers(root: ShadowRoot) {
