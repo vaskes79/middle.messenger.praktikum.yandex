@@ -1,4 +1,4 @@
-# YPR-MSG [PR sprint 2 ](https://github.com/vaskes79/middle.messenger.praktikum.yandex/pull/74)
+# YPR-MSG [PR sprint 3 ](https://github.com/vaskes79/middle.messenger.praktikum.yandex/pull/106)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/56837701-b2e9-41fe-bb52-83ecc6572342/deploy-status)](https://app.netlify.com/sites/ypr-msg/deploys)
 
