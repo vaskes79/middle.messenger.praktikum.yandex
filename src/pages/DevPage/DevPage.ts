@@ -1,4 +1,4 @@
-import html from 'bundle-text:./DevPage.html';
+import html from './DevPage.html';
 import { createPage } from '../../core';
 import { attributeChangedCallback } from './attributeChangedCallback';
 import { handlers } from './handlers';

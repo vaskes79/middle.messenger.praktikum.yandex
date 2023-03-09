@@ -1,7 +1,7 @@
 import { UserPasswordChangeData } from '../api/user/UserPasswordUpdateApi';
 import { MessageSocket } from '../api/messages/MessageSocket';
 import { MessageItemData } from '../components/MessageItem';
-import { User, Chat, UserDTO } from './Api.d';
+import { User, Chat, UserDTO } from './Api';
 
 export interface State {
   user: User | null;

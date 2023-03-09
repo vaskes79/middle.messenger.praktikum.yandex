@@ -1,5 +1,5 @@
-import html from 'bundle-text:./Menu.html';
-import css from 'bundle-text:./Menu.css';
+import html from './Menu.html';
+import css from '!!raw-loader!./Menu.css';
 import { BaseComponent } from '../../core';
 import { handlers } from './handlers';
 

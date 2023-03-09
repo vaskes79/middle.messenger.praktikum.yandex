@@ -1,5 +1,5 @@
-import html from 'bundle-text:./Button.html';
-import css from 'bundle-text:./Button.css';
+import html from './Button.html';
+import css from '!!raw-loader!./Button.css';
 import { BaseComponent } from '../../core';
 import { connectedCallbackMixin } from './connecteCallbackMixin';
 

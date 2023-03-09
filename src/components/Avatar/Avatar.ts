@@ -1,5 +1,5 @@
-import html from 'bundle-text:./Avatar.html';
-import css from 'bundle-text:./Avatar.css';
+import html from './Avatar.html';
+import css from '!!raw-loader!./Avatar.css';
 import { BaseComponent } from '../../core';
 import { StatusUser } from '../Status';
 import defaultAvatar from './default-avatar.svg';
