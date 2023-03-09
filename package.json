@@ -1,8 +1,12 @@
 {
-  "name": "my-webpack-project",
-  "version": "1.0.0",
-  "description": "My webpack project",
+  "name": "ypr-messenger",
+  "version": "0.0.1",
+  "description": "Yandex practicum learn project",
   "source": "src/index.html",
+  "engines": {
+    "npm": ">=8 <=9",
+    "node": ">=16 <=18"
+  },
   "scripts": {
     "dev": "parcel",
     "prebuild": "rimraf 'dist'",
