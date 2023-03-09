@@ -1,5 +1,5 @@
 import html from './Profile.html';
-import css from './Profile.css';
+import css from '!!raw-loader!./Profile.css';
 import { BaseComponent, Store } from '../../core';
 import { Input } from '../Input';
 import { ProfileImg } from '../ProfileImg';

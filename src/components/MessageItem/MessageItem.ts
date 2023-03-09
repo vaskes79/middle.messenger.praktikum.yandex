@@ -1,5 +1,5 @@
 import html from './MessageItem.html';
-import css from './MessageItem.css';
+import css from '!!raw-loader!./MessageItem.css';
 import { StatusMessage, StatusMessageState } from '../Status/StatusMessage';
 import { BaseComponent, DateTimeService } from '../../core';
 import { MessageItemType } from '../../types';

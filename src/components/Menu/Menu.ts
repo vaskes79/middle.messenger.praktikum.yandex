@@ -1,5 +1,5 @@
 import html from './Menu.html';
-import css from './Menu.css';
+import css from '!!raw-loader!./Menu.css';
 import { BaseComponent } from '../../core';
 import { handlers } from './handlers';
 

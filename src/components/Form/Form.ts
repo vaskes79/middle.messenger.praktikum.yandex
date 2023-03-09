@@ -1,5 +1,5 @@
 import html from './Form.html';
-import css from './Form.css';
+import css from '!!raw-loader!./Form.css';
 import { BaseComponent, Validator } from '../../core';
 import { nanoid } from 'nanoid';
 import { Input } from '../Input';

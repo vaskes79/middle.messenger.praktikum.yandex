@@ -1,5 +1,5 @@
 import html from './StatusUser.html';
-import css from './StatusUser.css';
+import css from '!!raw-loader!./StatusUser.css';
 import { BaseComponent } from '../../core';
 
 export type StatusUserValue = 'online' | 'ofline' | 'empty' | 'not-set';

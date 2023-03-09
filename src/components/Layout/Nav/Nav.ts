@@ -1,5 +1,5 @@
 import html from './Nav.html';
-import css from './Nav.css';
+import css from '!!raw-loader!./Nav.css';
 import { BaseComponent } from '../../../core';
 
 const tagName = 'ypr-nav';

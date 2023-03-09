@@ -1,5 +1,5 @@
 import html from './Avatar.html';
-import css from './Avatar.css';
+import css from '!!raw-loader!./Avatar.css';
 import { BaseComponent } from '../../core';
 import { StatusUser } from '../Status';
 import defaultAvatar from './default-avatar.svg';

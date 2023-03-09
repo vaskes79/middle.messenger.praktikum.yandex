@@ -1,5 +1,5 @@
 import html from './Input.html';
-import css from './Input.css';
+import css from '!!raw-loader!./Input.css';
 import { nanoid } from 'nanoid';
 import { BaseComponent, Validator, ValidatorCheckNames } from '../../core';
 import { handlers } from './handlers';

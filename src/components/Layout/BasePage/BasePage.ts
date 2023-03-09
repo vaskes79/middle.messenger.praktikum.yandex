@@ -1,5 +1,5 @@
 import html from './BasePage.html';
-import css from './BasePage.css';
+import css from '!!raw-loader!./BasePage.css';
 import { BaseComponent } from '../../../core';
 
 const tagName = 'ypr-base-page';

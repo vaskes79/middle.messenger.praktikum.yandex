@@ -1,5 +1,5 @@
 import html from './Footer.html';
-import css from './Footer.css';
+import css from '!!raw-loader!./Footer.css';
 import { BaseComponent } from '../../../core';
 
 const tagName = 'ypr-footer';

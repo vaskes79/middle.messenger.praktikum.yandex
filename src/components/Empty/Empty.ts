@@ -1,5 +1,5 @@
 import html from './Empty.html';
-import css from './Empty.css';
+import css from '!!raw-loader!./Empty.css';
 import { BaseComponent } from '../../core';
 
 const tagName = 'ypr-empty';

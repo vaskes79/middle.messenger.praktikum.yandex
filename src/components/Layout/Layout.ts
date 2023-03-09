@@ -1,5 +1,5 @@
 import html from './Layout.html';
-import css from './Layout.css';
+import css from '!!raw-loader!./Layout.css';
 import { BaseComponent } from '../../core';
 import { StoreProps } from '../../types';
 

@@ -1,5 +1,5 @@
 import html from './ChatItem.html';
-import css from './ChatItem.css';
+import css from '!!raw-loader!./ChatItem.css';
 import { Avatar } from '../Avatar';
 import type { StatusUserValue, StatusMessageState, StatusMessage } from '../Status';
 import { BaseComponent, DateTimeService } from '../../core';

@@ -1,5 +1,5 @@
 import html from './MessageInput.html';
-import css from './MessageInput.css';
+import css from '!!raw-loader!./MessageInput.css';
 import { BaseComponent } from '../../core';
 
 const tagName = 'ypr-message-input';

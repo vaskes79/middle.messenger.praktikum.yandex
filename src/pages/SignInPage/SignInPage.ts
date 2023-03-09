@@ -1,5 +1,5 @@
 import html from './SignInPage.html';
-import css from './SignInPage.css';
+import css from '!!raw-loader!./SignInPage.css';
 import { createPage } from '../../core';
 import { handlers } from './handlers';
 import { connectedCallbackMixin } from './connectedCallbackMixin';

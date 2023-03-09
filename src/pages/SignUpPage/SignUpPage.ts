@@ -1,5 +1,5 @@
 import html from './SignUpPage.html';
-import css from './SignUpPage.css';
+import css from '!!raw-loader!./SignUpPage.css';
 import { handlers } from './handlers';
 import { connectedCallbackMixin } from './connectedCallbackMixin';
 

@@ -1,5 +1,5 @@
 import html from './StatusMessage.html';
-import css from './StatusMessage.css';
+import css from '!!raw-loader!./StatusMessage.css';
 import { Icon } from '../Icons';
 import { BaseComponent } from '../../core';
 

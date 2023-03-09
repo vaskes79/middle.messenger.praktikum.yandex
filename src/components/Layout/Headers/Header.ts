@@ -1,5 +1,5 @@
 import html from './Header.html';
-import css from './Header.css';
+import css from '!!raw-loader!./Header.css';
 import { BaseComponent } from '../../../core';
 
 const tagName = 'ypr-header';

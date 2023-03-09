@@ -1,5 +1,5 @@
 import html from './Search.html';
-import css from './Search.css';
+import css from '!!raw-loader!./Search.css';
 import { BaseComponent } from '../../core';
 import { handlers } from './handlers';
 

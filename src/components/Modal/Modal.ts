@@ -1,5 +1,5 @@
 import html from './Modal.html';
-import css from './Modal.css';
+import css from '!!raw-loader!./Modal.css';
 import { BaseComponent, EventBus } from '../../core';
 import { handlers } from './handlers';
 import type { ModalData } from './types';
