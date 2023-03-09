@@ -37,7 +37,7 @@ export type ErrorRes = {
   reasons: 'string';
 };
 
-type MessageItemType = 'message' | 'file' | 'sticker';
+export type MessageItemType = 'message' | 'file' | 'sticker';
 
 type MessageItemFile = {
   id: number;
