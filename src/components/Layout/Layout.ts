@@ -1,5 +1,5 @@
-import html from 'bundle-text:./Layout.html';
-import css from 'bundle-text:./Layout.css';
+import html from './Layout.html';
+import css from '!!raw-loader!./Layout.css';
 import { BaseComponent } from '../../core';
 import { StoreProps } from '../../types';
 

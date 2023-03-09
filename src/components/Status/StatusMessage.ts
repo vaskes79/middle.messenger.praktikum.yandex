@@ -1,5 +1,5 @@
-import html from 'bundle-text:./StatusMessage.html';
-import css from 'bundle-text:./StatusMessage.css';
+import html from './StatusMessage.html';
+import css from '!!raw-loader!./StatusMessage.css';
 import { Icon } from '../Icons';
 import { BaseComponent } from '../../core';
 

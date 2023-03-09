@@ -6,7 +6,7 @@ import { MessageItemsData, MessageSocketData } from './types';
 export class MessageSocket {
   private _soket: WebSocket;
   private _handleError: BaseError;
-  private _intervalId: number;
+  private _intervalId: ReturnType<typeof setInterval>;
   private _delay = 30000;
   private _ofsetMessages = 0;
   private _eventBus: EventBus;

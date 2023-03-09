@@ -33,6 +33,5 @@
 
 - [date-fns для обработки даты](https://date-fns.org/docs/Getting-Started)
 - [uuid для генерации айдишников для форм и т.д.](https://github.com/uuidjs/uuid)
-- [falso для генерации фэковы данных](https://ngneat.github.io/falso/docs/getting-started/)
 
 ---

@@ -1,5 +1,5 @@
-import html from 'bundle-text:./Search.html';
-import css from 'bundle-text:./Search.css';
+import html from './Search.html';
+import css from '!!raw-loader!./Search.css';
 import { BaseComponent } from '../../core';
 import { handlers } from './handlers';
 

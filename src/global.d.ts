@@ -1,9 +1,14 @@
-declare module 'bundle-text:*' {
+declare module '*.svg' {
   const value: string;
   export default value;
 }
 
-declare module '*.svg' {
+declare module '*.html' {
+  const value: string;
+  export default value;
+}
+
+declare module '*.css' {
   const value: string;
   export default value;
 }
