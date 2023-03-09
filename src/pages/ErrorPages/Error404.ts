@@ -1,4 +1,4 @@
-import html from 'bundle-text:./Error.html';
+import html from './Error.html';
 import { createPage } from '../../core';
 
 export default createPage({

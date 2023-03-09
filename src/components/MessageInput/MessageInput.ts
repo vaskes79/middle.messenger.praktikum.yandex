@@ -1,5 +1,5 @@
-import html from 'bundle-text:./MessageInput.html';
-import css from 'bundle-text:./MessageInput.css';
+import html from './MessageInput.html';
+import css from './MessageInput.css';
 import { BaseComponent } from '../../core';
 
 const tagName = 'ypr-message-input';

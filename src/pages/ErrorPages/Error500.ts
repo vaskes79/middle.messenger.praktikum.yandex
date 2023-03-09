@@ -1,4 +1,4 @@
-import html from 'bundle-text:./Error500.html';
+import html from './Error500.html';
 import { createPage } from '../../core';
 
 export default createPage({

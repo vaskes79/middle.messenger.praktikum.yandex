@@ -1,5 +1,5 @@
-import html from 'bundle-text:./StatusUser.html';
-import css from 'bundle-text:./StatusUser.css';
+import html from './StatusUser.html';
+import css from './StatusUser.css';
 import { BaseComponent } from '../../core';
 
 export type StatusUserValue = 'online' | 'ofline' | 'empty' | 'not-set';

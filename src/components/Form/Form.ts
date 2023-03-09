@@ -1,5 +1,5 @@
-import html from 'bundle-text:./Form.html';
-import css from 'bundle-text:./Form.css';
+import html from './Form.html';
+import css from './Form.css';
 import { BaseComponent, Validator } from '../../core';
 import { nanoid } from 'nanoid';
 import { Input } from '../Input';

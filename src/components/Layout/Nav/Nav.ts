@@ -1,5 +1,5 @@
-import html from 'bundle-text:./Nav.html';
-import css from 'bundle-text:./Nav.css';
+import html from './Nav.html';
+import css from './Nav.css';
 import { BaseComponent } from '../../../core';
 
 const tagName = 'ypr-nav';

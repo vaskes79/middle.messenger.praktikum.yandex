@@ -1,5 +1,5 @@
-import html from 'bundle-text:./ProfileImg.html';
-import css from 'bundle-text:./ProfileImg.css';
+import html from './ProfileImg.html';
+import css from './ProfileImg.css';
 import { BaseComponent, Store } from '../../core';
 import { handlers } from './handlers';
 import { ErrorRes, User } from '../../types';

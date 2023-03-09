@@ -1,5 +1,5 @@
-import html from 'bundle-text:./Header.html';
-import css from 'bundle-text:./Header.css';
+import html from './Header.html';
+import css from './Header.css';
 import { BaseComponent } from '../../../core';
 
 const tagName = 'ypr-header';

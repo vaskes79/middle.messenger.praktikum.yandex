@@ -1,6 +1,6 @@
 import { createPage } from '../../core';
-import html from 'bundle-text:./ChatPage.html';
-import css from 'bundle-text:./ChatPage.css';
+import html from './ChatPage.html';
+import css from './ChatPage.css';
 import { handlers } from './handlers';
 import { connectedCallbackMixin } from './connectedCallbackMixin';
 
