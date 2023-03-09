@@ -10,8 +10,12 @@ function infoMouseleaveListener() {
 
 function onChangeInputListener(e: Event) {
   const { target } = e;
-  this._value = (target as HTMLInputElement).value;
+  this.value = (target as HTMLInputElement).value;
   this._setupLabel();
+  const isValid = this.validate();
+  if (isValid) {
+    this.clearError();
+  }
 }
 
 function validateHandler() {
@@ -34,7 +38,7 @@ export const handlers: Handlers[] = [
     handler: infoMouseleaveListener
   },
   {
-    event: 'keyup',
+    event: 'input',
     selector: 'input',
     handler: onChangeInputListener
   },

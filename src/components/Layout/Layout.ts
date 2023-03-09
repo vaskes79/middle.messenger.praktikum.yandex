@@ -1,6 +1,7 @@
 import html from 'bundle-text:./Layout.html';
 import css from 'bundle-text:./Layout.css';
 import { BaseComponent } from '../../core';
+import { StoreProps } from '../../types';
 
 const tagName = 'ypr-layout';
 
@@ -11,11 +12,11 @@ export enum LayoutEvents {
 export type PanelNames = 'settings' | 'chatlist' | 'chatsettings';
 
 export class Layout extends BaseComponent {
-  _chatlistPanel: HTMLDivElement;
-  _chatPanel: HTMLDivElement;
-  _settingsPanel: HTMLDivElement;
-  _chatSettingsPanel: HTMLDivElement;
-  _removeEventListeners: () => void;
+  private _chatlistPanel: HTMLDivElement;
+  private _chatPanel: HTMLDivElement;
+  private _settingsPanel: HTMLDivElement;
+  private _chatSettingsPanel: HTMLDivElement;
+  private _messageArea: HTMLElement;
 
   constructor() {
     super({ html, css, tagName });
@@ -23,6 +24,7 @@ export class Layout extends BaseComponent {
     this._chatlistPanel = this._root.querySelector('.chatlist') as HTMLDivElement;
     this._settingsPanel = this._root.querySelector('.settings') as HTMLDivElement;
     this._chatPanel = this._root.querySelector('.chat') as HTMLDivElement;
+    this._messageArea = this._chatPanel.querySelector('main') as HTMLElement;
     this._chatSettingsPanel = this._root.querySelector('.chatsettings') as HTMLDivElement;
   }
 
@@ -31,10 +33,17 @@ export class Layout extends BaseComponent {
   }
 
   protected _mount(): void {
-    this._eventBuss.on('panel:toggle', (name?: PanelNames) => {
+    this._eventBus.on('panel:toggle', (name?: PanelNames) => {
       this._closePanel();
       if (name) {
         this._switchPanel(name);
+      }
+    });
+
+    this._eventBus.on('store:update', (props: StoreProps) => {
+      const { key } = props;
+      if (key === 'messageItemList') {
+        this._messageArea.scrollBy(0, this._messageArea.scrollHeight);
       }
     });
   }

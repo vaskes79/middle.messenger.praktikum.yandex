@@ -22,14 +22,14 @@ export enum BaseComponentEvents {
 }
 
 export abstract class BaseComponent<TData = unknown> extends HTMLElement {
-  protected static _attributes: string[];
   protected _root: ShadowRoot;
-  protected _removeEventListener: RemoveEventListener;
+  protected _removeEventListener?: RemoveEventListener;
   protected _handlers: Handlers[];
-  protected _eventBuss: EventBus;
+  protected _eventBus: EventBus;
   protected _connectedCallbackMixin: (root?: ShadowRoot | null) => void;
   protected _disconnectedCallbackMixin: (root?: ShadowRoot | null) => void;
   protected _data: TData;
+  static _attributes: string[];
   static tagName: string;
 
   constructor(options: BaseComponentOptions) {
@@ -52,7 +52,7 @@ export abstract class BaseComponent<TData = unknown> extends HTMLElement {
     BaseComponent._attributes = attributes;
     BaseComponent.tagName = tagName;
     this._handlers = handlers;
-    this._eventBuss = EventBus.getInstance();
+    this._eventBus = EventBus.getInstance();
     if (connectedCallbackMixin) {
       this._connectedCallbackMixin = connectedCallbackMixin.bind(this);
     }
@@ -81,34 +81,56 @@ export abstract class BaseComponent<TData = unknown> extends HTMLElement {
 
   errorHandler = (msg: string) => {
     msg = msg || 'Error: BaseComponent';
-    // todo: add this._eventBuss.emmit('error', msg)
     throw Error(msg);
   };
 
-  _addEventListeners() {
-    if (!this._handlers) {
-      this.errorHandler('Error: no handlers');
-    }
-    this._handlers.forEach((handle) => {
-      this._root
-        ?.querySelector(handle.selector)
-        ?.addEventListener(handle.event, handle.handler.bind(this));
-    });
-
-    return () => {
+  protected _addEventListeners() {
+    if (this._handlers.length > 0) {
       this._handlers.forEach((handle) => {
-        this._root
-          ?.querySelector(handle.selector)
-          ?.removeEventListener(handle.event, handle.handler.bind(this));
+        const { multi, selector, event, handler } = handle;
+        if (multi) {
+          const elems = [...this._root.querySelectorAll(selector)];
+
+          if (elems.length > 0) {
+            elems.forEach((elem) => elem.addEventListener(event, handler.bind(this)));
+          }
+          return;
+        }
+        const elem = this._root.querySelector(selector);
+
+        if (elem) {
+          elem.addEventListener(event, handler.bind(this));
+        }
       });
-    };
+
+      return () => {
+        this._handlers.forEach((handle) => {
+          const { multi, selector, event, handler } = handle;
+          if (multi) {
+            const elems = [...this._root.querySelectorAll(selector)];
+
+            if (elems.length > 0) {
+              elems.forEach((elem) => elem.removeEventListener(event, handler.bind(this)));
+            }
+            return;
+          }
+
+          const elem = this._root.querySelector(selector);
+
+          if (elem) {
+            elem.removeEventListener(event, handler.bind(this));
+          }
+        });
+      };
+    }
   }
 
   protected _mount(): void {
-    console.log('_mount');
+    return;
   }
+
   protected _unmount(): void {
-    console.log('_unmount');
+    return;
   }
 
   connectedCallback() {
@@ -116,7 +138,6 @@ export abstract class BaseComponent<TData = unknown> extends HTMLElement {
       this._connectedCallbackMixin(this._root);
     }
     this._mount();
-    this._eventBuss.emmit(BaseComponentEvents.MOUNT, BaseComponent.tagName);
     this._removeEventListener = this._addEventListeners();
   }
 
@@ -125,7 +146,8 @@ export abstract class BaseComponent<TData = unknown> extends HTMLElement {
       this._disconnectedCallbackMixin(this._root);
     }
     this._unmount();
-    this._eventBuss.emmit(BaseComponentEvents.UNMOUNT, BaseComponent.tagName);
-    this._removeEventListener;
+    if (typeof this._removeEventListener === 'function') {
+      this._removeEventListener();
+    }
   }
 }

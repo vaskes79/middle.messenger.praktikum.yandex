@@ -13,3 +13,4 @@ import './Form';
 import './Menu';
 import './Empty';
 import './Search';
+import './Profile';

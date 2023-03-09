@@ -1,0 +1,86 @@
+<ypr-profile-input name="avatar"></ypr-profile-input>
+<ypr-input
+  slot="content"
+  label="Email"
+  details="User email"
+  type="email"
+  name="email"
+  validate="isEmail"
+  validateErrorMessage="Is not correct email"
+  info
+></ypr-input>
+<ypr-input
+  slot="content"
+  label="Username"
+  details="User name"
+  name="login"
+  validate="isLogin"
+  validateErrorMessage="Is not correct login name"
+  info
+></ypr-input>
+<ypr-input
+  slot="content"
+  label="First Name"
+  name="first_name"
+  details="First name user"
+  validate="isDisplayName"
+  validateErrorMessage="Is not correct First Name"
+  info
+></ypr-input>
+<ypr-input
+  slot="content"
+  label="Last Name"
+  name="second_name"
+  details="Last name user"
+  validate="isDisplayName"
+  validateErrorMessage="Is not correct First Name"
+  info
+></ypr-input>
+<ypr-input
+  slot="content"
+  label="Display Name"
+  name="display_name"
+  details="Name that displayed"
+  validate="isDisplayName"
+  validateErrorMessage="Is not correct Second Name"
+  info
+>
+</ypr-input>
+<ypr-input
+  slot="content"
+  label="Phone Number"
+  name="phone"
+  details="Phone number user"
+  type="phone"
+  validate="isCorrectPhoneNumber"
+  validateErrorMessage="Is not correct Phone number"
+  info
+>
+</ypr-input>
+<ypr-input
+  slot="content"
+  label="Old Password"
+  name="oldPassword"
+  details="For change password need input current password"
+  validate="isCorrectPassword"
+  validateErrorMessage="Password is not correct"
+  info
+></ypr-input>
+<ypr-input
+  slot="content"
+  label="New Password"
+  name="newPassword"
+  details="Input new password and confirm it in field bellow"
+  validate="isCorrectPassword"
+  validateErrorMessage="Password is not correct"
+  info
+></ypr-input>
+<ypr-input
+  slot="content"
+  label="New Password Confirm"
+  name="newPasswordConfirm"
+  details="Repeat new password"
+  validate="isCorrectPassword"
+  validateErrorMessage="Password is not correct"
+  info
+></ypr-input>

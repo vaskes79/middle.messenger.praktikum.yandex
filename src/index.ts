@@ -1,22 +1,20 @@
+import './api';
 import './components';
 import './pages';
 import { Paths } from './types';
-import { routes } from './pages';
-import { checkExistPath } from './utils';
+import { Router } from './core';
 import { setupRootEventListeners } from './initHandlers';
+// for Debug
+// import { Store } from './core';
+// import { API } from './api';
+// window.api = API;
+// window.store = Store;
 
 setupRootEventListeners();
 
-const root = document.getElementById('root');
-const path = window.location.pathname;
-const pathExist = checkExistPath(path);
-
-if (root) {
-  if (pathExist) {
-    root.insertAdjacentHTML('afterbegin', routes[path as Paths]);
-  }
-
-  if (!pathExist) {
-    root.insertAdjacentHTML('afterbegin', routes[Paths.error404]);
-  }
-}
+Router.use(Paths.signIn)
+  .use(Paths.signIn)
+  .use(Paths.signUp)
+  .use(Paths.chat, { private: 'true' })
+  .use(Paths.dev)
+  .start();

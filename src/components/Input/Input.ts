@@ -7,27 +7,26 @@ import { handlers } from './handlers';
 const tagName = 'ypr-input';
 
 export class Input extends BaseComponent {
-  _containerEl: HTMLElement;
-  _infoEl: HTMLElement;
-  _detailsEl: HTMLElement;
-  _requireEl: HTMLElement;
-  _inputEl: HTMLInputElement;
-  _labelEl: HTMLElement;
+  private _containerEl: HTMLElement;
+  private _infoEl: HTMLElement;
+  private _detailsEl: HTMLElement;
+  private _requireEl: HTMLElement;
+  private _inputEl: HTMLInputElement;
+  private _labelEl: HTMLElement;
 
-  _detailsContent: string;
-  _detailsShow = false;
+  private _detailsContent: string;
 
-  _errorContent: string;
-  _error = false;
+  private _errorContent: string;
+  error = false;
 
-  _require = false;
+  private _require = false;
 
-  _name: string;
-  _value: string;
+  private _name: string;
+  private _value: string;
 
-  _label = 'Input Label';
-  _typeOfValidate: ValidatorCheckNames;
-  _validateErrorMessage: string;
+  private _label = 'Input Label';
+  typeOfValidate: ValidatorCheckNames;
+  validateErrorMessage: string;
 
   constructor() {
     super({ html, css, tagName, handlers });
@@ -40,14 +39,16 @@ export class Input extends BaseComponent {
   }
 
   validate() {
-    if (this._value && this._typeOfValidate && this._validateErrorMessage) {
-      const valueIsValid = Validator[this._typeOfValidate](this._value);
+    if (this._value && this.typeOfValidate && this.validateErrorMessage) {
+      const valueIsValid = Validator[this.typeOfValidate](this._value);
 
       if (!valueIsValid) {
-        this.showError(this._validateErrorMessage);
-        return;
+        this.showError(this.validateErrorMessage);
       }
+
+      return valueIsValid;
     }
+    return true;
   }
 
   _mount() {
@@ -57,14 +58,14 @@ export class Input extends BaseComponent {
     if (this.hasAttribute('validate')) {
       const typeValidate = this.getAttribute('validate');
       if (typeValidate) {
-        this._typeOfValidate = typeValidate as ValidatorCheckNames;
+        this.typeOfValidate = typeValidate as ValidatorCheckNames;
       }
     }
 
     if (this.hasAttribute('validateErrorMessage')) {
       const validateErrorMessage = this.getAttribute('validateErrorMessage');
       if (validateErrorMessage) {
-        this._validateErrorMessage = validateErrorMessage;
+        this.validateErrorMessage = validateErrorMessage;
       }
     }
 
@@ -75,12 +76,15 @@ export class Input extends BaseComponent {
   }
 
   static get observedAttributes() {
-    return ['error', 'validate', 'validateErrorMessage'];
+    return ['error', 'validate', 'validateErrorMessage', 'value'];
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
     if (name === 'error' && oldValue !== newValue) {
       this.showError(newValue);
+    }
+    if (name !== 'error') {
+      this._setupInput();
     }
   }
 
@@ -97,6 +101,7 @@ export class Input extends BaseComponent {
     if (this.hasAttribute('value')) {
       const value = this.getAttribute('value') || '';
       this._inputEl.setAttribute('value', value);
+      this._inputEl.value = value;
       this._value = value;
       this._setupLabel();
     }
@@ -141,6 +146,12 @@ export class Input extends BaseComponent {
     }
   };
 
+  clearValue() {
+    this._value = '';
+    this.setAttribute('value', '');
+    this._inputEl.value = '';
+  }
+
   get name() {
     return this._name;
   }
@@ -149,8 +160,12 @@ export class Input extends BaseComponent {
     return this._value;
   }
 
+  set value(value: string) {
+    this._value = value;
+  }
+
   showError = (errorText?: string) => {
-    this._error = true;
+    this.error = true;
     this._errorContent = errorText || 'Error input';
     this._containerEl.classList.add('error');
     if (this._detailsEl) {
@@ -161,7 +176,7 @@ export class Input extends BaseComponent {
   clearError = () => {
     this._containerEl.classList.remove('error');
     this.removeAttribute('error');
-    this._error = false;
+    this.error = false;
     this._errorContent = '';
     this._detailsEl.textContent = this._detailsContent;
   };

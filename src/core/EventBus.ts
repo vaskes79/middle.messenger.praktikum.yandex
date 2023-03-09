@@ -1,13 +1,29 @@
+import { MessageSocktEvents } from '../api/messages';
+import { ApiChatsEvents } from '../api/chats';
 import { LayoutEvents } from '../components/Layout';
 import { ModalEvents } from '../components/Modal';
 import { PageEvents } from '../types/Page';
 import { BaseComponentEvents } from './BaseComponent';
+import { StoreEvents } from '../types';
+import { MessageInputEvents } from '../components/MessageInput';
+import { FormEvents } from '../components/Form';
+import { ProfileEvents } from '../components/Profile';
+import { SearchEvents } from '../components/Search';
 
 export type EventName =
   | keyof GlobalEventHandlersEventMap
+  | 'logout'
+  | `${StoreEvents}`
   | `${PageEvents}`
   | `${BaseComponentEvents}`
   | `${LayoutEvents}`
+  | `${ApiChatsEvents}`
+  | `${MessageSocktEvents}`
+  | `${MessageInputEvents}`
+  | `${FormEvents}`
+  | `${ProfileEvents}`
+  | `${ProfileEvents}`
+  | `${SearchEvents}`
   | `${ModalEvents}`;
 
 export type Callback<T = unknown> = (...args: T[]) => void;

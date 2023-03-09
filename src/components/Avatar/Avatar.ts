@@ -7,26 +7,22 @@ import defaultAvatar from './default-avatar.svg';
 const tagName = 'ypr-avatar';
 
 export class Avatar extends BaseComponent {
-  _imgUrl: string = defaultAvatar;
-  _name = 'Display Name';
-  _initial = 'DN';
+  private _imgUrl: string = defaultAvatar;
+  private _name = 'Display Name';
+  private _initial = 'DN';
 
-  _container: HTMLDivElement;
-  _img: HTMLImageElement;
-  _nameEl: HTMLElement;
-  _statusUserEl: StatusUser;
+  private _img: HTMLImageElement;
+  private _nameEl: HTMLElement;
+  private _statusUserEl: StatusUser;
 
   constructor() {
     super({ html, css, tagName });
-    if (this.shadowRoot) {
-      this._img = this.shadowRoot.querySelector('.img') as HTMLImageElement;
-      this._container = this.shadowRoot.querySelector('.container') as HTMLDivElement;
-      this._nameEl = this.shadowRoot.querySelector('.name') as HTMLElement;
-      this._statusUserEl = this.shadowRoot.querySelector('ypr-status-user') as StatusUser;
-      this._statusUserEl.setAttribute('status', 'ofline');
-      this._imgUrl = this.getAttribute('imgurl') || this._imgUrl;
-      this._img.setAttribute('src', this._imgUrl);
-    }
+    this._img = this._root.querySelector('.img') as HTMLImageElement;
+    this._nameEl = this._root.querySelector('.name') as HTMLElement;
+    this._statusUserEl = this._root.querySelector('ypr-status-user') as StatusUser;
+    this._statusUserEl.setAttribute('status', 'ofline');
+    this._imgUrl = this.getAttribute('imgurl') || this._imgUrl;
+    this._img.setAttribute('src', this._imgUrl);
   }
 
   static get observedAttributes() {
@@ -43,7 +39,8 @@ export class Avatar extends BaseComponent {
     }
 
     if (name === 'imgurl' && oldValue !== newValue) {
-      this._img.setAttribute('src', newValue);
+      const urlAvatar = newValue === 'null' ? defaultAvatar : newValue;
+      this._img.setAttribute('src', urlAvatar);
       this._nameEl.style.display = 'none';
     }
   }

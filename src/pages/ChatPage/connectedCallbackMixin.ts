@@ -1,17 +1,34 @@
-import { EventBus } from '../../core';
-const eventBuss = EventBus.getInstance();
+import { EventBus, Store, Validator } from '../../core';
 import { generateCotnent } from '../../utils';
 import { Main } from '../../components/Layout';
-import { ChatItemData, ChatItem, chatListData } from '../../components/ChatItem';
-import { MessageItem, MessageItemData, messageItemList } from '../../components/MessageItem';
+import { MessageItem, MessageItemData } from '../../components/MessageItem';
+import { ChatItemData, ChatItem } from '../../components/ChatItem';
+import { mapChatApiToChatItem } from './utils';
+import { StoreProps } from '../../types';
+import { API } from '../../api';
+import { Modal } from '../../components/Modal';
+import type { Input } from '../../components/Input';
+import { Button } from '../../components/Button';
 
-export function connectedCallbackMixin(root: ShadowRoot) {
-  generateContentHandler(root);
+const eventBus = EventBus.getInstance();
+
+export async function connectedCallbackMixin(root: ShadowRoot) {
+  generateChatList(root);
+  generateMessageList(root);
   settingsPanelHandlers(root);
   chatListHandlers(root);
   chatSettingsHandlers(root);
   clearChatHandler(root);
+  callbackForConfirmCreateChatModal(root);
+  profileEditButtonsHandlers(root);
+  settingsButtonsHandlers(root);
+  filteringChatList(root);
 }
+
+const noMessagesComponent = `
+<ypr-empty>
+  <h2>No Messages</h2>
+</ypr-empty>`;
 
 function clearChatHandler(root: ShadowRoot) {
   const btnClearChat = root.getElementById('btnClearChat');
@@ -19,20 +36,96 @@ function clearChatHandler(root: ShadowRoot) {
 
   if (btnClearChat && chatMain) {
     btnClearChat.addEventListener('click', () => {
-      chatMain.innerHTML = `
-      <ypr-empty>
-        <h2>No Messages</h2>
-      </ypr-empty>`;
+      chatMain.innerHTML = noMessagesComponent;
     });
   }
 }
 
-function generateContentHandler(root: ShadowRoot) {
-  const chatList = root.getElementById('chatlist-main') as Main;
+function callbackForConfirmCreateChatModal(root: ShadowRoot) {
+  const createChatModal = root.getElementById('createChatModal') as Modal;
+  createChatModal.confirmRules = async () => {
+    const input = createChatModal.querySelector('ypr-input') as Input;
+    let isConfirmValue = Validator.isNotEmpty(input.value.trim());
+    if (isConfirmValue) {
+      isConfirmValue = await API.chats.createChat({ data: { title: input.value } });
+    }
+    if (isConfirmValue) input.clearValue();
+    return isConfirmValue;
+  };
+}
+
+function generateMessageList(root: ShadowRoot) {
   const chatMain = root.getElementById('chat-main') as Main;
 
-  generateCotnent<ChatItem, ChatItemData>(chatList, 'ypr-chat-item', chatListData);
-  generateCotnent<MessageItem, MessageItemData>(chatMain, 'ypr-message-item', messageItemList);
+  eventBus.on('store:update', (props: StoreProps) => {
+    const { key } = props;
+    if (key === 'currentChatWSLink') {
+      API.messages.connectToChat();
+    }
+  });
+
+  eventBus.on('store:update', (props: StoreProps) => {
+    const { key, newState } = props;
+    if (key === 'messageItemList') {
+      chatMain.innerHTML = '';
+      const { currentChat, chatList, messageItemList } = newState;
+
+      const currentChatData = chatList.find((chat) => chat.id === currentChat);
+      const hasLastMessages = Boolean(currentChatData?.last_message);
+      const hasMessages = messageItemList.length !== 0;
+
+      if (hasMessages) {
+        generateCotnent<MessageItem, MessageItemData>(
+          chatMain,
+          'ypr-message-item',
+          messageItemList
+        );
+        return;
+      }
+
+      if (!hasLastMessages) {
+        chatMain.innerHTML = noMessagesComponent;
+      }
+    }
+  });
+}
+
+function generateChatList(root: ShadowRoot) {
+  const chatMain = root.getElementById('chat-main') as Main;
+  const chatListEl = root.getElementById('chatlist-main') as Main;
+  chatMain.innerHTML = noMessagesComponent;
+
+  eventBus.on('store:update', (props: StoreProps) => {
+    const {
+      key,
+      newState: { chatList }
+    } = props;
+    if (key === 'chatList') {
+      chatListEl.innerHTML = '';
+      const chatListData = mapChatApiToChatItem(chatList);
+      generateCotnent<ChatItem, ChatItemData>(chatListEl, 'ypr-chat-item', chatListData);
+    }
+  });
+
+  API.chats.getAllChats();
+}
+
+function filteringChatList(root: ShadowRoot) {
+  const chatListEl = root.getElementById('chatlist-main') as Main;
+
+  eventBus.on('search:chat', (props: { value: string }) => {
+    const chatList = Store.getState('chatList');
+    const { value } = props;
+    let chatListData = mapChatApiToChatItem(chatList);
+    if (value !== '' && value.length > 3) {
+      chatListEl.innerHTML = '';
+      chatListData = chatListData.filter((item) => {
+        const regExp = new RegExp(value, 'g');
+        return regExp.test(item.name);
+      });
+    }
+    generateCotnent<ChatItem, ChatItemData>(chatListEl, 'ypr-chat-item', chatListData);
+  });
 }
 
 function settingsPanelHandlers(root: ShadowRoot) {
@@ -40,11 +133,11 @@ function settingsPanelHandlers(root: ShadowRoot) {
   const btnCloseSettings = root.getElementById('settingsBtn') as HTMLButtonElement;
 
   btnOpenSettings.addEventListener('click', () => {
-    eventBuss.emmit('panel:toggle', 'settings');
+    eventBus.emmit('panel:toggle', 'settings');
   });
 
   btnCloseSettings.addEventListener('click', () => {
-    eventBuss.emmit('panel:toggle');
+    eventBus.emmit('panel:toggle');
   });
 }
 
@@ -53,11 +146,11 @@ function chatListHandlers(root: ShadowRoot) {
   const btnCloseChatList = root.getElementById('chatlist-main') as HTMLButtonElement;
 
   btnOpenChatList.addEventListener('click', () => {
-    eventBuss.emmit('panel:toggle', 'chatlist');
+    eventBus.emmit('panel:toggle', 'chatlist');
   });
 
   btnCloseChatList.addEventListener('click', () => {
-    eventBuss.emmit('panel:toggle');
+    eventBus.emmit('panel:toggle');
   });
 }
 
@@ -66,10 +159,54 @@ function chatSettingsHandlers(root: ShadowRoot) {
   const btnCloseChatSettings = root.getElementById('closeChatSettingsBtn') as HTMLButtonElement;
 
   btnOpenChatSettings.addEventListener('click', () => {
-    eventBuss.emmit('panel:toggle', 'chatsettings');
+    eventBus.emmit('panel:toggle', 'chatsettings');
   });
 
   btnCloseChatSettings.addEventListener('click', () => {
-    eventBuss.emmit('panel:toggle');
+    eventBus.emmit('panel:toggle');
   });
+}
+
+function profileEditButtonsHandlers(root: ShadowRoot) {
+  const btnUpdateProfile = root.getElementById('btnSubmitProfile') as Button;
+  const btnCancelUpdate = root.getElementById('btnCancelProfile') as Button;
+  btnUpdateProfile.hide();
+  btnCancelUpdate.hide();
+
+  eventBus.on('store:update', (props: StoreProps) => {
+    const { key, newState } = props;
+
+    if (key === 'editProfileData' && newState.editProfileData !== null) {
+      btnUpdateProfile.show();
+      btnCancelUpdate.show();
+      return;
+    }
+    btnUpdateProfile.hide();
+    btnCancelUpdate.hide();
+  });
+
+  eventBus.on('profile:password:update:is_posible', () => {
+    btnUpdateProfile.show();
+    btnCancelUpdate.show();
+  });
+
+  eventBus.on('profile:password:update:is_not_posible', () => {
+    btnUpdateProfile.hide();
+    btnCancelUpdate.hide();
+  });
+
+  eventBus.on('profile:password:update:success', () => {
+    btnUpdateProfile.hide();
+    btnCancelUpdate.hide();
+  });
+}
+
+function settingsButtonsHandlers(root: ShadowRoot) {
+  const btnSettingsConfirm = root.getElementById('settingsConfirm') as Button;
+  const btnSettingsCancel = root.getElementById('settingsCancel') as Button;
+
+  if (btnSettingsConfirm && btnSettingsCancel) {
+    btnSettingsConfirm.hide();
+    btnSettingsCancel.hide();
+  }
 }
