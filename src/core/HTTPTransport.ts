@@ -19,6 +19,8 @@ export type Options<TData = unknown> = {
   headers?: HeadersItem;
 };
 
+const successStatus = [200, 201];
+
 export type OptionsWithoutMethod<TData> = Omit<Options<TData>, 'method'>;
 
 export class HTTPTransport {
@@ -65,7 +67,7 @@ export class HTTPTransport {
           res = JSON.parse(res) as TRes;
         }
 
-        if (xhr.status === 200) {
+        if (successStatus.includes(xhr.status)) {
           resolve(res as TRes);
         }
 
