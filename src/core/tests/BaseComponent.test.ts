@@ -33,5 +33,10 @@ describe('BaseComponent Tests', () => {
     it('should create html element ypr-test-class', () => {
       expect(document.body.innerHTML).to.contain('<ypr-test-class></ypr-test-class>');
     });
+
+    it('should exist shadowElement button with text test button', () => {
+      const btn = document.querySelector('ypr-test-class') as TestClass;
+      expect(btn.shadowRoot?.innerHTML).to.contain('test button');
+    });
   });
 });
