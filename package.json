@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "parcel",
-    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'src/**/*.test.ts'",
+    "test": "mocha -r ts-node/register 'src/**/*.test.ts'",
     "prebuild": "rimraf 'dist' && npm run test && npm run ts:check",
     "build": "webpack --mode=production --node-env=production",
     "preserver": "npm run build",
