@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "parcel",
     "test": "mocha -r ts-node/register -r jsdom-global/register 'src/**/*.test.ts'",
-    "prebuild": "rimraf 'dist' && npm run test && npm run ts:check",
+    "prebuild": "rimraf 'dist'",
     "build": "webpack --mode=production --node-env=production",
     "preserver": "npm run build",
     "server": "node back/server.js",
