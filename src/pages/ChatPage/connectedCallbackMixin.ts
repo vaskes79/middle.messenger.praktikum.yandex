@@ -23,6 +23,7 @@ export async function connectedCallbackMixin(root: ShadowRoot) {
   profileEditButtonsHandlers(root);
   settingsButtonsHandlers(root);
   filteringChatList(root);
+  // callbackForConfirmRemoveChat(root);
 }
 
 const noMessagesComponent = `
@@ -53,6 +54,30 @@ function callbackForConfirmCreateChatModal(root: ShadowRoot) {
     return isConfirmValue;
   };
 }
+
+// function callbackForConfirmRemoveChat(root: ShadowRoot) {
+//   const removeChatModal = root.getElementById('removeChatModal') as Modal;
+//   const headerModal = root.getElementById('removeModalHeader') as HTMLHeadingElement;
+//   const currentChat = Store.getState('currentChat');
+//   const chatData = Store.getState('chatList').filter((chat) => chat.id === currentChat)[0];
+
+//   removeChatModal.openAction = () => {
+//     if (chatData) {
+//       headerModal.innerHTML = chatData.title;
+//       // removeChatModal.innerHTML = `<h2 slot="header">${chatData.title}</h2>`;
+//     }
+//   };
+
+//   removeChatModal.confirmRules = async () => {
+//     if (currentChat) {
+//       console.log({ currentChat, chatData });
+//       // isConfirmValue = await API.chats.createChat({ data: { title: input.value } });
+//       return true;
+//     }
+
+//     return false;
+//   };
+// }
 
 function generateMessageList(root: ShadowRoot) {
   const chatMain = root.getElementById('chat-main') as Main;
