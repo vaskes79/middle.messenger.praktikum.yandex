@@ -10,11 +10,14 @@ const config = {
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[fullhash:8].build.js'
+    filename: '[name].[fullhash:8].build.js',
+    publicPath: '/'
   },
   devServer: {
     open: true,
-    host: 'localhost'
+    host: 'localhost',
+    port: 3000,
+    historyApiFallback: true
   },
   plugins: [
     new HtmlWebpackPlugin({
