@@ -71,22 +71,19 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test"
     }
   },
   "lint-staged": {
     "src/**/*.ts": [
-      "npm run lint:fix",
-      "npm run test",
-      "git add"
+      "npm run lint:fix"
     ],
     "src/**/*.css": [
-      "npm run lint:styles:fix",
-      "git add"
+      "npm run lint:styles:fix"
     ],
     "src/**/*.html": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "dependencies": {
