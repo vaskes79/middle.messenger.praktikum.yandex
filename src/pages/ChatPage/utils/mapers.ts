@@ -2,11 +2,12 @@ import { Store } from '../../../core';
 import type { ChatItemData } from '../../../components/ChatItem';
 import type { MessageItemData } from '../../../components/MessageItem';
 import type { Chat, MessageItemListRes, User } from '../../../types';
+import { RESOURCES_BASE_URL } from '../../../api';
 
 export function mapChatApiToChatItem(chatItemApiData: Chat[]): ChatItemData[] {
   return chatItemApiData.map((chat) => ({
     name: chat.title,
-    imgurl: chat.avatar,
+    imgurl: chat.avatar ? `${RESOURCES_BASE_URL}${chat.avatar}` : null,
     time: chat.last_message?.time || null,
     statusUser: 'not-set',
     statusMessage: 'sent',

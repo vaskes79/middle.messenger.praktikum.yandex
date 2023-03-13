@@ -8,7 +8,7 @@ import type { StoreProps, KeysOfUserDTO, User } from '../../types';
 import { UpdateUserDTO } from '../../api/user';
 import type { ProfileData } from './types';
 import { isEmpty } from '../../utils';
-import { API } from '../../api';
+import { API, RESOURCES_BASE_URL } from '../../api';
 import { isPasswordFields } from './utils';
 
 const tagName = 'ypr-profile';
@@ -191,7 +191,7 @@ export class Profile extends BaseComponent<ProfileData> {
       this._newPasswdEl.setAttribute('value', newPassword);
       this._newConfirmPasswdEl.setAttribute('value', '');
       if (this._data.avatar) {
-        const avatarUrl = `https://ya-praktikum.tech/api/v2/resources${this._data.avatar}`;
+        const avatarUrl = `${RESOURCES_BASE_URL}${this._data.avatar}`;
         this._avatarEl.setAttribute('avatar', avatarUrl);
       }
     }
