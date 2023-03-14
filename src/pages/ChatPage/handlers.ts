@@ -25,6 +25,13 @@ export const handlers: Handlers[] = [
   },
   {
     event: 'click',
+    selector: '#btnRemoveChat',
+    handler: () => {
+      eventBuss.emmit('modal:open', 'removeChatModal');
+    }
+  },
+  {
+    event: 'click',
     selector: '#btnSubmitProfile',
     handler: () => {
       eventBuss.emmit('profile:update:request');

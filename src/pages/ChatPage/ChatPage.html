@@ -74,15 +74,9 @@
 
   <ypr-main slot="chatsettings-main">
     <ypr-nav>
-      <li slot="item">
-        <ypr-btn link id="btnClearChat">Add user by id</ypr-btn>
-      </li>
-      <li slot="item">
-        <ypr-btn link id="btnClearChat">Remove user by id</ypr-btn>
-      </li>
-      <li slot="item">
-        <ypr-btn link id="btnClearChat">Remove chat</ypr-btn>
-      </li>
+      <!-- <li slot="item"> -->
+      <!--   <ypr-btn link id="btnRemoveChat">Remove chat</ypr-btn> -->
+      <!-- </li> -->
     </ypr-nav>
   </ypr-main>
 
@@ -100,5 +94,9 @@
 
 <ypr-modal id="createChatModal">
   <h2 slot="header">Create Chat</h2>
-  <ypr-input slot="content"></ypr-input>
+  <ypr-input slot="content" label="Chat name"></ypr-input>
+</ypr-modal>
+
+<ypr-modal id="removeChatModal">
+  <h2 slot="header" id="removeModalHeader">Удалить текущий чат</h2>
 </ypr-modal>
