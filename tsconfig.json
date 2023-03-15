@@ -13,7 +13,17 @@
     "sourceMap": true,
     "strictNullChecks": true
   },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS",
+    }
+  },
   "include": [
     "src/**/*"
+  ],
+  "exclude": [
+    "./tests/",
+    "./node_modules/",
+    "./dist/"
   ]
 }

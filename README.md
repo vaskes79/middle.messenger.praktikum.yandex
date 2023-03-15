@@ -1,4 +1,4 @@
-# YPR-MSG [PR sprint 3 ](https://github.com/vaskes79/middle.messenger.praktikum.yandex/pull/106)
+# YPR-MSG [PR sprint 4 ](https://github.com/vaskes79/middle.messenger.praktikum.yandex/pull/123)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/56837701-b2e9-41fe-bb52-83ecc6572342/deploy-status)](https://app.netlify.com/sites/ypr-msg/deploys)
 
@@ -12,6 +12,10 @@
 ## Netlify
 
 - [ypr-msg.netlify.app](https://ypr-msg.netlify.app/)
+
+## render.com
+
+- [ypr-msg.onrender.com](https://ypr-msg.onrender.com/)
 
 ## Backend server
 
@@ -33,6 +37,5 @@
 
 - [date-fns для обработки даты](https://date-fns.org/docs/Getting-Started)
 - [uuid для генерации айдишников для форм и т.д.](https://github.com/uuidjs/uuid)
-- [falso для генерации фэковы данных](https://ngneat.github.io/falso/docs/getting-started/)
 
 ---

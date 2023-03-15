@@ -1,6 +1,6 @@
-import html from 'bundle-text:./MessageInput.html';
-import css from 'bundle-text:./MessageInput.css';
-import { BaseComponent } from '../../core';
+import html from './MessageInput.html';
+import css from '!!raw-loader!./MessageInput.css';
+import { BaseComponent, Validator } from '../../core';
 
 const tagName = 'ypr-message-input';
 
@@ -31,8 +31,10 @@ export class MessegaInput extends BaseComponent {
 
   private _handleSubmitEvent = (event: FormDataEvent) => {
     event.preventDefault();
-    this._eventBus.emmit('messageinput:send:text', this._textValue);
-    this._clearInput();
+    if (Validator.isNotEmpty(this._textValue)) {
+      this._eventBus.emmit('messageinput:send:text', this._textValue);
+      this._clearInput();
+    }
   };
 
   protected _mount(): void {

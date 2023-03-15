@@ -1,5 +1,5 @@
-import html from 'bundle-text:./Icons.html';
-import css from 'bundle-text:./Icons.css';
+import html from './Icons.html';
+import css from '!!raw-loader!./Icons.css';
 import { BaseComponent } from '../../core';
 import spriteUrl from './icons-sprite.svg';
 

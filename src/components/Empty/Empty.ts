@@ -1,5 +1,5 @@
-import html from 'bundle-text:./Empty.html';
-import css from 'bundle-text:./Empty.css';
+import html from './Empty.html';
+import css from '!!raw-loader!./Empty.css';
 import { BaseComponent } from '../../core';
 
 const tagName = 'ypr-empty';
